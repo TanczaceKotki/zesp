@@ -1,0 +1,30 @@
+Jako osoba szukająca sprzętu chcę:
+- zobaczyć wszystkie sprzęty
+- zobaczyć wszystkie sprzęty danego typu (np. mikroskop)
+- zobaczyć wszystkie sprzęty związane z projektem
+- zobaczyć wszystkie sprzęty w labolatorium 
+- zobaczyć wszystkie sprzęty w zakładzie
+
+- wyszukać model sprzętu
+- wiedzieć co dany sprzęt robi
+- poznać parametry urządzenia
+- zobaczyć jak sprzęt wygląda
+- poznać gdzie sprzęt się znajduje
+- skontaktować się z osobą nadzorującą sprzęt
+
+- poznać w jakim zakładzie znajduje się labolatorium
+- poznać czego dotyczą projekty
+
+
+Jako osoba wprowadzająca dane do bazy chcę:
+- wprowadzić nazwę sprzętu
+- wprowadzić opis sprzętu
+- dodać zdjęcie sprzętu
+- połączyć sprzęt z labolatorium
+- połączyć sprzęt z projektem
+- edytować dane sprzętu
+
+- dodać nowy projekt
+- dodać logo projektu
+- wprowadzić opis projektu
+- edytować dane projektu
