@@ -8,23 +8,44 @@ Jako osoba szukająca sprzętu chcę:
 - wyszukać model sprzętu
 - wiedzieć co dany sprzęt robi
 - poznać parametry urządzenia
+- poznać datę zakupu
+- poznać datę uruchomienia
+- poznać wartość sprzętu
 - zobaczyć jak sprzęt wygląda
+- zobaczyć sprzęt w powiększeniu
 - poznać gdzie sprzęt się znajduje
 - skontaktować się z osobą nadzorującą sprzęt
 
+- zobaczyć wszystkie labolatoria posiadające aparatury
+- zobaczyć wszystkie zakłady w których labolatoriach znajduje się sprzęt
 - poznać w jakim zakładzie znajduje się labolatorium
-- poznać czego dotyczą projekty
+- poznać jaki zespół pracuje w labolatorium
+
+- zobaczyć jakie projekty były lub są realizowane
+- zobaczyć jak wygląda logo projektu
+- poznać czego dotyczy projekt
+- poznać jaki był okres trwania projektu
+
+- skontaktować się z osobą odpowiedzialną za wprowadzanie danych do bazy
 
 
 Jako osoba wprowadzająca dane do bazy chcę:
 - wprowadzić nazwę sprzętu
 - wprowadzić opis sprzętu
+- wprowadzić datę zakupu sprzętu
+- wprowadzić datę uruchomienia sprzętu
+- wprowadzić wartość aparatury
 - dodać zdjęcie sprzętu
+- wybrać kolejność wyświetlania zdjeć sprzętu
 - połączyć sprzęt z labolatorium
 - połączyć sprzęt z projektem
 - edytować dane sprzętu
 
+- połączyć labolatorium z zespołem
+- połączyć zakład z labolatorium
+
 - dodać nowy projekt
 - dodać logo projektu
 - wprowadzić opis projektu
+- wprowadzić czas trwania projektu
 - edytować dane projektu
