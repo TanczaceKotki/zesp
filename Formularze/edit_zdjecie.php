@@ -14,7 +14,7 @@
 	<input type="hidden" name="old_sprzet" value="<?php echo $row['sprzet']; ?>" />
 	<div>
 		<label for="link">Link: </label>
-		<input type="text" name="link" id="link" value="<?php echo $row['link']; ?>" size="16" maxlength="1700" required />
+		<input type="text" name="link" id="link" value="<?php echo $row['link']; ?>" size="16" maxlength="128" required />
 	</div>
 	<div>
 		<label for="sprzet">Sprzęt: </label>
