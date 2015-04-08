@@ -6,12 +6,12 @@
 		top();
 		$params=array($_POST['nazwa'],$_POST['data_zakupu']);
 		$sql='INSERT INTO Sprzet VALUES(NULL,?,?,';
-		if($_POST['data_uruchomienia']===""){
+		if($_POST['data_uruchom']===""){
 			$sql.='NULL,?,?,';
 		}
 		else{
 			$sql.='?,?,?,';
-			$params[]=$_POST['data_uruchomienia'];
+			$params[]=$_POST['data_uruchom'];
 		}
 		$params[]=$_POST['wartosc'];
 		$params[]=$_POST['opis'];
@@ -55,8 +55,8 @@
 		<input type="text" name="data_zakupu" id="data_zakupu" value="<?php echo date('Y-m-d'); ?>" size="10" maxlength="10" required />
 	</div>
 	<div>
-		<label for="data_uruchomienia">Data uruchomienia: </label>
-		<input type="text" name="data_uruchomienia" id="data_uruchomienia" value="<?php echo date('Y-m-d'); ?>" size="10" maxlength="10" />
+		<label for="data_uruchom">Data uruchomienia: </label>
+		<input type="text" name="data_uruchom" id="data_uruchom" value="<?php echo date('Y-m-d'); ?>" size="10" maxlength="10" />
 	</div>
 	<div>
 		<label for="wartosc">Wartość: </label>
@@ -97,7 +97,7 @@
 	</div>
 </form>
 <script type="text/javascript">
-	var date_fields=["data_zakupu","data_uruchomienia"];
+	var date_fields=["data_zakupu","data_uruchom"];
 </script>
 <?php
 		bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/datepicker.js'));

@@ -5,8 +5,8 @@
 	top();
 	if(isset($_POST['submitted'])){
 		if($_POST['zdjecie']==='new'){
-			move_uploaded_file($_FILES['plik']['tmp_name'],'uploads/'.$_FILES['plik']['name']);
 			$link='uploads/'.$_FILES['plik']['name'];
+			move_uploaded_file($_FILES['plik']['tmp_name'],$link);
 		}
 		elseif($_POST['zdjecie']==='link') $link=$_POST['link'];
 		if($st=$DB->prepare('INSERT INTO Zdjecie VALUES(NULL,?,?)')){
