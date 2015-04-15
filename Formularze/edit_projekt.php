@@ -1,12 +1,13 @@
 <?php
 	require 'common.php';
+	top();
 	if(isset($_POST['id'])){
 		require 'DB.php';
 		$DB=dbconnect();
 		if($st=$DB->prepare('SELECT * FROM Projekt WHERE id=?')){
 			if($st->execute(array($_POST['id']))){
 				$row=$st->fetch(PDO::FETCH_ASSOC);
-				top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
+				top();
 ?>
 <form action="view_projekt.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
@@ -19,13 +20,99 @@
 		<label for="nazwa">Nazwa: </label>
 		<input type="text" name="nazwa" id="nazwa" value="<?php echo $row['nazwa']; ?>" size="10" maxlength="64" spellcheck="true" required />
 	</div>
+	<?php
+		$data_rozp=explode('-',$row['data_rozp']);
+	?>
 	<div>
-		<label for="data_rozp">Data rozpoczęcia: </label>
-		<input type="text" name="data_rozp" id="data_rozp" value="<?php echo $row['data_rozp']; ?>" size="10" maxlength="10" required />
+		Data rozpoczęcia:<br/>
+		<label for="data_rozp_dzien">Dzień: </label>
+		<select name="data_rozp_dzien" id="data_rozp_dzien">
+			<option value=""<?php if(!isset($data_rozp[2])) echo ' selected'; ?>>-</option>
+			<?php
+				for($i=1;$i<32;++$i){
+					echo '<option value="'.str_pad("$i",2,'0',STR_PAD_LEFT).'"';
+					if(isset($data_rozp[2])){
+						if($data_rozp[2]===str_pad("$i",2,'0',STR_PAD_LEFT)) echo ' selected';
+					}
+					echo '>'.$i.'</option>';
+				}
+			?>
+		</select>
+		<label for="data_rozp_miesiac"> Miesiąc: </label>
+		<select name="data_rozp_miesiac" id="data_rozp_miesiac" onchange="day_switch_with_required_year('data_rozp_miesiac','data_rozp_dzien','data_rozp_rok')">
+			<option value=""<?php if(!isset($data_rozp[1])) echo ' selected'; ?>>-</option>
+			<?php
+				$months=array('styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień');
+				for($i=0;$i<12;++$i){
+					$val=$i+1;
+					echo '<option value="'.str_pad("$val",2,'0',STR_PAD_LEFT).'"';
+					if(isset($data_rozp[1])){
+						if($data_rozp[1]===str_pad("$val",2,'0',STR_PAD_LEFT)) echo ' selected';
+					}
+					echo '>'.$months[$i].'</option>';
+				}
+			?>
+		</select>
+		<label for="data_rozp_rok"> Rok: </label>
+		<select name="data_rozp_rok" id="data_rozp_rok" required>
+			<option value="">-</option>
+			<?php
+				for($i=intval(date('Y'))+1;$i>=1950;--$i){
+					echo '<option value="'.$i.'"';
+					if(isset($data_rozp[0])){
+						if(intval($data_rozp[0])===$i) echo ' selected';
+					}
+					echo '>'.$i.'</option>';
+				}
+			?>
+		</select>
 	</div>
+	<?php
+		$data_zakoncz=explode('-',$row['data_zakoncz']);
+	?>
 	<div>
-		<label for="data_zakoncz">Data zakończenia: </label>
-		<input type="text" name="data_zakoncz" id="data_zakoncz" value="<?php echo $row['data_zakoncz']; ?>" size="10" maxlength="10" />
+		Data zakończenia:<br/>
+		<label for="data_zakoncz_dzien">Dzień: </label>
+		<select name="data_zakoncz_dzien" id="data_zakoncz_dzien">
+			<option value=""<?php if(!isset($data_zakoncz[2])) echo ' selected'; ?>>-</option>
+			<?php
+				for($i=1;$i<32;++$i){
+					echo '<option value="'.str_pad("$i",2,'0',STR_PAD_LEFT).'"';
+					if(isset($data_zakoncz[2])){
+						if($data_zakoncz[2]===str_pad("$i",2,'0',STR_PAD_LEFT)) echo ' selected';
+					}
+					echo '>'.$i.'</option>';
+				}
+			?>
+		</select>
+		<label for="data_zakoncz_miesiac"> Miesiąc: </label>
+		<select name="data_zakoncz_miesiac" id="data_zakoncz_miesiac" onchange="day_switch_with_required_year('data_zakoncz_miesiac','data_zakoncz_dzien','data_zakoncz_rok')">
+			<option value=""<?php if(!isset($data_zakoncz[1])) echo ' selected'; ?>>-</option>
+			<?php
+				$months=array('styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień');
+				for($i=0;$i<12;++$i){
+					$val=$i+1;
+					echo '<option value="'.str_pad("$val",2,'0',STR_PAD_LEFT).'"';
+					if(isset($data_zakoncz[1])){
+						if($data_zakoncz[1]===str_pad("$val",2,'0',STR_PAD_LEFT)) echo ' selected';
+					}
+					echo '>'.$months[$i].'</option>';
+				}
+			?>
+		</select>
+		<label for="data_zakoncz_rok"> Rok: </label>
+		<select name="data_zakoncz_rok" id="data_zakoncz_rok" required>
+			<option value=""<?php if(!isset($data_zakoncz[0])) echo ' selected'; ?>>-</option>
+			<?php
+				for($i=intval(date('Y'))+1;$i>=1950;--$i){
+					echo '<option value="'.$i.'"';
+					if(isset($data_zakoncz[0])){
+						if(intval($data_zakoncz[0])===$i) echo ' selected';
+					}
+					echo '>'.$i.'</option>';
+				}
+			?>
+		</select>
 	</div>
 	<div>
 		<label for="opis">Opis: </label>
@@ -43,22 +130,19 @@
 	var date_fields=["data_rozp","data_zakoncz"];
 </script>
 <?php
-				bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/datepicker.js'));
+				bottom(array('js/day_switch.js','js/day_switch_projekt.js'));
 			}
 			else{
-				top();
 				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 				bottom();
 			}
 		}
 		else{
-			top();
 			echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 			bottom();
 		}
 	}
 	else{
-		top();
 		echo 'Nie podano projektu do edycji.';
 		bottom();
 	}

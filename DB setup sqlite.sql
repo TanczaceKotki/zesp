@@ -7,8 +7,6 @@ wartosc BIGINT UNSIGNED NOT NULL,
 opis TEXT NOT NULL,
 projekt INTEGER,
 laboratorium INTEGER,
-CHECK (data_zakupu<=date('now')),
-CHECK (data_uruchom<=date('now')),
 CHECK (data_uruchom>=data_zakupu),
 CHECK (wartosc>=0),
 CHECK (length(nazwa)<=512),
@@ -18,13 +16,11 @@ FOREIGN KEY (laboratorium) REFERENCES Laboratorium(id) ON DELETE SET NULL ON UPD
 
 CREATE TABLE Projekt(
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-nazwa VARCHAR(64) NOT NULL UNIQUE,
+nazwa VARCHAR(64) NOT NULL,
 data_rozp DATE NOT NULL,
 data_zakoncz DATE,
 opis TEXT NOT NULL,
-logo VARCHAR(128) NOT NULL UNIQUE,
-CHECK (data_rozp<=date('now')),
-CHECK (data_zakoncz<=date('now')),
+logo VARCHAR(128) NOT NULL,
 CHECK (data_zakoncz>=data_rozp),
 CHECK (length(nazwa)<=64),
 CHECK (length(logo)<=128)
@@ -78,7 +74,7 @@ FOREIGN KEY (zespol) REFERENCES Zespol(id) ON DELETE SET NULL ON UPDATE CASCADE
 
 CREATE TABLE Zespol(
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-nazwa VARCHAR(64) NOT NULL UNIQUE,
+nazwa VARCHAR(64) NOT NULL,
 CHECK (length(nazwa)<=64)
 );
 
@@ -91,6 +87,6 @@ FOREIGN KEY (laboratorium) REFERENCES Laboratorium(id) ON DELETE CASCADE ON UPDA
 
 CREATE TABLE Zaklad(
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-nazwa VARCHAR(64) NOT NULL UNIQUE,
+nazwa VARCHAR(64) NOT NULL,
 CHECK (length(nazwa)<=64)
 );

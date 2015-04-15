@@ -23,7 +23,7 @@
 	</div>
 	<div>
 		<label for="email">Adres e-mail: </label>
-		<input type="text" name="email" id="email" value="<?php echo $row['email']; ?>" size="32" maxlength="254" required />
+		<input type="email" name="email" id="email" value="<?php echo $row['email']; ?>" size="32" maxlength="254" required />
 	</div>
 	<div>
 		<input type="submit" name="submitted" value="Prześlij" />

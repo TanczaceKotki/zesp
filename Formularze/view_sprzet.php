@@ -34,18 +34,31 @@
 			$params[]=$_POST['nazwa'];
 			$send=True;
 		}
-		if($_POST['data_zakupu']!==$_POST['old_data_zakupu']){
+		$data=$_POST['data_zakupu_rok'];
+		if($_POST['data_zakupu_miesiac']!==""){
+			$data.='-'.$_POST['data_zakupu_miesiac'];
+			if($_POST['data_zakupu_dzien']!=="") $data.='-'.$_POST['data_zakupu_dzien'];
+		}
+		if($data!==$_POST['old_data_zakupu']){
 			if($send) $sql.=',';
 			$sql.=' data_zakupu=?';
-			$params[]=$_POST['data_zakupu'];
+			$params[]=$data;
 			$send=True;
 		}
-		if($_POST['data_uruchom']!==$_POST['old_data_uruchom']){
+		$data="";
+		if($_POST['data_uruchom_rok']!==""){
+			$data=$_POST['data_uruchom_rok'];
+			if($_POST['data_uruchom_miesiac']!==""){
+				$data.='-'.$_POST['data_uruchom_miesiac'];
+				if($_POST['data_uruchom_dzien']!=="") $data.='-'.$_POST['data_uruchom_dzien'];
+			}
+		}
+		if($data!==$_POST['old_data_uruchom']){
 			if($send) $sql.=',';
-			if($_POST['data_uruchom']==="") $sql.=' data_uruchom=NULL';
+			if($data==="") $sql.=' data_uruchom=NULL';
 			else{
 				$sql.=' data_uruchom=?';
-				$params[]=$_POST['data_uruchom'];
+				$params[]=$data;
 			}
 			$send=True;
 		}
@@ -112,8 +125,8 @@
 							<td><?php echo $row['data_zakupu']; ?></td>
 						</tr>
 						<tr>
-							<td>Data zakupu</td>
-							<td><?php if($row['data_zakupu']!=="") echo $row['data_zakupu']; ?></td>
+							<td>Data uruchomienia</td>
+							<td><?php if($row['data_uruchom']!=="") echo $row['data_uruchom']; ?></td>
 						</tr>
 						<tr>
 							<td>Wartość</td>

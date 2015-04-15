@@ -1,12 +1,12 @@
 <?php
 	require 'common.php';
+	top();
 	if(isset($_POST['id'])){
 		require 'DB.php';
 		$DB=dbconnect();
 		if($st=$DB->prepare('SELECT * FROM Sprzet WHERE id=?')){
 			if($st->execute(array($_POST['id']))){
 				$row=$st->fetch(PDO::FETCH_ASSOC);
-				top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
 ?>
 <form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
@@ -21,13 +21,99 @@
 		<label for="nazwa">Nazwa: </label>
 		<input type="text" name="nazwa" id="nazwa" value="<?php echo $row['nazwa']; ?>" size="10" maxlength="512" spellcheck="true" required />
 	</div>
+	<?php
+		$data_zakupu=explode('-',$row['data_zakupu']);
+	?>
 	<div>
-		<label for="data_zakupu">Data zakupu: </label>
-		<input type="text" name="data_zakupu" id="data_zakupu" value="<?php echo $row['data_zakupu']; ?>" size="10" maxlength="10" required />
+		Data zakupu:<br/>
+		<label for="data_zakupu_dzien">Dzień: </label>
+		<select name="data_zakupu_dzien" id="data_zakupu_dzien">
+			<option value=""<?php if(!isset($data_zakupu[2])) echo ' selected'; ?>>-</option>
+			<?php
+				for($i=1;$i<32;++$i){
+					echo '<option value="'.str_pad("$i",2,'0',STR_PAD_LEFT).'"';
+					if(isset($data_zakupu[2])){
+						if($data_zakupu[2]===str_pad("$i",2,'0',STR_PAD_LEFT)) echo ' selected';
+					}
+					echo '>'.$i.'</option>';
+				}
+			?>
+		</select>
+		<label for="data_zakupu_miesiac"> Miesiąc: </label>
+		<select name="data_zakupu_miesiac" id="data_zakupu_miesiac" onchange="day_switch_with_required_year('data_zakupu_miesiac','data_zakupu_dzien','data_zakupu_rok')">
+			<option value=""<?php if(!isset($data_zakupu[1])) echo ' selected'; ?>>-</option>
+			<?php
+				$months=array('styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień');
+				for($i=0;$i<12;++$i){
+					$val=$i+1;
+					echo '<option value="'.str_pad("$val",2,'0',STR_PAD_LEFT).'"';
+					if(isset($data_zakupu[1])){
+						if($data_zakupu[1]===str_pad("$val",2,'0',STR_PAD_LEFT)) echo ' selected';
+					}
+					echo '>'.$months[$i].'</option>';
+				}
+			?>
+		</select>
+		<label for="data_zakupu_rok"> Rok: </label>
+		<select name="data_zakupu_rok" id="data_zakupu_rok" required>
+			<option value="">-</option>
+			<?php
+				for($i=intval(date('Y'))+1;$i>=1950;--$i){
+					echo '<option value="'.$i.'"';
+					if(isset($data_zakupu[0])){
+						if(intval($data_zakupu[0])===$i) echo ' selected';
+					}
+					echo '>'.$i.'</option>';
+				}
+			?>
+		</select>
 	</div>
+	<?php
+		$data_uruchom=explode('-',$row['data_uruchom']);
+	?>
 	<div>
-		<label for="data_uruchom">Data uruchomienia: </label>
-		<input type="text" name="data_uruchom" id="data_uruchom" value="<?php echo $row['data_uruchom']; ?>" size="10" maxlength="10" />
+		Data uruchomienia:<br/>
+		<label for="data_uruchom_dzien">Dzień: </label>
+		<select name="data_uruchom_dzien" id="data_uruchom_dzien">
+			<option value=""<?php if(!isset($data_uruchom[2])) echo ' selected'; ?>>-</option>
+			<?php
+				for($i=1;$i<32;++$i){
+					echo '<option value="'.str_pad("$i",2,'0',STR_PAD_LEFT).'"';
+					if(isset($data_uruchom[2])){
+						if($data_uruchom[2]===str_pad("$i",2,'0',STR_PAD_LEFT)) echo ' selected';
+					}
+					echo '>'.$i.'</option>';
+				}
+			?>
+		</select>
+		<label for="data_uruchom_miesiac"> Miesiąc: </label>
+		<select name="data_uruchom_miesiac" id="data_uruchom_miesiac" onchange="day_switch_with_required_year('data_uruchom_miesiac','data_uruchom_dzien','data_uruchom_rok')">
+			<option value=""<?php if(!isset($data_uruchom[1])) echo ' selected'; ?>>-</option>
+			<?php
+				$months=array('styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień');
+				for($i=0;$i<12;++$i){
+					$val=$i+1;
+					echo '<option value="'.str_pad("$val",2,'0',STR_PAD_LEFT).'"';
+					if(isset($data_uruchom[1])){
+						if($data_uruchom[1]===str_pad("$val",2,'0',STR_PAD_LEFT)) echo ' selected';
+					}
+					echo '>'.$months[$i].'</option>';
+				}
+			?>
+		</select>
+		<label for="data_uruchom_rok"> Rok: </label>
+		<select name="data_uruchom_rok" id="data_uruchom_rok" required>
+			<option value="">-</option>
+			<?php
+				for($i=intval(date('Y'))+1;$i>=1950;--$i){
+					echo '<option value="'.$i.'"';
+					if(isset($data_uruchom[0])){
+						if(intval($data_uruchom[0])===$i) echo ' selected';
+					}
+					echo '>'.$i.'</option>';
+				}
+			?>
+		</select>
 	</div>
 	<div>
 		<label for="wartosc">Wartość: </label>
@@ -75,22 +161,19 @@
 	var date_fields=["data_zakupu","data_uruchom"];
 </script>
 <?php
-				bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/datepicker.js'));
+				bottom(array('js/day_switch.js','js/day_switch_sprzet.js'));
 			}
 			else{
-				top();
 				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 				bottom();
 			}
 		}
 		else{
-			top();
 			echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 			bottom();
 		}
 	}
 	else{
-		top();
 		echo 'Nie podano sprzętu do edycji.';
 		bottom();
 	}

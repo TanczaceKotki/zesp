@@ -12,18 +12,31 @@
 			$params[]=$_POST['nazwa'];
 			$send=True;
 		}
-		if($_POST['data_rozp']!==$_POST['old_data_rozp']){
+		$data=$_POST['data_rozp_rok'];
+		if($_POST['data_rozp_miesiac']!==""){
+			$data.='-'.$_POST['data_rozp_miesiac'];
+			if($_POST['data_rozp_dzien']!=="") $data.='-'.$_POST['data_rozp_dzien'];
+		}
+		if($data!==$_POST['old_data_rozp']){
 			if($send) $sql.=',';
 			$sql.=' data_rozp=?';
-			$params[]=$_POST['data_rozp'];
+			$params[]=$data;
 			$send=True;
 		}
-		if($_POST['data_zakoncz']!==$_POST['old_data_zakoncz']){
+		$data="";
+		if($_POST['data_zakoncz_rok']!==""){
+			$data=$_POST['data_zakoncz_rok'];
+			if($_POST['data_zakoncz_miesiac']!==""){
+				$data.='-'.$_POST['data_zakoncz_miesiac'];
+				if($_POST['data_zakoncz_dzien']!=="") $data.='-'.$_POST['data_zakoncz_dzien'];
+			}
+		}
+		if($data!==$_POST['old_data_zakoncz']){
 			if($send) $sql.=',';
-			if($_POST['data_zakoncz']==="") $sql.=' data_zakoncz=NULL';
+			if($data==="") $sql.=' data_zakoncz=NULL';
 			else{
 				$sql.=' data_zakoncz=?';
-				$params[]=$_POST['data_zakoncz'];
+				$params[]=$data;
 			}
 			$send=True;
 		}
