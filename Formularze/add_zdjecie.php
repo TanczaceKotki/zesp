@@ -1,6 +1,11 @@
 <?php
+	session_start();
+	require_once 'user.class.php';
 	require 'common.php';
 	require 'DB.php';
+	
+	if (user::isLogged()) {
+	$user = user::getData('', '');
 	$DB=dbconnect();
 	top();
 	if(isset($_POST['submitted'])){
@@ -59,6 +64,11 @@
 	</div>
 </form>
 <?php
-		bottom(array('js/zdjecie_js.js'));
 	}
+	}
+	else {
+		echo '<br>Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+	}
+		bottom(array('js/zdjecie_js.js'));
 ?>

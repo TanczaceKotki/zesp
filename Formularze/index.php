@@ -1,7 +1,12 @@
 <?php
+	session_start();
+	require_once 'user.class.php';
 	require 'common.php';
 	require 'DB.php';
 	top();
+	
+	if (user::isLogged()) {
+	$user = user::getData('', '');
 	$DB=dbconnect();
 	if(isset($_POST['del_sprzet'])){
 		if($st=$DB->prepare('DELETE FROM Sprzet WHERE id=?')){
@@ -222,5 +227,10 @@
 	?>
 </table>
 <?php
+	}
+	else {
+		echo '<br>Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+	}
 	bottom();
 ?>

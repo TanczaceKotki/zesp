@@ -1,6 +1,11 @@
 <?php
+	session_start();
+	require_once 'user.class.php';
 	require 'common.php';
 	top();
+	
+	if (user::isLogged()) {
+	$user = user::getData('', '');
 	if(isset($_POST['id'])){
 		require 'DB.php';
 		$DB=dbconnect();
@@ -26,5 +31,10 @@
 		else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nie podano zespołu do edycji.';
+	}
+	else {
+		echo '<br>Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+	}
 	bottom();
 ?>

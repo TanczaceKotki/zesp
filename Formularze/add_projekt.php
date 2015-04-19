@@ -1,46 +1,51 @@
 <?php
+	session_start();
+	require_once 'user.class.php';
 	require 'common.php';
 	top();
-	$displayform=True;
-	if(isset($_POST['submitted'])){
-		print_r($_POST);
-		require 'DB.php';
-		$DB=dbconnect();
-		$params=array($_POST['nazwa']);
-		$params[]=$_POST['data_rozp_rok'];
-		if($_POST['data_rozp_miesiac']!==""){
-			$params[1].='-'.$_POST['data_rozp_miesiac'];
-			if($_POST['data_rozp_dzien']!=="") $params[1].='-'.$_POST['data_rozp_dzien'];
-		}
-		$sql='INSERT INTO Projekt VALUES(NULL,?,?,';
-		if($_POST['data_zakoncz_rok']===""){
-			$sql.='NULL,?,?)';
-		}
-		else{
-			$sql.='?,?,?)';
-			$params[]=$_POST['data_zakoncz_rok'];
-			if($_POST['data_zakoncz_miesiac']!==""){
-				$params[2].='-'.$_POST['data_zakoncz_miesiac'];
-				if($_POST['data_zakoncz_dzien']!=="") $params[2].='-'.$_POST['data_zakoncz_dzien'];
+	
+	if (user::isLogged()) {
+		$user = user::getData('', '');
+		$displayform=True;
+		if(isset($_POST['submitted'])){
+			print_r($_POST);
+			require 'DB.php';
+			$DB=dbconnect();
+			$params=array($_POST['nazwa']);
+			$params[]=$_POST['data_rozp_rok'];
+			if($_POST['data_rozp_miesiac']!==""){
+				$params[1].='-'.$_POST['data_rozp_miesiac'];
+				if($_POST['data_rozp_dzien']!=="") $params[1].='-'.$_POST['data_rozp_dzien'];
 			}
-		}
-		$params[]=$_POST['opis'];
-		$params[]=$_POST['logo'];
-		if($st=$DB->prepare($sql)){
-			if($st->execute($params)){
-				echo 'Projekt został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
-				$displayform=False;
-				bottom();
+			$sql='INSERT INTO Projekt VALUES(NULL,?,?,';
+			if($_POST['data_zakoncz_rok']===""){
+				$sql.='NULL,?,?)';
 			}
 			else{
-				echo 'Nastąpił błąd przy dodawaniu projektu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				$sql.='?,?,?)';
+				$params[]=$_POST['data_zakoncz_rok'];
+				if($_POST['data_zakoncz_miesiac']!==""){
+					$params[2].='-'.$_POST['data_zakoncz_miesiac'];
+					if($_POST['data_zakoncz_dzien']!=="") $params[2].='-'.$_POST['data_zakoncz_dzien'];
+				}
+			}
+			$params[]=$_POST['opis'];
+			$params[]=$_POST['logo'];
+			if($st=$DB->prepare($sql)){
+				if($st->execute($params)){
+					echo 'Projekt został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+					$displayform=False;
+					bottom();
+				}
+				else{
+					echo 'Nastąpił błąd przy dodawaniu projektu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
+			}
+			else{
+				echo 'Nastąpił błąd przy dodawaniu projektu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 			}
 		}
-		else{
-			echo 'Nastąpił błąd przy dodawaniu projektu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		}
-	}
-	if($displayform){
+		if($displayform){
 ?>
 <form action="add_projekt.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<div>
@@ -148,6 +153,11 @@
 	</div>
 </form>
 <?php
-		bottom(array('js/day_switch.js','js/day_switch_projekt.js'));
+		}
 	}
+	else {
+		echo '<br>Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+	}
+		bottom(array('js/day_switch.js','js/day_switch_projekt.js'));
 ?>

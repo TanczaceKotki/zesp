@@ -1,7 +1,12 @@
 <?php
+	session_start();
+	require_once 'user.class.php';
 	require 'common.php';
 	require 'DB.php';
 	top();
+	
+	if (user::isLogged()) {
+	$user = user::getData('', '');
 	$DB=dbconnect();
 	$displayform=True;
 	if(isset($_POST['submitted'])){
@@ -195,6 +200,12 @@
 	</div>
 </form>
 <?php
-		bottom(array('js/day_switch.js','js/day_switch_sprzet.js'));
 	}
+	}
+	else {
+		echo '<br>Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+	}
+		bottom(array('js/day_switch.js','js/day_switch_sprzet.js'));
+	
 ?>
