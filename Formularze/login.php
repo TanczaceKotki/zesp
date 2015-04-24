@@ -20,8 +20,6 @@ if ($_POST['send'] == 1) {
         echo 'Wypełnij pole z hasłem!<br />';
 		echo '<a href="login.php">Zaloguj ponownie</a>';
     }
-
-    //$pass = password_hash($pass, PASSWORD_DEFAULT);
     
 	$DB=dbconnect();
 	if($st=$DB->prepare("SELECT * FROM Uzytkownicy WHERE login=?")){	
@@ -40,12 +38,12 @@ if ($_POST['send'] == 1) {
 			echo 'Przejdź do <a href="index.php">strony głównej</a>.';
 		}
 		else {
-			echo 'Użytkownik o podanym loginie i haśle nie istnieje1.<br />';
+			echo 'Użytkownik o podanym loginie i haśle nie istnieje<br />';
 			echo '<a href="login.php">Zaloguj ponownie</a>';
 		}
 	}}
 	else {
-		echo 'Użytkownik o podanym loginie i haśle nie istnieje2.<br />';
+		echo 'Użytkownik o podanym loginie i haśle nie istnieje<br />';
 		echo '<a href="login.php">Zaloguj ponownie</a>';
 	}
 }

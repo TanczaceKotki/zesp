@@ -2,12 +2,12 @@
 	session_start();
 	require_once 'user.class.php';
 	require 'common.php';
+	require 'DB.php';
 	top();
 	
 	if (user::isLogged()) {
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
-			require 'DB.php';
 			$DB=dbconnect();
 			if($st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
 				if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['email']))){
