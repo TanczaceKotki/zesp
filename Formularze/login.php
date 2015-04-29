@@ -52,15 +52,15 @@
 
 <form action="login.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<label for="login">Login<span class="color_red">*</span>:</label>
-	<input type="text" name="login" id="login" required="required" /><br />
+	<input type="text" name="login" id="login" size="100" maxlength="512" required="required" /><br />
 
 	<label for="pass">Hasło<span class="color_red">*</span>:</label>
-	<input type="password" name="pass" id="pass" required="required" /><br />
+	<input type="password" name="pass" id="pass" size="100" maxlength="512" required="required" /><br />
 
 	<input type="submit" name="send" value="Zaloguj" />
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-		bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js'));
+		bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/remaining_char_counter.js','js/default_form.js'));
 	}
 ?>
