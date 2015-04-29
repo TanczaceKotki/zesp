@@ -3,13 +3,13 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 nazwa VARCHAR(512) NOT NULL,
 data_zakupu DATE NOT NULL,
 data_uruchom DATE,
-wartosc BIGINT UNSIGNED NOT NULL,
+wartosc BIGINT UNSIGNED,
 opis TEXT NOT NULL,
 projekt INTEGER,
 laboratorium INTEGER,
-CHECK (data_uruchom>=data_zakupu),
 CHECK (wartosc>=0),
 CHECK (length(nazwa)<=512),
+CHECK (length(nazwa)>0),
 FOREIGN KEY (projekt) REFERENCES Projekt(id) ON DELETE SET NULL ON UPDATE CASCADE,
 FOREIGN KEY (laboratorium) REFERENCES Laboratorium(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
@@ -23,7 +23,9 @@ opis TEXT NOT NULL,
 logo VARCHAR(128) NOT NULL,
 CHECK (data_zakoncz>=data_rozp),
 CHECK (length(nazwa)<=64),
-CHECK (length(logo)<=128)
+CHECK (length(logo)<=128),
+CHECK (length(nazwa)>0),
+CHECK (length(logo)>0)
 );
 
 CREATE TABLE Osoba(
@@ -33,7 +35,10 @@ nazwisko VARCHAR(32) NOT NULL,
 email VARCHAR(254) NOT NULL UNIQUE,
 CHECK (length(imie)<=16),
 CHECK (length(nazwisko)<=32),
-CHECK (length(email)<=254)
+CHECK (length(email)<=254),
+CHECK (length(imie)>0),
+CHECK (length(nazwisko)>0),
+CHECK (length(email)>0)
 );
 
 CREATE TABLE Kontakt(
@@ -48,13 +53,15 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 sprzet INTEGER NOT NULL,
 link VARCHAR(128) NOT NULL,
 CHECK (length(link)<=128),
+CHECK (length(link)>0),
 FOREIGN KEY (sprzet) REFERENCES Sprzet(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Tag(
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 nazwa VARCHAR(32) NOT NULL UNIQUE,
-CHECK (length(nazwa)<=32)
+CHECK (length(nazwa)<=32),
+CHECK (length(nazwa)>0)
 );
 
 CREATE TABLE Tagi_sprzetu(
@@ -69,13 +76,22 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 nazwa VARCHAR(64) NOT NULL,
 zespol INTEGER,
 CHECK (length(nazwa)<=64),
+CHECK (length(nazwa)>0),
 FOREIGN KEY (zespol) REFERENCES Zespol(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE Zespol(
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+nazwa VARCHAR(128) NOT NULL,
+CHECK (length(nazwa)<=128),
+CHECK (length(nazwa)>0)
+);
+
+CREATE TABLE Zaklad(
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 nazwa VARCHAR(64) NOT NULL,
-CHECK (length(nazwa)<=64)
+CHECK (length(nazwa)<=64),
+CHECK (length(nazwa)>0)
 );
 
 CREATE TABLE Laborat_w_zaklad(
@@ -85,16 +101,12 @@ FOREIGN KEY (zaklad) REFERENCES Zaklad(id) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (laboratorium) REFERENCES Laboratorium(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE Zaklad(
-id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-nazwa VARCHAR(64) NOT NULL,
-CHECK (length(nazwa)<=64)
-);
-
 CREATE TABLE Uzytkownicy(
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-login VARCHAR(512) NOT NULL,
+login VARCHAR(512) NOT NULL UNIQUE,
 pass VARCHAR(512) NOT NULL,
 CHECK (length(login)<=512),
-CHECK (length(pass)<=512)
+CHECK (length(pass)<=512),
+CHECK (length(login)>0),
+CHECK (length(pass)>0)
 );

@@ -1,15 +1,13 @@
 <?php
 	session_start();
-	require_once 'user.class.php';
+	require 'user.class.php';
 	require 'common.php';
+	require 'DB.php';
 	top();
-	
-	if (user::isLogged()) {
+	$displayform=True;
+	if(user::isLogged()){
 		$user = user::getData('', '');
-		$displayform=True;
 		if(isset($_POST['submitted'])){
-			print_r($_POST);
-			require 'DB.php';
 			$DB=dbconnect();
 			$params=array($_POST['nazwa']);
 			$params[]=$_POST['data_rozp_rok'];
@@ -49,115 +47,138 @@
 ?>
 <form action="add_projekt.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<div>
-		<label for="nazwa">Nazwa: </label>
-		<input type="text" name="nazwa" id="nazwa" value="<?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="10" maxlength="512" spellcheck="true" required />
+		<label for="nazwa">Nazwa<span class="color_red">*</span>: </label>
+		<input type="text" name="nazwa" id="nazwa" value="<?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="64" maxlength="64" spellcheck="true" required="required" />
+		<span id="nazwa_counter"></span>
 	</div>
 	<div>
-		Data rozpoczęcia:<br/>
-		<label for="data_rozp_dzien">Dzień: </label>
-		<select name="data_rozp_dzien" id="data_rozp_dzien">
-			<option value=""<?php if(!isset($_POST['data_rozp_dzien'])) echo ' selected'; elseif($_POST['data_rozp_dzien']==="") echo ' selected'; ?>>-</option>
-			<?php
-				for($i=1;$i<32;++$i){
-					echo '<option value="'.str_pad("$i",2,'0',STR_PAD_LEFT).'"';
-					if(isset($_POST['data_rozp_dzien'])){
-						if($_POST['data_rozp_dzien']===str_pad("$i",2,'0',STR_PAD_LEFT)) echo ' selected';
+		<fieldset>
+			<legend>Data rozpoczęcia</legend>
+			<label for="data_rozp_dzien">Dzień: </label>
+			<select name="data_rozp_dzien" id="data_rozp_dzien" onchange="date_callback('data_rozp_dzien','data_rozp_miesiac','data_rozp_rok','data_zakoncz_dzien','data_zakoncz_miesiac','data_zakoncz_rok')">
+				<option value=""<?php if(!isset($_POST['data_rozp_dzien'])) echo ' selected="selected"'; elseif($_POST['data_rozp_dzien']==="") echo ' selected="selected"'; ?>>-</option>
+				<?php
+					for($i=1;$i<32;++$i){
+						echo '<option value="'.$i.'"';
+						if(isset($_POST['data_rozp_dzien'])){
+							if(intval($_POST['data_rozp_dzien'])===$i) echo ' selected="selected"';
+						}
+						echo '>'.$i.'</option>';
 					}
-					echo '>'.$i.'</option>';
-				}
-			?>
-		</select>
-		<label for="data_rozp_miesiac"> Miesiąc: </label>
-		<select name="data_rozp_miesiac" id="data_rozp_miesiac" onchange="day_switch_with_required_year('data_rozp_miesiac','data_rozp_dzien','data_rozp_rok')">
-			<option value=""<?php if(!isset($_POST['data_rozp_miesiac'])) echo ' selected'; elseif($_POST['data_rozp_miesiac']==="") echo ' selected'; ?>>-</option>
-			<?php
-				$months=array('styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień');
-				for($i=0;$i<12;++$i){
-					$val=$i+1;
-					echo '<option value="'.str_pad("$val",2,'0',STR_PAD_LEFT).'"';
-					if(isset($_POST['data_rozp_miesiac'])){
-						if($_POST['data_rozp_miesiac']===str_pad("$val",2,'0',STR_PAD_LEFT)) echo ' selected';
+				?>
+			</select>
+			<label for="data_rozp_miesiac"> Miesiąc: </label>
+			<select name="data_rozp_miesiac" id="data_rozp_miesiac" onchange="date_callback('data_rozp_dzien','data_rozp_miesiac','data_rozp_rok','data_zakoncz_dzien','data_zakoncz_miesiac','data_zakoncz_rok')">
+				<option value=""<?php if(!isset($_POST['data_rozp_miesiac'])) echo ' selected="selected"'; elseif($_POST['data_rozp_miesiac']==="") echo ' selected="selected"'; ?>>-</option>
+				<?php
+					$months=array('styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień');
+					for($i=0;$i<12;++$i){
+						$val=$i+1;
+						echo '<option value="'.$val.'"';
+						if(isset($_POST['data_rozp_miesiac'])){
+							if(intval($_POST['data_rozp_miesiac'])===$val) echo ' selected="selected"';
+						}
+						echo '>'.$months[$i].'</option>';
 					}
-					echo '>'.$months[$i].'</option>';
-				}
-			?>
-		</select>
-		<label for="data_rozp_rok"> Rok: </label>
-		<select name="data_rozp_rok" id="data_rozp_rok" required>
-			<option value=""<?php if(!isset($_POST['data_rozp_rok'])) echo ' selected'; elseif($_POST['data_rozp_rok']==="") echo ' selected'; ?>>-</option>
-			<?php
-				for($i=intval(date('Y'))+1;$i>=1950;--$i){
-					echo '<option value="'.$i.'"';
-					if(isset($_POST['data_rozp_rok'])){
-						if(intval($_POST['data_rozp_rok'])===$i) echo ' selected';
+				?>
+			</select>
+			<label for="data_rozp_rok"> Rok<span class="color_red">*</span>: </label>
+			<select name="data_rozp_rok" id="data_rozp_rok" onchange="date_callback('data_rozp_dzien','data_rozp_miesiac','data_rozp_rok','data_zakoncz_dzien','data_zakoncz_miesiac','data_zakoncz_rok')" required="required">
+				<option value=""<?php if(!isset($_POST['data_rozp_rok'])) echo ' selected="selected"'; elseif($_POST['data_rozp_rok']==="") echo ' selected="selected"'; ?>>-</option>
+				<?php
+					$curdecade=(intval(date('Y'))+1)-(intval(date('Y'))+1)%10;
+					echo '<optgroup label="'.$curdecade.' - '.(intval(date('Y'))+1).'">';
+					for($i=intval(date('Y'))+1;$i>=1950;--$i){
+						if($curdecade!=$i-$i%10){
+							$curdecade=$i-$i%10;
+							echo '</optgroup><optgroup label="'.$curdecade.' - '.($curdecade+9).'">';
+						}
+						echo '<option value="'.$i.'"';
+						if(isset($_POST['data_rozp_rok'])){
+							if(intval($_POST['data_rozp_rok'])===$i) echo ' selected="selected"';
+						}
+						echo '>'.$i.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>';
 					}
-					echo '>'.$i.'</option>';
-				}
-			?>
-		</select>
+					echo '</optgroup>';
+				?>
+			</select>
+		</fieldset>
 	</div>
 	<div>
-		Data zakończenia:<br/>
-		<label for="data_zakoncz_dzien">Dzień: </label>
-		<select name="data_zakoncz_dzien" id="data_zakoncz_dzien">
-			<option value=""<?php if(!isset($_POST['data_zakoncz_dzien'])) echo ' selected'; elseif($_POST['data_zakoncz_dzien']==="") echo ' selected'; ?>>-</option>
-			<?php
-				for($i=1;$i<32;++$i){
-					echo '<option value="'.str_pad("$i",2,'0',STR_PAD_LEFT).'"';
-					if(isset($_POST['data_zakoncz_dzien'])){
-						if($_POST['data_zakoncz_dzien']===str_pad("$i",2,'0',STR_PAD_LEFT)) echo ' selected';
+		<fieldset>
+			<legend>Data zakończenia</legend>
+			<label for="data_zakoncz_dzien">Dzień: </label>
+			<select name="data_zakoncz_dzien" id="data_zakoncz_dzien" onchange="date_callback('data_rozp_dzien','data_rozp_miesiac','data_rozp_rok','data_zakoncz_dzien','data_zakoncz_miesiac','data_zakoncz_rok')">
+				<option value=""<?php if(!isset($_POST['data_zakoncz_dzien'])) echo ' selected="selected"'; elseif($_POST['data_zakoncz_dzien']==="") echo ' selected="selected"'; ?>>-</option>
+				<?php
+					for($i=1;$i<32;++$i){
+						echo '<option value="'.$i.'"';
+						if(isset($_POST['data_zakoncz_dzien'])){
+							if(intval($_POST['data_zakoncz_dzien'])===$i) echo ' selected="selected"';
+						}
+						echo '>'.$i.'</option>';
 					}
-					echo '>'.$i.'</option>';
-				}
-			?>
-		</select>
-		<label for="data_zakoncz_miesiac"> Miesiąc: </label>
-		<select name="data_zakoncz_miesiac" id="data_zakoncz_miesiac" onchange="day_switch_with_optional_year('data_zakoncz_miesiac','data_zakoncz_dzien','data_zakoncz_rok')">
-			<option value=""<?php if(!isset($_POST['data_zakoncz_miesiac'])) echo ' selected'; elseif($_POST['data_zakoncz_miesiac']==="") echo ' selected'; ?>>-</option>
-			<?php
-				$months=array('styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień');
-				for($i=0;$i<12;++$i){
-					$val=$i+1;
-					echo '<option value="'.str_pad("$val",2,'0',STR_PAD_LEFT).'"';
-					if(isset($_POST['data_zakoncz_miesiac'])){
-						if($_POST['data_zakoncz_miesiac']===str_pad("$val",2,'0',STR_PAD_LEFT)) echo ' selected';
+				?>
+			</select>
+			<label for="data_zakoncz_miesiac"> Miesiąc: </label>
+			<select name="data_zakoncz_miesiac" id="data_zakoncz_miesiac" onchange="date_callback('data_rozp_dzien','data_rozp_miesiac','data_rozp_rok','data_zakoncz_dzien','data_zakoncz_miesiac','data_zakoncz_rok')">
+				<option value=""<?php if(!isset($_POST['data_zakoncz_miesiac'])) echo ' selected="selected"'; elseif($_POST['data_zakoncz_miesiac']==="") echo ' selected="selected"'; ?>>-</option>
+				<?php
+					$months=array('styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień');
+					for($i=0;$i<12;++$i){
+						$val=$i+1;
+						echo '<option value="'.$val.'"';
+						if(isset($_POST['data_zakoncz_miesiac'])){
+							if(intval($_POST['data_zakoncz_miesiac'])===$val) echo ' selected="selected"';
+						}
+						echo '>'.$months[$i].'</option>';
 					}
-					echo '>'.$months[$i].'</option>';
-				}
-			?>
-		</select>
-		<label for="data_zakoncz_rok"> Rok: </label>
-		<select name="data_zakoncz_rok" id="data_zakoncz_rok">
-			<option value=""<?php if(!isset($_POST['data_zakoncz_rok'])) echo ' selected'; elseif($_POST['data_zakoncz_rok']==="") echo ' selected'; ?>>-</option>
-			<?php
-				for($i=intval(date('Y'))+1;$i>=1950;--$i){
-					echo '<option value="'.$i.'"';
-					if(isset($_POST['data_zakoncz_rok'])){
-						if(intval($_POST['data_zakoncz_rok'])===$i) echo ' selected';
+				?>
+			</select>
+			<label for="data_zakoncz_rok"> Rok: </label>
+			<select name="data_zakoncz_rok" id="data_zakoncz_rok" onchange="date_callback('data_rozp_dzien','data_rozp_miesiac','data_rozp_rok','data_zakoncz_dzien','data_zakoncz_miesiac','data_zakoncz_rok')">
+				<option value=""<?php if(!isset($_POST['data_zakoncz_rok'])) echo ' selected="selected"'; elseif($_POST['data_zakoncz_rok']==="") echo ' selected="selected"'; ?>>-</option>
+				<?php
+					$curdecade=(intval(date('Y'))+1)-(intval(date('Y'))+1)%10;
+					echo '<optgroup label="'.$curdecade.' - '.(intval(date('Y'))+1).'">';
+					for($i=intval(date('Y'))+1;$i>=1950;--$i){
+						if($curdecade!=$i-$i%10){
+							$curdecade=$i-$i%10;
+							echo '</optgroup><optgroup label="'.$curdecade.' - '.($curdecade+9).'">';
+						}
+						echo '<option value="'.$i.'"';
+						if(isset($_POST['data_zakoncz_rok'])){
+							if(intval($_POST['data_zakoncz_rok'])===$i) echo ' selected="selected"';
+						}
+						echo '>'.$i.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>';
 					}
-					echo '>'.$i.'</option>';
-				}
-			?>
-		</select>
+					echo '</optgroup>';
+				?>
+			</select>
+		</fieldset>
 	</div>
 	<div>
-		<label for="opis">Opis: </label>
-		<textarea name="opis" id="opis" rows="20" cols="100" maxlength="166666666" required><?php if(isset($_POST['opis'])) echo $_POST['opis']; ?></textarea>
+		<label for="opis">Opis<span class="color_red">*</span>: </label>
+		<textarea name="opis" id="opis" rows="20" cols="100" maxlength="166666666" spellcheck="true" required="required"><?php if(isset($_POST['opis'])) echo $_POST['opis']; ?></textarea>
+		<span id="opis_counter"></span>
 	</div>
 	<div>
-		<label for="logo">Logo: </label>
-		<input type="text" name="logo" id="logo" value="<?php if(isset($_POST['logo'])) echo $_POST['logo']; ?>" size="16" maxlength="128" required />
+		<label for="logo">Logo<span class="color_red">*</span>: </label>
+		<input type="text" name="logo" id="logo" value="<?php if(isset($_POST['logo'])) echo $_POST['logo']; ?>" size="100" maxlength="128" required="required" />
+		<span id="logo_counter"></span>
 	</div>
 	<div>
 		<input type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
+<span class="color_red">*</span> - wymagane pola.
 <?php
+			bottom(array('js/date_callback.js','https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/remaining_char_counter.js','js/projekt_form.js'));
 		}
 	}
 	else {
 		echo '<br>Nie jesteś zalogowany.<br />
 		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		bottom();
 	}
-		bottom(array('js/day_switch.js','js/day_switch_projekt.js'));
 ?>

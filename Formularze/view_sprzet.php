@@ -64,8 +64,11 @@
 		}
 		if($_POST['wartosc']!==$_POST['old_wartosc']){
 			if($send) $sql.=',';
-			$sql.=' wartosc=?';
-			$params[]=$_POST['wartosc'];
+			if($data==="") $sql.=' wartosc=NULL';
+			else{
+				$sql.=' wartosc=?';
+				$params[]=$_POST['wartosc'];
+			}
 			$send=True;
 		}
 		if($_POST['opis']!==$_POST['old_opis']){
@@ -142,7 +145,7 @@
 				if($row['projekt']!==""){
 					if($result=$DB->prepare('SELECT nazwa FROM Projekt WHERE id=?')){
 						if($result->execute(array($row['projekt']))){
-							if($row2=$result->fetch(PDO::FETCH_ASSOC)) echo $row2['nazwa'];
+							if($row2=$result->fetch(PDO::FETCH_ASSOC)) echo '<a href=view_projekt.php?id='.$row['projekt'].'>'.$row2['nazwa'].'</a>';
 						}
 						else echo 'Nie udało się pobrać danych z bazy danych.';
 					}
@@ -170,7 +173,7 @@
 				if($result=$DB->prepare('SELECT id,link FROM Zdjecie WHERE sprzet=? ORDER BY link')){
 					if($result->execute(array($row['id']))){
 						while($row2=$result->fetch(PDO::FETCH_ASSOC)){
-							?><img src="<?php echo $row2['link']; ?>" width="200" alt="" />
+							?><img src="uploads/<?php echo $row2['link']; ?>" width="200" alt="" />
 							<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 								<input type="hidden" name="id" value="<?php echo $row2['id']; ?>" />
 								<input type="submit" name="del_picture" value="Usuń" />

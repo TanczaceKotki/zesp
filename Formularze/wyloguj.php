@@ -3,7 +3,7 @@
 
 	require 'common.php';
 	require 'DB.php';
-	require_once 'user.class.php';
+	require 'user.class.php';
 	top();
 
 	session_destroy();

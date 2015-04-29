@@ -44,7 +44,7 @@
 					<tbody>
 						<tr>
 							<td>Podgląd</td>
-							<td><img src="<?php echo $row['link']; ?>" width="200" alt="" /></td>
+							<td><img src="uploads/<?php echo $row['link']; ?>" width="200" alt="" /></td>
 						</tr>
 						<tr>
 							<td>Link</td>

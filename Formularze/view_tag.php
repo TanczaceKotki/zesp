@@ -26,7 +26,7 @@
 					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 					<input type="submit" name="del_tag" value="Usuń" />
 				</form>
-				<form action="edit_tag.php?=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+				<form action="edit_tag.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 					<input type="submit" value="Edytuj" />
 				</form>

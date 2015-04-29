@@ -19,7 +19,7 @@ INSERT INTO Laboratorium(nazwa, zespol)
 INSERT INTO Laboratorium(nazwa, zespol)
   VALUES(
   'Laboratorium Spektroskopii Mössbauerowskiej',
- SELECT id FROM Zespol WHERE nazwa='Zespół Laboratoriów Zaawansowanych Materiałów (ZawMater)')
+ (SELECT id FROM Zespol WHERE nazwa='Zespół Laboratoriów Zaawansowanych Materiałów (ZawMater)')
   );
   
 INSERT INTO Laboratorium(nazwa, zespol)

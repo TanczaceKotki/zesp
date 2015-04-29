@@ -64,7 +64,7 @@
 						</tr>
 						<tr>
 							<td>Email</td>
-							<td><?php echo $row['email']; ?></td>
+							<td><a href="mailto:<?php echo $row['email']; ?>"><?php echo $row['email']; ?></a></td>
 						</tr>
 						<tr>
 							<td>Kontakt</td>

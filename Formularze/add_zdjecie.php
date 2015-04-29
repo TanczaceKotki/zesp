@@ -1,74 +1,76 @@
 <?php
 	session_start();
-	require_once 'user.class.php';
+	require 'user.class.php';
 	require 'common.php';
 	require 'DB.php';
-	
-	if (user::isLogged()) {
-	$user = user::getData('', '');
-	$DB=dbconnect();
 	top();
-	if(isset($_POST['submitted'])){
-		if($_POST['zdjecie']==='new'){
-			$link='uploads/'.$_FILES['plik']['name'];
-			move_uploaded_file($_FILES['plik']['tmp_name'],$link);
-		}
-		elseif($_POST['zdjecie']==='link') $link=$_POST['link'];
-		if($st=$DB->prepare('INSERT INTO Zdjecie VALUES(NULL,?,?)')){
-			if($st->execute(array($_POST['sprzet'],$link))){
-				echo 'Zdjęcie zostało pomyślnie wstawione.<br /><br />';
+	$DB=dbconnect();
+	$displayform=True;
+	if(user::isLogged()){
+		$user = user::getData('', '');
+		if(isset($_POST['submitted'])){
+			$link='z_'.$_FILES['plik']['name'];
+			move_uploaded_file($_FILES['plik']['tmp_name'],'uploads/'.$link);
+			if($st=$DB->prepare('INSERT INTO Zdjecie VALUES(NULL,?,?)')){
+				if($st->execute(array($_POST['sprzet'],$link))){
+					echo 'Zdjęcie zostało pomyślnie wstawione.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+					$displayform=False;
+					bottom();
+				}
+				else{
+					echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
 			}
 			else{
-				echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 			}
+			bottom();
 		}
-		else{
-			echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		}
-		bottom();
-	}
-	else{
+		if($displayform){
 ?>
 <form action="add_zdjecie.php" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
 	<div>
-		<label for="sprzet">Sprzęt: </label>
-		<select name="sprzet" id="sprzet" required>
-			<option value="" selected>-</option>
+		<label for="sprzet">Sprzęt<span class="color_red">*</span>: </label>
+		<select name="sprzet" id="sprzet" required="required">
+			<option value=""<?php if(!isset($_POST['sprzet'])) echo ' selected="selected"'; ?>>-</option>
 			<?php
-				if($result=$DB->query("SELECT id,nazwa FROM Sprzet ORDER BY nazwa")){
-					while($row=$result->fetch(PDO::FETCH_ASSOC)){
-						echo '<option value="'.$row['id'].'">'.$row['nazwa'].'</option>';
+				if($result=$DB->query('SELECT id,nazwa FROM Sprzet ORDER BY nazwa')){
+					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
+						$first_letter=$rows[0]['nazwa'][0];
+						echo '<optgroup label="'.strtoupper($first_letter).'">';
+						foreach($rows as $row){
+							if($first_letter!==$row['nazwa'][0]){
+								$first_letter=$row['nazwa'][0];
+								echo '</optgroup><optgroup label="'.strtoupper($first_letter).'">';
+							}
+							echo '<option value="'.$row['id'].'"';
+							if(isset($_POST['sprzet'])){
+								if($_POST['sprzet']===$row['id']) echo ' selected="selected"';
+							}
+							echo '>'.$row['nazwa'].'</option>';
+						}
+						echo '</optgroup>';
 					}
 				}
 			?>
 		</select>
 	</div>
 	<div>
-		<input type="radio" name="zdjecie" value="new" id="picture_new" checked required onchange="toggleDisplay(this.value)" /> Wstaw nowe zdjęcie
-		<span id="new_picture_form">
-			<br />
-			<label for="plik">Plik: </label>
-			<input type="file" name="plik" id="plik" value="" />
-		</span>
-	</div>
-	<div>
-		<input type="radio" name="zdjecie" value="link" id="picture_link" required onchange="toggleDisplay(this.value)" /> Podaj link do zdjęcia
-		<span id="picture_link_form">
-			<br />
-			<label for="link">Link: </label>
-			<input type="text" name="link" id="link" value="" size="128" maxlength="128" />
-		</span>
+		<label for="plik">Plik<span class="color_red">*</span>: </label>
+		<input type="file" name="plik" id="plik" required="required" />
 	</div>
 	<div>
 		<input type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
+<span class="color_red">*</span> - wymagane pola.
 <?php
-	}
+			bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/start_form_polyfill.js'));
+		}
 	}
 	else {
 		echo '<br>Nie jesteś zalogowany.<br />
 		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		bottom();
 	}
-		bottom(array('js/zdjecie_js.js'));
 ?>

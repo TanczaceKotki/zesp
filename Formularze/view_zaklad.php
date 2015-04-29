@@ -39,8 +39,9 @@
 						</tr>
 						<tr>
 							<td>Laboratoria</td>
+							<td>
 							<?php
-				if($result=$DB->prepare('SELECT laboratorium FROM Laborat_w_zaklad WHERE zaklad=? ORDER BY laboratorium')){
+				if($result=$DB->prepare('SELECT * FROM Laborat_w_zaklad WHERE zaklad=? ORDER BY laboratorium')){
 					if($result->execute(array($row['id']))){
 						while($row2=$result->fetch(PDO::FETCH_ASSOC)){
 							if($result2=$DB->prepare('SELECT nazwa FROM Laboratorium WHERE id=?')){
@@ -59,6 +60,7 @@
 							}
 							else echo 'Nie udało się pobrać danych z bazy danych.';
 						}
+						
 					}
 					else echo 'Nie udało się pobrać danych z bazy danych.';
 				}

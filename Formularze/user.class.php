@@ -9,7 +9,7 @@ class user {
         $pass = $_SESSION['pass'];
 		
 		$DB=dbconnect();
-		if($st=$DB->prepare("SELECT * FROM Uzytkownicy WHERE login=? AND pass=? LIMIT 1;")) {
+		if($st=$DB->prepare('SELECT * FROM Uzytkownicy WHERE login=? AND pass=? LIMIT 1')) {
 			if($st->execute(array($login, $pass))){
 				self::$user = $st->fetch(PDO::FETCH_ASSOC);
 			}
