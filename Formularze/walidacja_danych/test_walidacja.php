@@ -66,4 +66,22 @@
 	test_equal( valid_second_name( $name, $max_length ), false );
 	$name = "Jan-Maria";
 	test_equal( valid_second_name( $name, $max_length ), true );
+
+	echo "TEST FUNKCJI valid_date\n";
+	$date = "20-05-2015";
+	test_equal( valid_date( $date ), true );
+	$date = "32-05-2015";
+	test_equal( valid_date( $date ), false );
+	$date = "31-05-2015";
+	test_equal( valid_date( $date ), true );
+	$date = "20-5-2015";
+	test_equal( valid_date( $date ), true );
+	$date = "20-15-2015";
+	test_equal( valid_date( $date ), false );
+	$date = "abc-5-2015";
+	test_equal( valid_date( $date ), false );
+	$date = "20-a-2015";
+	test_equal( valid_date( $date ), false );
+	$date = "asdf";
+	test_equal( valid_date( $date ), false );
 ?>

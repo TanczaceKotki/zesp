@@ -33,4 +33,22 @@
 		return preg_match( $expression, $name );
 	}
 
+	function valid_date( $date ){
+		$date = explode( "-", $date );
+		$day = intval( $date[0] );
+		$month = intval( $date[1] );
+		$year = intval( $date[2] );
+
+		if( $day == 0 or $month == 0 or $month>12 or $year == 0 ){
+			return false;
+		}
+
+		$days_in_month = cal_days_in_month( CAL_GREGORIAN, $month, $year );
+
+		if( $day <= $days_in_month ){
+			return true;
+		}
+		return false;
+	}
+
 ?>
