@@ -36,6 +36,15 @@
 
 	function valid_date( $date ){ //funkcja sprawdza czy data podana jest w odpowiednim formacie
 		$date = explode( "-", $date );
+
+		if( strpos( $date[0], "." ) != 0 or strpos( $date[1], "." ) != 0 or strpos( $date[2], "." ) != 0){
+			return false;
+		}
+
+		if( count( $date ) != 3 ){
+			return false;
+		}
+
 		$day = intval( $date[0] );
 		$month = intval( $date[1] );
 		$year = intval( $date[2] );
