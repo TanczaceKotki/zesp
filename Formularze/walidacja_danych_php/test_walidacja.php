@@ -23,13 +23,13 @@
 	echo "TEST FUNKCJI valid_email"."\n";
 	$max_length = 50;
 	$email1 = "jan.kowalski@gmail.com";
-	$email2 = "1jankowalski@o2.pl";
+	$email2 = "1jankowalski@o2..pl";
 	$email3 = "moj_adres@com";
 	$email4 = "jakub.braz@uj.edu.pl";
 	$email5 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@uj.edu.pl";
 	test_equal( valid_email( $email1, $max_length ), true );
 	test_equal( valid_email( $email2, $max_length ), false );
-	test_equal( valid_email( $email3, $max_length ), false );
+	test_equal( valid_email( $email3, $max_length ), true );
 	test_equal( valid_email( $email4, $max_length ), true );
 	test_equal( valid_email( $email5, $max_length ), false );
 
@@ -84,4 +84,20 @@
 	test_equal( valid_date( $date ), false );
 	$date = "asdf";
 	test_equal( valid_date( $date ), false );
+	$date = "20.3-1-2000";
+	test_equal( valid_date( $date ), false );
+	$date = "23-1-2000-23";
+	test_equal( valid_date( $date ), false );
+
+	echo "TEST FUNKCJI valid_image\n";
+	$ob = valid_image( "obraz_test1.jpg" );
+	test_equal( $ob, true );
+	$ob = valid_image( "obraz_test2.jpg" );
+	test_equal( $ob, true );
+	$ob = valid_image( "obraz_test3.jpg" );
+	test_equal( $ob, false );
+
+	echo "TEST FUNKCJI resize_image\n";
+	$obraz = resize_image( "obraz_test2.jpg", 1024, 768 );
+	imagejpeg( $obraz, "obraz_po_przksztalceniu.jpg" );
 ?>

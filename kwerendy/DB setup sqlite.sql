@@ -105,8 +105,10 @@ CREATE TABLE Uzytkownicy(
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 login VARCHAR(512) NOT NULL UNIQUE,
 pass VARCHAR(512) NOT NULL,
+lvl TINYINT UNSIGNED NOT NULL, /* Poziom uprawnień uzytkownika. 0 - administrator, 1 - moderator, 2 - konto osoby kontaktowej */
 CHECK (length(login)<=512),
 CHECK (length(pass)<=512),
 CHECK (length(login)>0),
-CHECK (length(pass)>0)
+CHECK (length(pass)>0),
+CHECK (lvl>=0)
 );

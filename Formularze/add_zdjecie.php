@@ -28,7 +28,7 @@
 		}
 		if($displayform){
 ?>
-<form action="add_zdjecie.php" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+<form action="add_zdjecie.php" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" onsubmit="return image_check()">
 	<div>
 		<label for="sprzet">Sprzęt<span class="color_red">*</span>: </label>
 		<select name="sprzet" id="sprzet" required="required">
@@ -57,15 +57,17 @@
 	</div>
 	<div>
 		<label for="plik">Plik<span class="color_red">*</span>: </label>
-		<input type="file" name="plik" id="plik" required="required" />
+		<input type="file" name="plik" id="plik" onchange="process_image()" required="required" />
 	</div>
+	<div id="img_msg"></div>
+	<img src="#" id="podglad" onerror="img_error()" style="display:none" alt="" />
 	<div>
 		<input type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/start_form_polyfill.js'));
+			bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/zdjecie_form.js'));
 		}
 	}
 	else {
