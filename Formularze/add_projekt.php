@@ -9,38 +9,61 @@
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			$DB=dbconnect();
-			$params=array($_POST['nazwa']);
-			$params[]=$_POST['data_rozp_rok'];
-			if($_POST['data_rozp_miesiac']!==""){
-				$params[1].='-'.$_POST['data_rozp_miesiac'];
-				if($_POST['data_rozp_dzien']!=="") $params[1].='-'.$_POST['data_rozp_dzien'];
+			$walidacja = true;
+			if( valid_length($_POST['nazwa'], 512) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu nazwa.<br/>';
 			}
-			$sql='INSERT INTO Projekt VALUES(NULL,?,?,';
-			if($_POST['data_zakoncz_rok']===""){
-				$sql.='NULL,?,?)';
+			if( valid_date($_POST['data_rozp_dzien'].'-'.$_POST['data_rozp_miesiac'].'-'.$_POST['data_rozp_rok']) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu data rozpoczęcia.<br/>';
 			}
-			else{
-				$sql.='?,?,?)';
-				$params[]=$_POST['data_zakoncz_rok'];
-				if($_POST['data_zakoncz_miesiac']!==""){
-					$params[2].='-'.$_POST['data_zakoncz_miesiac'];
-					if($_POST['data_zakoncz_dzien']!=="") $params[2].='-'.$_POST['data_zakoncz_dzien'];
+			if( valid_date($_POST['data_zakoncz_dzien'].'-'.$_POST['data_zakoncz_miesiac'].'-'.$_POST['data_zakoncz_rok']) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu data zakonczenia.<br/>';
+			}
+			if( valid_length($_POST['opis'], 166666666) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu opis.<br/>';
+			}
+			if( valid_length($_POST['logo'], 128) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu logo.<br/>';
+			}
+			if( $walidacja ){
+				$params=array($_POST['nazwa']);
+				$params[]=$_POST['data_rozp_rok'];
+				if($_POST['data_rozp_miesiac']!==""){
+					$params[1].='-'.$_POST['data_rozp_miesiac'];
+					if($_POST['data_rozp_dzien']!=="") $params[1].='-'.$_POST['data_rozp_dzien'];
 				}
-			}
-			$params[]=$_POST['opis'];
-			$params[]=$_POST['logo'];
-			if($st=$DB->prepare($sql)){
-				if($st->execute($params)){
-					echo 'Projekt został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
-					$displayform=False;
-					bottom();
+				$sql='INSERT INTO Projekt VALUES(NULL,?,?,';
+				if($_POST['data_zakoncz_rok']===""){
+					$sql.='NULL,?,?)';
 				}
 				else{
-					echo 'Nastąpił błąd przy dodawaniu projektu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+					$sql.='?,?,?)';
+					$params[]=$_POST['data_zakoncz_rok'];
+					if($_POST['data_zakoncz_miesiac']!==""){
+						$params[2].='-'.$_POST['data_zakoncz_miesiac'];
+						if($_POST['data_zakoncz_dzien']!=="") $params[2].='-'.$_POST['data_zakoncz_dzien'];
+					}
 				}
-			}
-			else{
-				echo 'Nastąpił błąd przy dodawaniu projektu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+				$params[]=$_POST['opis'];
+				$params[]=$_POST['logo'];
+				if($st=$DB->prepare($sql)){
+					if($st->execute($params)){
+						echo 'Projekt został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+						$displayform=False;
+						bottom();
+					}
+					else{
+						echo 'Nastąpił błąd przy dodawaniu projektu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+					}
+				}
+				else{
+					echo 'Nastąpił błąd przy dodawaniu projektu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+				}
 			}
 		}
 		if($displayform){

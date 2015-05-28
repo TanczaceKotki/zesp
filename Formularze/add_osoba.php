@@ -3,13 +3,27 @@
 	require 'user.class.php';
 	require 'common.php';
 	require 'DB.php';
+	require 'walidacja_danych_php/walidacja.php';
 	top();
 	$displayform=True;
 	if(user::isLogged()){
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			$DB=dbconnect();
-			if($st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
+			$walidacja = true;
+			if( valid_length($_POST['imie'], 16) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu imię.<br/>';
+			}
+			if( valid_length($_POST['nazwisko'], 32) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu nazwisko.<br/>';
+			}
+			if( valid_email($_POST['email'], 254) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu email.<br/>';
+			}
+			if($walidacja and $st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
 				if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['email']))){
 					echo 'Osoba została pomyślnie wstawiona.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
 					$displayform=False;

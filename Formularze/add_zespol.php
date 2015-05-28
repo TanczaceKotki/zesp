@@ -9,7 +9,12 @@
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			$DB=dbconnect();
-			if($st=$DB->prepare('INSERT INTO Zespol VALUES(NULL,?)')){
+			$walidacja = true;
+			if( valid_length($_POST['nazwa'], 128) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu nazwa.<br/>';
+			}
+			if($walidacja and $st=$DB->prepare('INSERT INTO Zespol VALUES(NULL,?)')){
 				if($st->execute(array($_POST['nazwa']))){
 					echo 'Zespół został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
 					$displayform=False;

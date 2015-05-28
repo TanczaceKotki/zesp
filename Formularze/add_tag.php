@@ -9,7 +9,12 @@
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			$DB=dbconnect();
-			if($st=$DB->prepare('INSERT INTO Tag VALUES(NULL,?)')){
+			$walidacja = true;
+			if( valid_length($_POST['nazwa'], 32) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu nazwa.<br/>';
+			}
+			if($walidacja and $st=$DB->prepare('INSERT INTO Tag VALUES(NULL,?)')){
 				if($st->execute(array($_POST['nazwa']))){
 					echo 'Tag został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
 					$displayform=False;

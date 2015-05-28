@@ -9,58 +9,77 @@
 	if(user::isLogged()){
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
-			$params=array($_POST['nazwa']);
-			$params[]=$_POST['data_zakupu_rok'];
-			if($_POST['data_zakupu_miesiac']!==""){
-				$params[1].='-'.str_pad($_POST['data_zakupu_miesiac'],2,'0',STR_PAD_LEFT);
-				if($_POST['data_zakupu_dzien']!=="") $params[1].='-'.str_pad($_POST['data_zakupu_dzien'],2,'0',STR_PAD_LEFT);
+			$walidacja = true;
+			if( valid_length($_POST['nazwa'], 512) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu nazwa.<br/>';
 			}
-			$sql='INSERT INTO Sprzet VALUES(NULL,?,?,';
-			if($_POST['data_uruchom_rok']===""){
-				$sql.='NULL,';
+			if( valid_date($_POST['data_zakupu_dzien'].'-'.$_POST['data_zakupu_miesiac'].'-'.$_POST['data_zakupu_rok']) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu data zakupu.<br/>';
 			}
-			else{
-				$sql.='?,';
-				$params[]=$_POST['data_uruchom_rok'];
-				if($_POST['data_uruchom_miesiac']!==""){
-					$params[2].='-'.str_pad($_POST['data_uruchom_miesiac'],2,'0',STR_PAD_LEFT);
-					if($_POST['data_uruchom_dzien']!=="") $params[2].='-'.str_pad($_POST['data_uruchom_dzien'],2,'0',STR_PAD_LEFT);
+			if( valid_date($_POST['data_uruchom_dzien'].'-'.$_POST['data_uruchom_miesiac'].'-'.$_POST['data_uruchom_rok']) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu data uruchomienia.<br/>';
+			}
+			if( valid_length($_POST['opis'], 166666666) ){
+				$walidacja = false;
+				echo 'Błędne dane w polu opis.<br/>';
+			}
+			if( $walidacja ){
+				$params=array($_POST['nazwa']);
+				$params[]=$_POST['data_zakupu_rok'];
+				if($_POST['data_zakupu_miesiac']!==""){
+					$params[1].='-'.str_pad($_POST['data_zakupu_miesiac'],2,'0',STR_PAD_LEFT);
+					if($_POST['data_zakupu_dzien']!=="") $params[1].='-'.str_pad($_POST['data_zakupu_dzien'],2,'0',STR_PAD_LEFT);
 				}
-			}
-			if($_POST['wartosc']===""){
-				$sql.='NULL,?,';
-			}
-			else{
-				$sql.='?,?,';
-				$params[]=$_POST['wartosc'];
-			}
-			$params[]=$_POST['opis'];
-			if($_POST['projekt']===""){
-				$sql.='NULL,';
-			}
-			else{
-				$sql.='?,';
-				$params[]=$_POST['projekt'];
-			}
-			if($_POST['laboratorium']===""){
-				$sql.='NULL)';
-			}
-			else{
-				$sql.='?);';
-				$params[]=$_POST['laboratorium'];
-			}
-			if($st=$DB->prepare($sql)){
-				if($st->execute($params)){
-					echo 'Sprzęt został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
-					$displayform=False;
-					bottom();
+				$sql='INSERT INTO Sprzet VALUES(NULL,?,?,';
+				if($_POST['data_uruchom_rok']===""){
+					$sql.='NULL,';
 				}
 				else{
-					echo 'Nastąpił błąd przy dodawaniu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+					$sql.='?,';
+					$params[]=$_POST['data_uruchom_rok'];
+					if($_POST['data_uruchom_miesiac']!==""){
+						$params[2].='-'.str_pad($_POST['data_uruchom_miesiac'],2,'0',STR_PAD_LEFT);
+						if($_POST['data_uruchom_dzien']!=="") $params[2].='-'.str_pad($_POST['data_uruchom_dzien'],2,'0',STR_PAD_LEFT);
+					}
 				}
-			}
-			else{
-				echo 'Nastąpił błąd przy dodawaniu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+				if($_POST['wartosc']===""){
+					$sql.='NULL,?,';
+				}
+				else{
+					$sql.='?,?,';
+					$params[]=$_POST['wartosc'];
+				}
+				$params[]=$_POST['opis'];
+				if($_POST['projekt']===""){
+					$sql.='NULL,';
+				}
+				else{
+					$sql.='?,';
+					$params[]=$_POST['projekt'];
+				}
+				if($_POST['laboratorium']===""){
+					$sql.='NULL)';
+				}
+				else{
+					$sql.='?);';
+					$params[]=$_POST['laboratorium'];
+				}
+				if($st=$DB->prepare($sql)){
+					if($st->execute($params)){
+						echo 'Sprzęt został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+						$displayform=False;
+						bottom();
+					}
+					else{
+						echo 'Nastąpił błąd przy dodawaniu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+					}
+				}
+				else{
+					echo 'Nastąpił błąd przy dodawaniu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+				}
 			}
 		}
 		if($displayform){
