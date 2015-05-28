@@ -11,15 +11,15 @@
 		if(isset($_POST['submitted'])){
 			$DB=dbconnect();
 			$walidacja = true;
-			if( valid_length($_POST['imie'], 16) ){
+			if( valid_length($_POST['imie'], 16) == false ){
 				$walidacja = false;
 				echo 'Błędne dane w polu imię.<br/>';
 			}
-			if( valid_length($_POST['nazwisko'], 32) ){
+			if( valid_length($_POST['nazwisko'], 32) == false ){
 				$walidacja = false;
 				echo 'Błędne dane w polu nazwisko.<br/>';
 			}
-			if( valid_email($_POST['email'], 254) ){
+			if( valid_email($_POST['email'], 254) == false ){
 				$walidacja = false;
 				echo 'Błędne dane w polu email.<br/>';
 			}

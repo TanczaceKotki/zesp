@@ -3,6 +3,7 @@
 	require 'user.class.php';
 	require 'common.php';
 	require 'DB.php';
+	require 'walidacja_danych_php/walidacja.php';
 	top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
 	$DB=dbconnect();
 	$displayform=True;
@@ -10,19 +11,19 @@
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			$walidacja = true;
-			if( valid_length($_POST['nazwa'], 512) ){
+			if( valid_length($_POST['nazwa'], 512) == false ){
 				$walidacja = false;
 				echo 'Błędne dane w polu nazwa.<br/>';
 			}
-			if( valid_date($_POST['data_zakupu_dzien'].'-'.$_POST['data_zakupu_miesiac'].'-'.$_POST['data_zakupu_rok']) ){
+			if( valid_date($_POST['data_zakupu_dzien'].'-'.$_POST['data_zakupu_miesiac'].'-'.$_POST['data_zakupu_rok']) == false ){
 				$walidacja = false;
 				echo 'Błędne dane w polu data zakupu.<br/>';
 			}
-			if( valid_date($_POST['data_uruchom_dzien'].'-'.$_POST['data_uruchom_miesiac'].'-'.$_POST['data_uruchom_rok']) ){
+			if( valid_date($_POST['data_uruchom_dzien'].'-'.$_POST['data_uruchom_miesiac'].'-'.$_POST['data_uruchom_rok']) == false ){
 				$walidacja = false;
 				echo 'Błędne dane w polu data uruchomienia.<br/>';
 			}
-			if( valid_length($_POST['opis'], 166666666) ){
+			if( valid_length($_POST['opis'], 166666666) == false ){
 				$walidacja = false;
 				echo 'Błędne dane w polu opis.<br/>';
 			}

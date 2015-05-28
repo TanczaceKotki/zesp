@@ -3,6 +3,7 @@
 	require 'user.class.php';
 	require 'common.php';
 	require 'DB.php';
+	require 'walidacja_danych_php/walidacja.php';
 	top();
 	$displayform=True;
 	if(user::isLogged()){
@@ -10,7 +11,7 @@
 		if(isset($_POST['submitted'])){
 			$DB=dbconnect();
 			$walidacja = true;
-			if( valid_length($_POST['nazwa'], 128) ){
+			if( valid_length($_POST['nazwa'], 128) == false ){
 				$walidacja = false;
 				echo 'Błędne dane w polu nazwa.<br/>';
 			}
