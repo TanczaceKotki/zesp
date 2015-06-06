@@ -8,5 +8,5 @@
 
 	session_destroy();
 	$_SESSION = array ();
-	echo 'Zostałeś wylogowany! <a href="login.php">Zaloguj się</a> ponownie.';
+	echo 'Zostałeś wylogowany! <a href="login.php"><br>Zaloguj się</a> ponownie.';
 ?>
