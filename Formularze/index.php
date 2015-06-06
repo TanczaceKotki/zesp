@@ -64,7 +64,21 @@
 			else echo 'Nastąpił błąd przy usuwaniu zdjęcia: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
 ?>
-<a href="wyloguj.php">Wyloguj</a><br /><br />
+<a href="wyloguj.php">Wyloguj</a><br />
+
+<?php
+	$login = $_SESSION["login"];
+	if($st=$DB->prepare('SELECT lvl FROM Uzytkownicy WHERE login=?'))
+				if($st->execute(array($_SESSION["login"])))
+					if($row=$st->fetch(PDO::FETCH_ASSOC)){
+						if($row['lvl'] == 0) {
+							
+							?>
+							<a href="panel.php">Panel administracyjny</a><br /><br />
+						<?php }
+						else echo "<br />";
+					}
+?>
 <a href="add_sprzet.php">Dodaj sprzęt</a><br />
 <a href="add_osoba.php">Dodaj osoba</a><br />
 <a href="add_tag.php">Dodaj tag</a><br />
