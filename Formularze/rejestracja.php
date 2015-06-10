@@ -59,7 +59,8 @@ if ($_POST['send'] == 1) {
  
  <label for="lvl">Prawa dostępu:</label>
  <input type="radio" name="lvl" value="0"/>Administrator
- <input type="radio" name="lvl" value="1" checked="checked" />Moderator<br><br>
+ <input type="radio" name="lvl" value="1" checked="checked" />Moderator
+ <input type="radio" name="lvl" value="2" />Osoba kontaktowa<br><br>
 
 
  <input type="hidden" name="send" value="1" />
