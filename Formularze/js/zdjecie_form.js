@@ -1,47 +1,58 @@
-function process_image(){
+function process_images(){
 	check_wait=true;
-	var input=$('#plik')[0];
+	var input=$('#pliki')[0];
+	$('#img_msg_view').empty();
     if(input.files && input.files[0]){
-		$('#podglad').css('display','none');
-		$('#img_msg').html('');
-        var reader = new FileReader();
-        reader.onload = function (e) {
-			$('#podglad').attr('src',e.target.result);
-			var image = new Image();
-			image.src = e.target.result;
-			image.onload = function(){
-				if(this.width<800 || this.height<600){
-					$('#img_msg').html('Zdjęcie jest za małe. Minimalna rozdzielczość: 800x600.');
-					image_ok=false;
-					check_wait=false;
-				}
-				else{
-					if(this.width>this.height){
-						var width=200;
-						var height=parseInt(this.height*(200/this.width),10);
-					}
-					else if(this.width<this.height){
-						var width=parseInt(this.width*(200/this.height),10);
-						var height=200;
-					}
-					else{
-						var width=200;
-						var height=200;
-					}
-					$('#podglad').attr('width',width);
-					$('#podglad').attr('height',height);
-					$('#img_msg').html('Podgląd:');
-					$('#podglad').css('display','inline');
-					image_ok=true;
-					check_wait=false;
-				}
-			};
-        }
-        reader.readAsDataURL(input.files[0]);
+		image_ok=true;
+		for(var i=0;i<input.files.length;++i){
+			var reader = new FileReader();
+			reader.onload = (function(file,num) {
+				return function(e) {
+					process_image(e,file,num);
+				};
+			})(input.files[i],i);
+			reader.readAsDataURL(input.files[i]);
+		}
     }
-	else{
+	check_wait=false;
+}
+
+function process_image(e,file,num){
+	var msg = $('<div id="img_msg_'+num+'">');
+	var img = $('<img src="'+e.target.result+'" id="podglad'+num+'" onerror="img_error('+num+',\''+file.name+'\')" style="display:none" alt="">');
+	msg.appendTo('#img_msg_view');
+	img.appendTo('#img_msg_view');
+	var image = new Image();
+	image.src = e.target.result;
+	image.onload = (function(file1,num1,image_obj) {
+		return function() {
+			image_inner_processing(file1,num1,image_obj);
+		};
+	})(file,num,image);
+}
+
+function image_inner_processing(file1,num1,image){
+	if(image.width<800 || image.height<600){
+		$('#img_msg_'+num1).html('Zdjęcie w pliku '+file1.name+' jest za małe. Minimalna rozdzielczość: 800x600.');
 		image_ok=false;
-		check_wait=false;
+	}
+	else{
+		if(image.width>image.height){
+			var width=200;
+			var height=parseInt(image.height*(200/image.width),10);
+		}
+		else if(image.width<image.height){
+			var width=parseInt(image.width*(200/image.height),10);
+			var height=200;
+		}
+		else{
+			var width=200;
+			var height=200;
+		}
+		$('#podglad'+num1).attr('width',width);
+		$('#podglad'+num1).attr('height',height);
+		$('#img_msg_'+num1).html('Podgląd zdjęcia '+file1.name+':');
+		$('#podglad'+num1).css('display','inline');
 	}
 }
 
@@ -49,15 +60,14 @@ function image_check(){
 	return image_ok && !check_wait;
 }
 
-function img_error(){
-	if($('#podglad').attr('src')!='#') $('#img_msg').html('Plik nie jest zdjęciem.');
+function img_error(i,filename){
+	$('#img_msg_'+i).html('Plik '+filename+' nie jest zdjęciem.');
 	image_ok=false;
-	check_wait=false;
 }
 
 $(document).ready(function(){
 	webshims.polyfill('forms');
 	var image_ok=false;
 	var check_wait=false;
-	process_image();
+	process_images();
 });

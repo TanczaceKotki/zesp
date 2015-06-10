@@ -71,8 +71,8 @@
 		}
 	}
 	else {
-		echo '<br>Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		echo '<br />Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 		bottom();
 	}
 ?>
