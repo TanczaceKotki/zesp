@@ -12,6 +12,15 @@
 				if($st->execute(array($_POST['id']))){
 					$row=$st->fetch(PDO::FETCH_ASSOC);
 ?>
+
+<?php
+	$login = $_SESSION["login"];
+	if($st=$DB->prepare('SELECT lvl FROM Uzytkownicy WHERE login=?'))
+		if($st->execute(array($_SESSION["login"])))
+			if($row=$st->fetch(PDO::FETCH_ASSOC)){
+				if($row['lvl'] == 0) {
+				
+				?>
 <form action="view_user.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_login" value="<?php echo $row['login']; ?>" />
@@ -35,7 +44,8 @@
 	<div>
 		<label for="lvl">Poziom uprawnień<span class="color_red">*</span>: </label>
 		<input type="radio" name="lvl" value="0"/>Administrator
-		<input type="radio" name="lvl" value="1" />Moderator<br><br>
+		<input type="radio" name="lvl" value="1" />Moderator
+		<input type="radio" name="lvl" value="2" />Osoba kontaktowa<br><br>
 		<span id="lvl_counter"></span>
 		<div id="lvl_error"></div>
 	</div>
@@ -67,4 +77,11 @@
 		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 		bottom();
 	}
+
+}
+				else {
+					echo 'Dostęp do panelu administracyjnego dozwolony jest tylko z uprawnieniami administratora.<br /><br />';
+					echo '<a href="index.php">Powrót do strony głównej</a><br><br><br>';
+				}
+			}
 ?>
