@@ -54,21 +54,22 @@
 		$mail->Body    = $tresc;
 
 		if(!$mail->send()) {
-		    echo 'Wiadomosc nie moze zostac wyslana.'.PHP_EOL;
+		    echo 'Wiadomosc nie moze zostac wyslana do użytkownika.'.PHP_EOL;
 		    echo 'Blad wyslania wiadomosci: ' . $mail->ErrorInfo.PHP_EOL;
 		} else {
-		    echo 'Wiadomosc zostala wyslana.'.PHP_EOL;
+		    echo 'Konto użytkownika zostało utworzone, wiadomość email z wygenerownym hasłem została wysłana do użytkownika.'.PHP_EOL;
 		}
 	}
 
-	function wyslij_wiadomosc_z_haslem( $adres_email ){
-		$haslo = generuj_haslo();
+	function wyslij_wiadomosc_z_haslem( $adres_email, $haslo ){
 		$autor = "jakub.braz@student.uj.edu.pl";
 		$temat = "Automatyczne generowanie kont dla uzytkownikow.";
 		$tresc = "System automatycznie wygenerowal konto uzytkownika.\r\nlogin: ".$adres_email."\r\nhaslo: ".$haslo."\r\n";
 		wyslij_wiadomosc( $autor, $adres_email, $temat, $tresc );
 	}
 
-	$to = 'jakubbr@gmail.com';
-	wyslij_wiadomosc_z_haslem( $to );
+	// $haslo = generuj_haslo();
+	// echo "HASLO: ".$haslo;
+	// $to = 'jakub.braz@student.uj.edu.pl';
+	// wyslij_wiadomosc_z_haslem( $to, $haslo );
 ?>

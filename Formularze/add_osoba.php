@@ -4,6 +4,8 @@
 	require 'common.php';
 	require 'DB.php';
 	require 'walidacja_danych_php/walidacja.php';
+	require 'send_email.php';
+
 	top();
 	$displayform=True;
 	if(user::isLogged()){
@@ -30,12 +32,30 @@
 					bottom();
 				}
 				else{
-					echo 'Nastąpił błąd przy dodawaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+					echo 'Nastąpił błąd1 przy dodawaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
 				}
 			}
 			else{
-				echo 'Nastąpił błąd przy dodawaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+				echo 'Nastąpił błąd2 przy dodawaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 			}
+
+			$pass = generuj_haslo();
+			$pass = password_hash($pass, PASSWORD_DEFAULT);
+			$login = $_POST['email'];
+			$lvl = 2;
+			if($st=$DB->prepare('INSERT INTO Uzytkownicy VALUES(NULL,?,?,?)')){
+				if($st->execute(array($login,$pass,$lvl))){
+					$displayform=False;
+					bottom();
+				}
+				else{
+					echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
+			}
+			else{
+				echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+			}
+
 		}
 		if($displayform){
 ?>
