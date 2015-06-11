@@ -2,6 +2,7 @@ function process_images(){
 	check_wait=true;
 	var input=$('#pliki')[0];
 	$('#img_msg_view').empty();
+	$('#pliki')[0].setCustomValidity('');
     if(input.files && input.files[0]){
 		image_ok=true;
 		for(var i=0;i<input.files.length;++i){
@@ -34,6 +35,7 @@ function process_image(e,file,num){
 function image_inner_processing(file1,num1,image){
 	if(image.width<800 || image.height<600){
 		$('#img_msg_'+num1).html('Zdjęcie w pliku '+file1.name+' jest za małe. Minimalna rozdzielczość: 800x600.');
+		$('#pliki')[0].setCustomValidity('Niektóre pliki są niepoprawne.');
 		image_ok=false;
 	}
 	else{
@@ -62,6 +64,7 @@ function image_check(){
 
 function img_error(i,filename){
 	$('#img_msg_'+i).html('Plik '+filename+' nie jest zdjęciem.');
+	$('#pliki')[0].setCustomValidity('Niektóre pliki są niepoprawne.');
 	image_ok=false;
 }
 

@@ -9,22 +9,29 @@
 	if(user::isLogged()){
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
-			$link='z_'.$_FILES['plik']['name'];
-			move_uploaded_file($_FILES['plik']['tmp_name'],'uploads/'.$link);
+			$no_error=True;
 			if($st=$DB->prepare('INSERT INTO Zdjecie VALUES(NULL,?,?)')){
-				if($st->execute(array($_POST['sprzet'],$link))){
-					echo 'Zdjęcie zostało pomyślnie wstawione.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
-					$displayform=False;
-					bottom();
-				}
-				else{
-					echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				for($i=0;$i<count($_FILES['pliki']['name']);++$i){
+					$link='z2_'.$_FILES['pliki']['name'][$i];
+					move_uploaded_file($_FILES['pliki']['tmp_name'][$i],'uploads/'.$link);
+					if($st->execute(array($_POST['sprzet'],$link))){
+						echo 'Wstawiono zdjęcie '.$_FILES['pliki']['name'][$i].'<br /><br />';
+					}
+					else{
+						echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$st->errorInfo()).'<br /><br />';
+						$no_error=False;
+					}
 				}
 			}
 			else{
 				echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+				$no_error=False;
 			}
-			bottom();
+			if($no_error){
+				echo 'Wszystkie zdjęcia zostały pomyślnie wstawione.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+				$displayform=False;
+				bottom();
+			}
 		}
 		if($displayform){
 ?>
@@ -56,11 +63,10 @@
 		</select>
 	</div>
 	<div>
-		<label for="plik">Plik<span class="color_red">*</span>: </label>
-		<input type="file" name="plik" id="plik" onchange="process_image()" required="required" />
+		<label for="pliki">Pliki<span class="color_red">*</span>: </label>
+		<input type="file" name="pliki[]" id="pliki" onchange="process_images()" multiple="multiple" required="required" />
 	</div>
-	<div id="img_msg"></div>
-	<img src="#" id="podglad" onerror="img_error()" style="display:none" alt="" />
+	<div id="img_msg_view"></div>
 	<div>
 		<input type="submit" name="submitted" value="Prześlij" />
 	</div>
@@ -71,7 +77,7 @@
 		}
 	}
 	else {
-		echo '<br />Nie jesteś zalogowany.<br />
+		echo '<br>Nie jesteś zalogowany.<br />
 		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 		bottom();
 	}

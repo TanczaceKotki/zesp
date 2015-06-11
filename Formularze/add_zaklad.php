@@ -13,7 +13,7 @@
 			$walidacja = true;
 			if( valid_length($_POST['nazwa'], 64) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu nazwa.<br/>';
+				echo 'Błędne dane w polu nazwa.<br />';
 			}
 			if($walidacja and $st=$DB->prepare('INSERT INTO Zaklad VALUES(NULL,?)')){
 				if($st->execute(array($_POST['nazwa']))){
@@ -47,8 +47,8 @@
 		}
 	}
 	else {
-		echo '<br>Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		echo '<br />Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 		bottom();
 	}
 ?>

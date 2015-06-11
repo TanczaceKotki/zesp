@@ -15,15 +15,15 @@
 			$walidacja = true;
 			if( valid_length($_POST['imie'], 16) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu imię.<br/>';
+				echo 'Błędne dane w polu imię.<br />';
 			}
 			if( valid_length($_POST['nazwisko'], 32) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu nazwisko.<br/>';
+				echo 'Błędne dane w polu nazwisko.<br />';
 			}
 			if( valid_email($_POST['email'], 254) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu email.<br/>';
+				echo 'Błędne dane w polu email.<br />';
 			}
 			if($walidacja and $st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
 				if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['email']))){
@@ -87,8 +87,8 @@
 		}
 	}
 	else {
-		echo '<br>Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		echo '<br />Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 		bottom();
 	}
 ?>

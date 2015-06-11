@@ -13,23 +13,23 @@
 			$walidacja = true;
 			if( valid_length($_POST['nazwa'], 512) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu nazwa.<br/>';
+				echo 'Błędne dane w polu nazwa.<br />';
 			}
 			if( valid_date($_POST['data_rozp_dzien'].'-'.$_POST['data_rozp_miesiac'].'-'.$_POST['data_rozp_rok']) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu data rozpoczęcia.<br/>';
+				echo 'Błędne dane w polu data rozpoczęcia.<br />';
 			}
 			if( valid_date($_POST['data_zakoncz_dzien'].'-'.$_POST['data_zakoncz_miesiac'].'-'.$_POST['data_zakoncz_rok']) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu data zakonczenia.<br/>';
+				echo 'Błędne dane w polu data zakonczenia.<br />';
 			}
 			if( valid_length($_POST['opis'], 166666666) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu opis.<br/>';
+				echo 'Błędne dane w polu opis.<br />';
 			}
 			if( valid_length($_POST['logo'], 128) == false ){
 				$walidacja = false;
-				echo 'Błędne dane w polu logo.<br/>';
+				echo 'Błędne dane w polu logo.<br />';
 			}
 			if( $walidacja ){
 				$params=array($_POST['nazwa']);
@@ -201,8 +201,8 @@
 		}
 	}
 	else {
-		echo '<br>Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		echo '<br />Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 		bottom();
 	}
 ?>
