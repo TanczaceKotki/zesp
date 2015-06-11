@@ -56,9 +56,10 @@
 		if(!$mail->send()) {
 		    echo 'Wiadomosc nie moze zostac wyslana do użytkownika.'.PHP_EOL;
 		    echo 'Blad wyslania wiadomosci: ' . $mail->ErrorInfo.PHP_EOL;
-		} else {
-		    echo 'Konto użytkownika zostało utworzone, wiadomość email z wygenerownym hasłem została wysłana do użytkownika.'.PHP_EOL;
 		}
+		// else {
+		//     echo 'Konto użytkownika zostało utworzone, wiadomość email z wygenerownym hasłem została wysłana do użytkownika.'.PHP_EOL;
+		// }
 	}
 
 	function wyslij_wiadomosc_z_haslem( $adres_email, $haslo ){

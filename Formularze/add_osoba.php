@@ -27,7 +27,7 @@
 			}
 			if($walidacja and $st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
 				if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['email']))){
-					echo 'Osoba została pomyślnie wstawiona.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+					echo 'Osoba została pomyślnie wstawiona. Login i hasło zostały wysłane do niej poprzez pocztę elektroniczną.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
 					$displayform=False;
 					bottom();
 				}
@@ -40,11 +40,12 @@
 			}
 
 			$pass = generuj_haslo();
-			$pass = password_hash($pass, PASSWORD_DEFAULT);
+			$pass_hash = password_hash($pass, PASSWORD_DEFAULT);
 			$login = $_POST['email'];
 			$lvl = 2;
 			if($st=$DB->prepare('INSERT INTO Uzytkownicy VALUES(NULL,?,?,?)')){
-				if($st->execute(array($login,$pass,$lvl))){
+				if($st->execute(array($login,$pass_hash,$lvl))){
+					wyslij_wiadomosc_z_haslem( $login, $pass );
 					$displayform=False;
 					bottom();
 				}
