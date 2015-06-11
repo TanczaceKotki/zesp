@@ -10,7 +10,7 @@ if ($_POST['send'] == 1) {
     $login = $_POST['login'];
     $pass = $_POST['pass'];
     $pass_v = $_POST['pass_v'];
-	$lvl = $_POST['lvl'];
+	$lvl = $_POST['lvl']; // Jak rozumiem ta zmienna ta poziom uprawnien uzytkownikow. Jaki poziom ma admin, jaki zwykly uzytkownicy? - Kuba
 
     $errors = ''; // Zmienna przechowująca listę błędów które wystąpiły
 
