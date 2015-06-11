@@ -10,12 +10,12 @@ Kategoria:<br>
 <form  method="post" action="search.php?go"  id="searchform">
 
 <select name="category">
-<option value="Sprzęt">Sprzęt</option>
+<option value="Sprzet">Sprzęt</option>
 <option value="Osoba">Osoba</option>
 <option value="Laboratorium">Laboratorium</option>
 <option value="Tag">Tag</option>
 <option value="Zespol">Zespół</option>
-<option value="Zakład">Zakład</option>
+<option value="Zaklad">Zakład</option>
 <option value="Projekt">Projekt</option>
 </select>
 <br>
