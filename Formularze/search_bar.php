@@ -141,13 +141,13 @@ switch($_POST['category'])
 				break;
 				
 	case "Projekt":
-				$st=$DB->prepare("SELECT id, nazwa, opis FROM Projekt WHERE nazwa LIKE '%" . $keyword . "%' OR opis LIKE '%" . $keyword . "%'"); 
+				$st=$DB->prepare("SELECT id, nazwa, SUBSTR(opis, 1, 120) AS opis FROM Projekt WHERE nazwa LIKE '%" . $keyword . "%' OR opis LIKE '%" . $keyword . "%'"); 
 				$st->execute();
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
-					$opis = mysql_query("SELECT LEFT(opis, 40) FROM Sprzet WHERE id = '$ID'");
+					$opis = $row['opis'];
 					
 					echo "<tr>";	
 					echo "<td><a  href=\"view_projekt.php?id=$ID\">" .$ID. "</a></td><td><a  href=\"view_projekt.php?id=$ID\">"  .$nazwa . "</a></td><td> " . $opis .  "</td>";
