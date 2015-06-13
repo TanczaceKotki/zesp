@@ -4,6 +4,7 @@
 		<title>Wyszukiwarka</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<style>table,tr,td{border:1px solid #000}</style>
+				<style type="text/css"> .highlight { background-color: yellow; } </style>
 	</head>
 <body>
 
@@ -42,12 +43,13 @@ $DB=dbconnect();
 if(isset($_POST['submit'])){
 	if(isset($_POST['category'])){
 		if(isset($_POST['keyword'])){
+			if(preg_match("/^[ \w\s\d@]*$/", $_POST['keyword'])){
 			
 			
 $category = $_POST['category'];
 $keyword = $_POST['keyword'];
 	
-echo"<table>";
+echo"<table cellpadding=\"10\">";
 
 switch($_POST['category'])		
 {
@@ -63,13 +65,16 @@ switch($_POST['category'])
 					$email = $row['email'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  .$ID. "</a></td><td><a  href=\"view_osoba.php?id=$ID\">"  .$imie . " </a></td><td><a  href=\"view_osoba.php?id=$ID\"> " . $nazwisko . "</a></td><td><a  href=\"view_osoba.php?id=$ID\"> " . $email . "</a></td>";
+					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  .$ID. "</a></td>";
+					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  .$imie . " </a></td>";
+					echo "<td><a  href=\"view_osoba.php?id=$ID\"> " . $nazwisko . "</a></td>";
+					echo "<td><a  href=\"view_osoba.php?id=$ID\"> " . $email . "</a></td>";
 					echo "</tr>";
 				}
 				break;
 	
 	case "Sprzet":
-				$st=$DB->prepare("SELECT id, nazwa, SUBSTR(opis, 1, 120) AS opis FROM Sprzet WHERE nazwa LIKE '%" . $keyword . "%' OR opis LIKE '%" . $keyword . "%'"); 
+				$st=$DB->prepare("SELECT id, nazwa, SUBSTR(opis, 1, 160) AS opis FROM Sprzet WHERE nazwa LIKE '%" . $keyword . "%' OR opis LIKE '%" . $keyword . "%'"); 
 				$st->execute();
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
@@ -78,7 +83,10 @@ switch($_POST['category'])
 					$opis = $row['opis'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_sprzet.php?id=$ID\">" .$ID. "</a></td><td><a  href=\"view_sprzet.php?id=$ID\">"  .$nazwa . " </a></td><td> " . $opis .  "</td>";
+					echo "<td><a  href=\"view_sprzet.php?id=$ID\">" .$ID. "</a></td>";
+					//echo "<td><a  href=\"view_sprzet.php?id=$ID\">"  .$nazwa . " </a></td>";
+					echo "<td><a  href=\"view_sprzet.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<td>" . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['opis']) . "</td>";
 					echo "</tr>";
 				}
 				break;
@@ -93,7 +101,9 @@ switch($_POST['category'])
 					$zespol = $row['zespol'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_lab.php?id=$ID\">" .$ID. "</a></td><td><a  href=\"view_lab.php?id=$ID\">"  .$nazwa . " </a></td><td> " . $zespol . " </td>";
+					echo "<td><a  href=\"view_lab.php?id=$ID\">" .$ID. "</a></td>";
+					echo "<td><a  href=\"view_lab.php?id=$ID\">"  .$nazwa . " </a></td>";
+					echo "<td>" . $zespol . " </td>";
 					echo "</tr>";
 				}
 				break;
@@ -107,7 +117,8 @@ switch($_POST['category'])
 					$nazwa = $row['nazwa'];
 					
 					echo "<tr>";	
-					echo "<td>" . "<a  href=\"view_tag.php?id=$ID\">" .$ID. "</a></td><td>"  .$nazwa . " </td>";
+					echo "<td><a  href=\"view_tag.php?id=$ID\">" .$ID. "</a></td>";
+					echo "<td><a  href=\"view_tag.php?id=$ID\">"  .$nazwa . "</a></td>";
 					echo "</tr>";
 				}
 				break;
@@ -121,7 +132,8 @@ switch($_POST['category'])
 					$nazwa = $row['nazwa'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_zespol.php?id=$ID\">" .$ID. "</a></td><td><a  href=\"view_zespol.php?id=$ID\">"  .$nazwa . "</a></td>";
+					echo "<td><a  href=\"view_zespol.php?id=$ID\">" .$ID. "</a></td>";
+					echo "<td><a  href=\"view_zespol.php?id=$ID\">"  .$nazwa . "</a></td>";
 					echo "</tr>";
 				}	
 				break;
@@ -135,7 +147,8 @@ switch($_POST['category'])
 					$nazwa = $row['nazwa'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_zaklad.php?id=$ID\">" .$ID. "</a></td><td><a  href=\"view_zaklad.php?id=$ID\">"  .$nazwa . "</a></td>";
+					echo "<td><a  href=\"view_zaklad.php?id=$ID\">" .$ID. "</a></td>";
+					echo "<td><a  href=\"view_zaklad.php?id=$ID\">"  .$nazwa . "</a></td>";
 					echo "</tr>";
 				}
 				break;
@@ -147,10 +160,11 @@ switch($_POST['category'])
 				{
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
-					$opis = $row['opis'];
-					
+					$opis = $row['opis'];					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_projekt.php?id=$ID\">" .$ID. "</a></td><td><a  href=\"view_projekt.php?id=$ID\">"  .$nazwa . "</a></td><td> " . $opis .  "</td>";
+					echo "<td><a  href=\"view_projekt.php?id=$ID\">" .$ID. "</a></td>";
+					echo "<td><a  href=\"view_projekt.php?id=$ID\">"  .$nazwa . "</a></td>";
+					echo "<td> " . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['opis']) . "</td>";
 					echo "</tr>";
 				}
 				break;
@@ -160,7 +174,8 @@ switch($_POST['category'])
 
 echo "</table>";
 
-}else{echo "Niepoprawne zapytanie";}
+}else{echo "Niepoprawne znaki w zapytaniu.<br>Dozwolone znaki a-z, A-Z, 0-9, '@'.";}
+}else{echo "Niepoprawne zapytanie.<br>Spróbuj jeszcze raz.";}
 }else{echo "Niepoprawna kategoria";}
 }
 
