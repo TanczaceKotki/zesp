@@ -66,9 +66,9 @@ switch($_POST['category'])
 					
 					echo "<tr>";	
 					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  .$ID. "</a></td>";
-					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  .$imie . " </a></td>";
-					echo "<td><a  href=\"view_osoba.php?id=$ID\"> " . $nazwisko . "</a></td>";
-					echo "<td><a  href=\"view_osoba.php?id=$ID\"> " . $email . "</a></td>";
+					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['imie']) . " </a></td>";
+					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwisko']) . " </a></td>";
+					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['email']) . " </a></td>";
 					echo "</tr>";
 				}
 				break;
@@ -84,7 +84,6 @@ switch($_POST['category'])
 					
 					echo "<tr>";	
 					echo "<td><a  href=\"view_sprzet.php?id=$ID\">" .$ID. "</a></td>";
-					//echo "<td><a  href=\"view_sprzet.php?id=$ID\">"  .$nazwa . " </a></td>";
 					echo "<td><a  href=\"view_sprzet.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "<td>" . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['opis']) . "</td>";
 					echo "</tr>";
@@ -102,7 +101,7 @@ switch($_POST['category'])
 					
 					echo "<tr>";	
 					echo "<td><a  href=\"view_lab.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_lab.php?id=$ID\">"  .$nazwa . " </a></td>";
+					echo "<td><a  href=\"view_lab.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "<td>" . $zespol . " </td>";
 					echo "</tr>";
 				}
@@ -118,7 +117,7 @@ switch($_POST['category'])
 					
 					echo "<tr>";	
 					echo "<td><a  href=\"view_tag.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_tag.php?id=$ID\">"  .$nazwa . "</a></td>";
+					echo "<td><a  href=\"view_tag.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "</tr>";
 				}
 				break;
@@ -133,7 +132,7 @@ switch($_POST['category'])
 					
 					echo "<tr>";	
 					echo "<td><a  href=\"view_zespol.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_zespol.php?id=$ID\">"  .$nazwa . "</a></td>";
+					echo "<td><a  href=\"view_zespol.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "</tr>";
 				}	
 				break;
@@ -148,7 +147,7 @@ switch($_POST['category'])
 					
 					echo "<tr>";	
 					echo "<td><a  href=\"view_zaklad.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_zaklad.php?id=$ID\">"  .$nazwa . "</a></td>";
+					echo "<td><a  href=\"view_zaklad.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "</tr>";
 				}
 				break;
@@ -163,7 +162,7 @@ switch($_POST['category'])
 					$opis = $row['opis'];					
 					echo "<tr>";	
 					echo "<td><a  href=\"view_projekt.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_projekt.php?id=$ID\">"  .$nazwa . "</a></td>";
+					echo "<td><a  href=\"view_projekt.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "<td> " . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['opis']) . "</td>";
 					echo "</tr>";
 				}
