@@ -1,5 +1,5 @@
-function init_counters(){
-$('[maxlength]').each(function(){
+$(document).ready(function(){
+	$('[maxlength]').each(function(){
 		var remaining=$(this).attr('maxlength')-$(this).val().length;
 		if(remaining>4 || remaining===0){
 			$('#'+$(this).attr('id')+'_counter').html('Zostało '+remaining+' znaków.');
@@ -23,4 +23,4 @@ $('[maxlength]').each(function(){
 			}
 		});
 	});
-}
+});

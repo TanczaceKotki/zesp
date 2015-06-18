@@ -1,70 +1,95 @@
 <?php
-
-require 'common.php';
-require 'DB.php';
-require_once 'user.class.php';
-top();
-
-if ($_POST['send'] == 1) {
-    // Zabezpiecz dane z formularza przed kodem HTML i ewentualnymi atakami SQL Injection
-    $login = $_POST['login'];
-    $pass = $_POST['pass'];
-    $pass_v = $_POST['pass_v'];
-	$lvl = $_POST['lvl']; // Jak rozumiem ta zmienna ta poziom uprawnien uzytkownikow. Jaki poziom ma admin, jaki zwykly uzytkownicy? - Kuba
-
-    $errors = ''; // Zmienna przechowująca listę błędów które wystąpiły
-
-
-    // Sprawdź, czy nie wystąpiły błędy
-    if (!$login  || !$pass || !$pass_v  ) $errors .= '- Musisz wypełnić wszystkie pola<br /><br />';
-    if ($existsLogin[0] >= 1) $errors .= '- Ten login jest zajęty<br /><br />';
-    if ($pass != $pass_v)  $errors .= '- Hasła się nie zgadzają<br /><br />';
-
-    /**
-     * Jeśli wystąpiły jakieś błędy, to je pokaż
-     */
-    if ($errors != '') {
-        echo 'Rejestracja nie powiodła się, popraw następujące błędy:<br />'.$errors.'';
-    }
-
-    else {
-
-        $pass = password_hash($pass, PASSWORD_DEFAULT);
-		
-		$DB=dbconnect();
-		if($st=$DB->prepare("INSERT INTO Uzytkownicy VALUES(NULL,?,?,?)")){
-			if($st->execute(array($login,$pass,$lvl))){
-				echo 'Użytkownik został pomyślnie wstawiony.<br /><br />';
-			}
+	session_start();
+	require 'user.class.php';
+	require 'common.php';
+	require 'DB.php';
+	top();
+	if(user::isLogged()){
+		$displayform=True;
+		if(isset($_POST['send'])){
+			// Zabezpiecz dane z formularza przed kodem HTML i ewentualnymi atakami SQL Injection
+			if(!isset($_POST['login']) || !isset($_POST['pass']) || !isset($_POST['pass_v'])) echo 'Musisz wypełnić wszystkie pola<br /><br />';
 			else{
-				echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				$login = $_POST['login'];
+				$pass = $_POST['pass'];
+				$pass_v = $_POST['pass_v'];
+				$lvl = $_POST['lvl']; // Jak rozumiem ta zmienna ta poziom uprawnien uzytkownikow. Jaki poziom ma admin, jaki zwykly uzytkownicy? - Kuba // Poziom uprawnień uzytkownika. 0 - administrator, 1 - moderator, 2 - konto osoby kontaktowej - Mateusz
+				$errors = ''; // Zmienna przechowująca listę błędów które wystąpiły
+				// Sprawdź, czy nie wystąpiły błędy
+				if(!$login || !$pass || !$pass_v) $errors .= '- Musisz wypełnić wszystkie pola<br /><br />';
+				$DB=dbconnect();
+				if($st=$DB->prepare('SELECT login FROM Uzytkownicy WHERE login=?')){
+					if($st->execute(array($login))){
+						if($row=$st->fetch(PDO::FETCH_ASSOC)){
+							$errors .= '- Ten login jest zajęty<br /><br />';
+						}
+					}
+				}
+				if ($pass !== $pass_v)  $errors .= '- Hasła się nie zgadzają<br /><br />';
+
+				/**
+				* Jeśli wystąpiły jakieś błędy, to je pokaż
+				*/
+				if ($errors !== ''){
+					echo 'Rejestracja nie powiodła się, popraw następujące błędy:<br />'.$errors.'';
+				}
+				else{
+					$pass = password_hash($pass, PASSWORD_DEFAULT);
+					if($st=$DB->prepare('INSERT INTO Uzytkownicy VALUES(NULL,?,?,?)')){
+						if($st->execute(array($login,$pass,$lvl))){
+							echo 'Użytkownik został pomyślnie wstawiony.<br /><br />';
+							$displayform=false;
+							bottom();
+						}
+						else{
+							echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
+						}
+					}
+					else{
+						echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+					}
+				}
 			}
 		}
-		else{
-			echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		}
-    }
-}
+		if($displayform){
 ?>
-
-<form method="post" action="">
- <label for="login">Login:</label>
- <input type="text" name="login" id="login" /><br />
-
- <label for="pass">Hasło:</label>
- <input type="password" name="pass" id="pass" /><br />
-
- <label for="pass_again">Hasło (ponownie):</label>
- <input type="password" name="pass_v" id="pass_again" /><br>
- 
- <label for="lvl">Prawa dostępu:</label>
- <input type="radio" name="lvl" value="0"/>Administrator
- <input type="radio" name="lvl" value="1" checked="checked" />Moderator
- <input type="radio" name="lvl" value="2" />Osoba kontaktowa<br><br>
-
-
- <input type="hidden" name="send" value="1" />
- <input type="submit" value="Zarejestruj" />
+<form action="rejestracja.php" id="register_form" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+	<label for="login" id="login_label">Login<span class="color_red">*</span>:</label>
+	<input type="text" name="login" id="login" value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>" maxlength="254" required="required" />
+	<span id="login_counter"></span>
+	<br />
+	<label for="pass">Hasło<span class="color_red">*</span>:</label>
+	<input type="password" name="pass" id="pass" value="" maxlength="512" required="required" onchange="compare_pass()" />
+	<span id="pass_counter"></span>
+	<br />
+	<label for="pass_v">Powtórz Hasło<span class="color_red">*</span>:</label>
+	<input type="password" name="pass_v" id="pass_v" value="" maxlength="512" required="required" onchange="compare_pass()" />
+	<span id="pass_v_counter"></span>
+	<br />
+	<fieldset>
+		<legend>Poziom uprawnień<span class="color_red">*</span></legend>
+		<input type="radio" name="lvl" id="admin" value="0" required="required" onchange="level_2()" />
+		<label for="admin">Administrator</label>
+		<br />
+		<input type="radio" name="lvl" id="mod" value="1" required="required" onchange="level_2()" checked="checked" />
+		<label for="mod">Moderator</label>
+		<br />
+		<input type="radio" name="lvl" id="kont" value="2" required="required" onchange="level_2()" />
+		<label for="kont">Osoba kontaktowa</label>
+	</fieldset>
+	<span class="color_red">*</span> - wymagane pola.
+	<br /><br />
+	<input type="submit" name="send" value="Zarejestruj" />
 </form>
-<br>
-<a href="panel.php">Powrót do panelu administracyjnego</a><br><br>
+<br />
+<a href="panel.php">Powrót do panelu administracyjnego</a><br /><br />
+<?php
+			bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/ask_db.js','js/check_email.js','js/remaining_char_counter.js','js/default_form.js','js/register.js'));
+		}
+	}
+	else{
+		echo '<br />Nie jesteś zalogowany.<br />
+		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		bottom();
+	}
+?>

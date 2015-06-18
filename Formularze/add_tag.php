@@ -44,10 +44,10 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/ask_db.js','js/remaining_char_counter.js','js/tag_form.js'));
+			bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/ask_db.js','js/remaining_char_counter.js','js/default_form.js','js/check_tag.js','js/tag_form.js'));
 		}
 	}
-	else {
+	else{
 		echo '<br />Nie jesteś zalogowany.<br />
 		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 		bottom();

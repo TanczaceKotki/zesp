@@ -1,31 +1,15 @@
-function check_tag(){
+function check_tag_2(){
 	ajax_wait=true;
-	var tag=$('#nazwa').val();
-	if(tag!==''){
-		if(tag!==$('[name="old_nazwa"]').val()){
-			ask_db('tag',tag,'Podany tag jest już w bazie danych.','#tag_error','#nazwa');
-		}
-		else{
-			$('#tag_error').html('');
-			form_ajax_ok=true;
-			ajax_wait=false;
-			$('#nazwa').css('box-shadow','');
-			$('#nazwa').css('border','');
-		}
+	if($('#nazwa').val()!==$('#old_nazwa').val()){
+		check_tag();
 	}
 	else{
-		$('#tag_error').html('');
-		form_ajax_ok=false;
+		$('#nazwa')[0].setCustomValidity('');
 		ajax_wait=false;
-		$('#nazwa').css('box-shadow','');
-		$('#nazwa').css('border','');
 	}
 }
 
 $(document).ready(function(){
-	webshims.polyfill('forms');
-	var form_ajax_ok=false;
 	var ajax_wait=false;
-	check_tag();
-	init_counters();
+	check_tag_2();
 });

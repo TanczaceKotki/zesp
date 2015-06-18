@@ -16,7 +16,7 @@
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_imie" value="<?php echo $row['imie']; ?>" />
 	<input type="hidden" name="old_nazwisko" value="<?php echo $row['nazwisko']; ?>" />
-	<input type="hidden" name="old_email" value="<?php echo $row['email']; ?>" />
+	<input type="hidden" name="old_email" id="old_email" value="<?php echo $row['email']; ?>" />
 	<div>
 		<label for="imie">Imię<span class="color_red">*</span>: </label>
 		<input type="text" name="imie" id="imie" value="<?php echo $row['imie']; ?>" size="16" maxlength="16" required="required" />
@@ -29,9 +29,8 @@
 	</div>
 	<div>
 		<label for="email">Adres e-mail<span class="color_red">*</span>: </label>
-		<input type="email" name="email" id="email" value="<?php echo $row['email']; ?>" size="32" maxlength="254" onchange="check_email()" required="required" />
+		<input type="email" name="email" id="email" value="<?php echo $row['email']; ?>" size="32" maxlength="254" onchange="check_email_2()" required="required" />
 		<span id="email_counter"></span>
-		<div id="email_error"></div>
 	</div>
 	<div>
 		<input type="submit" name="submitted" value="Prześlij" />
@@ -39,7 +38,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/ask_db.js','js/remaining_char_counter.js','js/osoba_form_edit.js'));
+					bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/ask_db.js','js/remaining_char_counter.js','js/check_email.js','js/default_form.js','js/osoba_form_edit.js'));
 				}
 				else{
 					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';

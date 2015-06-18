@@ -137,7 +137,6 @@
 	<div>
 		<label for="wartosc">Wartość: </label>
 		<input type="number" name="wartosc" id="wartosc" value="<?php echo $row['wartosc']; ?>" min="0" step="1" max="9223372036854775807" maxlength="19" size="19" onchange="check_if_number(this.value)" />gr
-		<div id="numerror"></div>
 	</div>
 	<div>
 		<label for="opis">Opis<span class="color_red">*</span>: </label>
@@ -199,7 +198,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					bottom(array('js/day_switch.js','https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/remaining_char_counter.js','js/sprzet_form.js'));
+					bottom(array('js/day_switch.js','https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/remaining_char_counter.js','js/default_form.js','js/sprzet_form.js'));
 				}
 				else{
 					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';

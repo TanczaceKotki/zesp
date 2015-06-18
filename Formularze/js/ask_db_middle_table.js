@@ -1,28 +1,21 @@
-function ask_db_middle_table(dest,query1,query2,message,error_id){
-	if(dest==='kontakt'){
-		var addr='ajax_query_kontakt.php';
-	}
-	else if(dest==='tagi_sprzetu'){
-		var addr='ajax_query_tagi_sprzetu.php';
-	}
-	else if(dest==='laborat_w_zaklad'){
-		var addr='ajax_query_laborat_w_zaklad.php';
-	}
-	post_request=$.post(addr,{q1: query1,q2: query2});
+function ask_db_middle_table(dest,input1,input2,message){
+	if(dest==='kontakt') var addr='ajax_query_kontakt.php';
+	else if(dest==='tagi_sprzetu') var addr='ajax_query_tagi_sprzetu.php';
+	else if(dest==='laborat_w_zaklad') var addr='ajax_query_laborat_w_zaklad.php';
+	post_request=$.post(addr,{q1: $(input1).val(),q2: $(input2).val()});
 	post_request.done(function(data){
 		if(data==='0'){
-			$(error_id).html('');
-			form_ajax_ok=true;
-			ajax_wait=false;
+			$(input1)[0].setCustomValidity('');
+			$(input2)[0].setCustomValidity('');
 		}
 		else{
-			$(error_id).html(message);
-			form_ajax_ok=false;
-			ajax_wait=false;
+			$(input1)[0].setCustomValidity(message);
+			$(input2)[0].setCustomValidity(message);
 		}
+		ajax_wait=false;
 	});
 }
 
 function ajax_check(){
-	return form_ajax_ok && !ajax_wait;
+	return !ajax_wait;
 }
