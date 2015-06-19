@@ -37,25 +37,30 @@
 					$pass = password_hash($pass, PASSWORD_DEFAULT);
 					if($st=$DB->prepare('INSERT INTO Uzytkownicy VALUES(NULL,?,?,?)')){
 						if($st->execute(array($login,$pass,$lvl))){
-							echo 'Użytkownik został pomyślnie wstawiony.<br /><br />';
-							$displayform=false;
-							bottom();
+							if($lvl==='2'){
+								if($st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
+									if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$login))){
+										echo 'Użytkownik został pomyślnie wstawiony.<br /><br />';
+										$displayform=false;
+										bottom();
+									}
+									else echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
+								}
+								else echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+							}
+							else echo 'Użytkownik został pomyślnie wstawiony.<br /><br />';
 						}
-						else{
-							echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
-						}
+						else echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
 					}
-					else{
-						echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-					}
+					else echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 				}
 			}
 		}
 		if($displayform){
 ?>
-<form action="rejestracja.php" id="register_form" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+<form action="rejestracja.php" id="register_form" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<label for="login" id="login_label">Login<span class="color_red">*</span>:</label>
-	<input type="text" name="login" id="login" value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>" maxlength="254" required="required" />
+	<input type="text" name="login" id="login" value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>" maxlength="254" required="required" onchange="check_login()" />
 	<span id="login_counter"></span>
 	<br />
 	<label for="pass">Hasło<span class="color_red">*</span>:</label>
@@ -68,14 +73,24 @@
 	<br />
 	<fieldset>
 		<legend>Poziom uprawnień<span class="color_red">*</span></legend>
-		<input type="radio" name="lvl" id="admin" value="0" required="required" onchange="level_2()" />
+		<input type="radio" name="lvl" id="admin" value="0" required="required" onchange="not_level_2()" <?php if(isset($_POST['lvl'])){ if($_POST['lvl']==='0') echo 'checked="checked"'; } ?> />
 		<label for="admin">Administrator</label>
 		<br />
-		<input type="radio" name="lvl" id="mod" value="1" required="required" onchange="level_2()" checked="checked" />
+		<input type="radio" name="lvl" id="mod" value="1" required="required" onchange="not_level_2()" <?php if(isset($_POST['lvl'])){ if($_POST['lvl']==='1') echo 'checked="checked"'; } else echo 'checked="checked"'; ?> />
 		<label for="mod">Moderator</label>
 		<br />
-		<input type="radio" name="lvl" id="kont" value="2" required="required" onchange="level_2()" />
+		<input type="radio" name="lvl" id="kont" value="2" required="required" onchange="level_2()" <?php if(isset($_POST['lvl'])){ if($_POST['lvl']==='2') echo 'checked="checked"'; } ?> />
 		<label for="kont">Osoba kontaktowa</label>
+	</fieldset>
+	<fieldset id="kont_inputs">
+		<legend>Dane osoby kontaktowej<span class="color_red">*</span></legend>
+		<label for="imie">Imię<span class="color_red">*</span>: </label>
+		<input type="text" name="imie" id="imie" value="<?php if(isset($_POST['imie'])) echo $_POST['imie']; ?>" size="16" maxlength="16" />
+		<span id="imie_counter"></span>
+		<br />
+		<label for="nazwisko">Nazwisko<span class="color_red">*</span>: </label>
+		<input type="text" name="nazwisko" id="nazwisko" value="<?php if(isset($_POST['nazwisko'])) echo $_POST['nazwisko']; ?>" size="32" maxlength="32" />
+		<span id="nazwisko_counter"></span>
 	</fieldset>
 	<span class="color_red">*</span> - wymagane pola.
 	<br /><br />

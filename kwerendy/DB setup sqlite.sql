@@ -38,7 +38,8 @@ CHECK (length(nazwisko)<=32),
 CHECK (length(email)<=254),
 CHECK (length(imie)>0),
 CHECK (length(nazwisko)>0),
-CHECK (length(email)>0)
+CHECK (length(email)>=3),
+FOREIGN KEY (email) REFERENCES Uzytkownicy(login) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Kontakt(

@@ -2,14 +2,14 @@ INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Anna',
   'Karewicz',
-  'karewicz@chemia.uj.example.com'
+  'karewicz@chemia.uj.edu.pl'
   );
 
 INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Maria',
   'Nowakowska',
-  'nowakows@chemia.uj.example.com'
+  'nowakows@chemia.uj.edu.pl'
   );
 
 
@@ -17,7 +17,7 @@ INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Andrzej',
   'Eilmes',
-  'eilmes@chemia.uj.example.com'
+  'eilmes@chemia.uj.edu.pl'
   );
 
 
@@ -25,7 +25,7 @@ INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Marek',
   'Szymonski',
-  'ufszymon@cyf-kr.example.com'
+  'ufszymon@cyf-kr.edu.pl'
   );
 
 
@@ -33,7 +33,7 @@ INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Kazimierz',
   'Latka',
-  'uflatka@cyf-kr.example.com'
+  'uflatka@cyf-kr.edu.pl'
   );
 
 
@@ -41,7 +41,7 @@ INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Wojciech',
   'Gawlik',
-  'wojciech.gawlik@uj.example.com'
+  'wojciech.gawlik@uj.edu.pl'
   );
 
 
@@ -49,7 +49,7 @@ INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Jerzy',
   'Zachorowski',
-  'jerzy.zachorowski@uj.example.com'
+  'jerzy.zachorowski@uj.edu.pl'
   );
 
 
@@ -57,7 +57,7 @@ INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Adam',
   'Wojciechowski',
-  'a.wojciechowski@uj.example.com'
+  'a.wojciechowski@uj.edu.pl'
   );
 
 
@@ -65,7 +65,7 @@ INSERT INTO Osoba(imie, nazwisko, email)
   VALUES(
   'Krzysztof',
   'Dzierzega',
-  'krzysztof.dzierzega@uj.example.com'
+  'krzysztof.dzierzega@uj.edu.pl'
   );
 
 

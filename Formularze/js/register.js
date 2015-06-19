@@ -1,16 +1,26 @@
-function level_2(){
-	if($('#kont').is(':checked')){
-		$('#login_label').html('Adres email<span class="color_red">*</span>:');
-		$('#login').attr('type','email');
-		$('#login').attr('onchange','check_email(\'#login\')');
-		$('#register_form').attr('onsubmit','return ajax_check()');
-	}
+function check_login(){
+	if($('#kont').is(':checked')) check_email('#login');
 	else{
-		$('#login_label').html('Login<span class="color_red">*</span>:');
-		$('#login').attr('type','text');
-		$('#login').removeAttr('onchange');
-		$('#register_form').removeAttr('onsubmit');
+		var login=$('#login').val();
+		if(login!=='') ask_db('login',login,'Podany login jest już w bazie danych.','#login');
+		else $('#login')[0].setCustomValidity('');
 	}
+}
+
+function level_2(){
+	$('#login_label').html('Adres email<span class="color_red">*</span>:');
+	$('#login').attr('type','email');
+	$('#kont_inputs').css('display','block');
+	$('#imie').attr('required','required');
+	$('#nazwisko').attr('required','required');
+}
+
+function not_level_2(){
+	$('#login_label').html('Login<span class="color_red">*</span>:');
+	$('#login').attr('type','text');
+	$('#kont_inputs').css('display','none');
+	$('#imie').removeAttr('required');
+	$('#nazwisko').removeAttr('required');
 }
 
 function compare_pass(){
@@ -31,5 +41,7 @@ function compare_pass(){
 
 $(document).ready(function(){
 	var ajax_wait=false;
-	level_2();
+	if($('#kont').is(':checked')) level_2();
+	else not_level_2();
+	check_login();
 });

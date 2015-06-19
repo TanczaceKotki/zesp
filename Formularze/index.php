@@ -15,11 +15,16 @@
 			else echo 'Nastąpił błąd przy usuwaniu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
 		if(isset($_POST['del_osoba'])){
-			if($st=$DB->prepare('DELETE FROM Osoba WHERE id=?')){
-				if($st->execute(array($_POST['id']))) echo 'Osoba została usunięta.<br /><br />';
-				else echo 'Nastąpił błąd przy usuwaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			if($st=$DB->prepare('SELECT email FROM Osoba WHERE id=?')){
+				if($st->execute(array($_POST['id']))){
+					if($row=$st->fetch(PDO::FETCH_ASSOC)){
+						if($st=$DB->prepare('DELETE FROM Uzytkownicy WHERE login=?')){
+							if($st->execute(array($row['email']))) echo 'Osoba została usunięta.<br /><br />';
+							else echo 'Nastąpił błąd przy usuwaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+						}
+					}
+				}
 			}
-			else echo 'Nastąpił błąd przy usuwaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
 		if(isset($_POST['del_tag'])){
 			if($st=$DB->prepare('DELETE FROM Tag WHERE id=?')){

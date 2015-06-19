@@ -25,38 +25,36 @@
 				$walidacja = false;
 				echo 'Błędne dane w polu email.<br />';
 			}
-			if($walidacja and $st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
-				if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['email']))){
-					echo 'Osoba została pomyślnie wstawiona. Login i hasło zostały wysłane do niej poprzez pocztę elektroniczną.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
-					$displayform=False;
-					bottom();
+			if($walidacja){
+				$pass = generuj_haslo();
+				$pass_hash = password_hash($pass, PASSWORD_DEFAULT);
+				$login = $_POST['email'];
+				$lvl = 2;
+				if($st=$DB->prepare('INSERT INTO Uzytkownicy VALUES(NULL,?,?,?)')){
+					if($st->execute(array($login,$pass_hash,$lvl))){
+						if($st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
+							if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['email']))){
+								echo 'Osoba została pomyślnie wstawiona. Login i hasło zostały wysłane do niej poprzez pocztę elektroniczną.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+								wyslij_wiadomosc_z_haslem( $login, $pass );
+								$displayform=False;
+								bottom();
+							}
+							else{
+								echo 'Nastąpił błąd1 przy dodawaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+							}
+						}
+						else{
+							echo 'Nastąpił błąd2 przy dodawaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+						}
+					}
+					else{
+						echo 'Nastąpił błąd1 przy dodawaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+					}
 				}
 				else{
-					echo 'Nastąpił błąd1 przy dodawaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+					echo 'Nastąpił błąd2 przy dodawaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 				}
 			}
-			else{
-				echo 'Nastąpił błąd2 przy dodawaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-			}
-
-			$pass = generuj_haslo();
-			$pass_hash = password_hash($pass, PASSWORD_DEFAULT);
-			$login = $_POST['email'];
-			$lvl = 2;
-			if($st=$DB->prepare('INSERT INTO Uzytkownicy VALUES(NULL,?,?,?)')){
-				if($st->execute(array($login,$pass_hash,$lvl))){
-					wyslij_wiadomosc_z_haslem( $login, $pass );
-					$displayform=False;
-					bottom();
-				}
-				else{
-					echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
-				}
-			}
-			else{
-				echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-			}
-
 		}
 		if($displayform){
 ?>
