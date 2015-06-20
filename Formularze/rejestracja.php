@@ -13,10 +13,13 @@
 				$login = $_POST['login'];
 				$pass = $_POST['pass'];
 				$pass_v = $_POST['pass_v'];
-				$lvl = $_POST['lvl']; // Jak rozumiem ta zmienna ta poziom uprawnien uzytkownikow. Jaki poziom ma admin, jaki zwykly uzytkownicy? - Kuba // Poziom uprawnień uzytkownika. 0 - administrator, 1 - moderator, 2 - konto osoby kontaktowej - Mateusz
+				$lvl = $_POST['lvl']; // Poziom uprawnień uzytkownika. 0 - administrator, 1 - moderator, 2 - konto osoby kontaktowej - Mateusz
 				$errors = ''; // Zmienna przechowująca listę błędów które wystąpiły
 				// Sprawdź, czy nie wystąpiły błędy
 				if(!$login || !$pass || !$pass_v) $errors .= '- Musisz wypełnić wszystkie pola<br /><br />';
+				if($lvl == 2) {
+					if(!preg_match("/^[a-zA-z0-9_.-]+@[a-zA-z0-9-]+.[a-zA-z0-9-.]+$/", $login)) $errors .= '- Podaj poprawny email osoby kontaktowej<br /><br />';
+				}
 				$DB=dbconnect();
 				if($st=$DB->prepare('SELECT login FROM Uzytkownicy WHERE login=?')){
 					if($st->execute(array($login))){
