@@ -52,7 +52,7 @@
 ?>
 <form action="login.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<label for="login">Login<span class="color_red">*</span>: </label>
-	<input type="text" name="login" id="login" value="" size="100" maxlength="512" required="required" />
+	<input type="text" name="login" id="login" value="" size="100" maxlength="254" required="required" />
 	<span id="login_counter"></span>
 	<br />
 	<label for="pass">Hasło<span class="color_red">*</span>: </label>
