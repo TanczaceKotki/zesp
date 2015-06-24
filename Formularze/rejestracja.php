@@ -18,7 +18,7 @@
 				// Sprawdź, czy nie wystąpiły błędy
 				if(!$login || !$pass || !$pass_v) $errors .= '- Musisz wypełnić wszystkie pola<br /><br />';
 				if($lvl == 2) {
-					if(!preg_match("/^[a-zA-z0-9_.-]+@[a-zA-z0-9-]+.[a-zA-z0-9-.]+$/", $login)) $errors .= '- Podaj poprawny email osoby kontaktowej<br /><br />';
+					if(!filter_var($login, FILTER_VALIDATE_EMAIL)) $errors .= '- Podaj poprawny email osoby kontaktowej<br /><br />';
 				}
 				$DB=dbconnect();
 				if($st=$DB->prepare('SELECT login FROM Uzytkownicy WHERE login=?')){
@@ -44,6 +44,7 @@
 								if($st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
 									if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$login))){
 										echo 'Użytkownik został pomyślnie wstawiony.<br /><br />';
+										echo 'Powrót do <a href="index.php">strony głównej</a>.<br /><br />';
 										$displayform=false;
 										bottom();
 									}
