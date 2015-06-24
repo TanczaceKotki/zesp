@@ -36,11 +36,11 @@
 					</tbody>
 				</table><?php
 			}
-			else echo 'Nastąpił błąd przy dodawaniu informacji o zdjęciu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			else echo 'Nie znaleziono zdjęcia o podanym identyfikatorze.<br /><br />';
 		}
-		else echo 'Nastąpił błąd przy dodawaniu informacji o zdjęciu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo 'Nastąpił błąd przy odczytywaniu informacji o zdjęciu: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
-	else echo 'Nastąpił błąd przy dodawaniu informacji o zdjęciu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo 'Nastąpił błąd przy odczytywaniu informacji o zdjęciu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 	?><br /><a href="index.php">Wróć do strony głównej.</a><?php
 	bottom();
 ?>
