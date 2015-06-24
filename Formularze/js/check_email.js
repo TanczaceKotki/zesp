@@ -1,4 +1,5 @@
-function check_email(email_id='#email'){
+function check_email(email_id){
+	if(typeof email_id==='undefined') email_id='#email';
 	ajax_wait=true;
 	email=$(email_id).val();
 	if(email!==''){
