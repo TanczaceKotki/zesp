@@ -5,10 +5,10 @@
 	$DB=dbconnect();
 	if(isset($_POST['del_lab'])){
 		if($st=$DB->prepare('DELETE FROM Laborat_w_zaklad WHERE laboratorium=? AND zaklad=?')){
-			if($st->execute(array($_POST['laboratorium'],$_POST['zaklad']))) echo 'Laboratorium zostało usunięty.<br /><br />';
-			else echo 'Nastąpił błąd przy usuwaniu zakładu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			if($st->execute(array($_POST['laboratorium'],$_POST['zaklad']))) echo 'Laboratorium zostało usunięte.<br /><br />';
+			else echo 'Nastąpił błąd przy usuwaniu laboratorium: '.implode(' ',$st->errorInfo()).'<br /><br />';
 		}
-		else echo 'Nastąpił błąd przy usuwaniu zakładu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+		else echo 'Nastąpił błąd przy usuwaniu laboratorium: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 	}
 	if(isset($_POST['submitted'])){
 		if($_POST['nazwa']!==$_POST['old_nazwa']){

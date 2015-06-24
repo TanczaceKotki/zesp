@@ -23,7 +23,6 @@
 			else echo 'Nastąpił błąd przy usuwaniu informacji kontaktowych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 		}
 		else echo 'Nastąpił błąd przy usuwaniu informacji kontaktowych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		
 	}
 	if(isset($_POST['submitted'])){
 		$send=False;

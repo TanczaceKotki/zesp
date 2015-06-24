@@ -56,10 +56,10 @@
 			$sql.=' WHERE id=?';
 			$params[]=$_POST['id'];
 			if($st=$DB->prepare($sql)){
-				if($st->execute($params)) echo 'Osoba została pomyślnie zmodyfikowana.<br /><br />';
-				else echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				if($st->execute($params)) echo 'Projekt został pomyślnie zmodyfikowany.<br /><br />';
+				else echo 'Nastąpił błąd przy modyfikowaniu projektu: '.implode(' ',$st->errorInfo()).'<br /><br />';
 			}
-			else echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+			else echo 'Nastąpił błąd przy modyfikowaniu projektu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
 	}
 	if($st=$DB->prepare('SELECT * FROM Projekt WHERE id=?')){
