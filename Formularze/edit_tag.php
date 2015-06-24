@@ -27,7 +27,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/ask_db.js','js/remaining_char_counter.js','js/default_form.js','js/check_tag.js','js/tag_form_edit.js'));
+					bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db.js','js/remaining_char_counter.js','js/check_tag.js','js/tag_form_edit.js'));
 				}
 				else{
 					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';

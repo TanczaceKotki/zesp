@@ -148,7 +148,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					bottom(array('js/date_callback.js','https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/remaining_char_counter.js','js/default_form.js','js/projekt_form.js'));
+					bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js','js/projekt_form.js'));
 				}
 				else{
 					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';

@@ -87,7 +87,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			bottom(array('https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js','js/js-webshim/minified/polyfiller.js','js/ask_db_middle_table.js','js/laborat_w_zaklad_form.js'));
+			bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db_middle_table.js','js/laborat_w_zaklad_form.js'));
 		}
 	}
 	else{

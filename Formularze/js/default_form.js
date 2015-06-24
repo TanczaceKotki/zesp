@@ -1,3 +1,3 @@
 $(document).ready(function(){
-	webshims.polyfill('forms');
+	webshim.polyfill('forms');
 });
