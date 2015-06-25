@@ -67,11 +67,11 @@
 					</tbody>
 				</table><?php
 			}
-			else echo 'Nastąpił błąd przy dodawaniu informacji o laboratorium: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			else echo 'Nie znaleziono laboratorium o podanym identyfikatorze.<br /><br />';
 		}
-		else echo 'Nastąpił błąd przy dodawaniu informacji o laboratorium: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo 'Nastąpił błąd przy pobieraniu informacji o laboratorium: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
-	else echo 'Nastąpił błąd przy dodawaniu informacji o laboratorium: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo 'Nastąpił błąd przy pobieraniu informacji o laboratorium: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 	?><br /><a href="index.php">Wróć do strony głównej.</a><?php
 	bottom();
 ?>

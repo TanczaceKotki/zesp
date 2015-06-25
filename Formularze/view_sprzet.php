@@ -23,7 +23,6 @@
 			else echo 'Nastąpił błąd przy usuwaniu informacji kontaktowych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 		}
 		else echo 'Nastąpił błąd przy usuwaniu informacji kontaktowych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		
 	}
 	if(isset($_POST['submitted'])){
 		$send=False;
@@ -249,9 +248,9 @@
 			}
 			else echo 'Nie udało się pobrać danych z bazy danych.';
 		}
-		else echo 'Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
-	else echo 'Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 	?><br /><a href="index.php">Wróć do strony głównej.</a><?php
 	bottom();
 ?>

@@ -5,7 +5,7 @@
 	$DB=dbconnect();
 	if(isset($_POST['del_lab'])){
 		if($st=$DB->prepare('DELETE FROM Laborat_w_zaklad WHERE laboratorium=? AND zaklad=?')){
-			if($st->execute(array($_POST['laboratorium'],$_POST['zaklad']))) echo 'Laboratorium zostało usunięty.<br /><br />';
+			if($st->execute(array($_POST['laboratorium'],$_POST['zaklad']))) echo 'Laboratorium zostało usunięte.<br /><br />';
 			else echo 'Nastąpił błąd przy usuwaniu laboratorium: '.implode(' ',$st->errorInfo()).'<br /><br />';
 		}
 		else echo 'Nastąpił błąd przy usuwaniu laboratorium: '.implode(' ',$DB->errorInfo()).'<br /><br />';
@@ -70,11 +70,11 @@
 					</tbody>
 				</table><?php
 			}
-			else echo 'Nastąpił błąd przy dodawaniu informacji zakładzie: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			else echo 'Nie znaleziono zakładu o podanym identyfikatorze.<br /><br />';
 		}
-		else echo 'Nastąpił błąd przy dodawaniu informacji zakładzie: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo 'Nastąpił błąd przy pobieraniu informacji o zakładzie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
-	else echo 'Nastąpił błąd przy dodawaniu informacji zakładzie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo 'Nastąpił błąd przy pobieraniu informacji o zakładzie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 	?><br /><a href="index.php">Wróć do strony głównej.</a><?php
 	bottom();
 ?>

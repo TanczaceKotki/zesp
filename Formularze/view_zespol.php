@@ -33,11 +33,11 @@
 					</tbody>
 				</table><?php
 			}
-			else echo 'Nastąpił błąd przy dodawaniu informacji o zespole: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			else echo 'Nie znaleziono zespołu o podanym identyfikatorze.<br /><br />';
 		}
-		else echo 'Nastąpił błąd przy dodawaniu informacji o zespole: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
-	else echo 'Nastąpił błąd przy dodawaniu informacji o zespole: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 	?><br /><a href="index.php">Wróć do strony głównej.</a><?php
 	bottom();
 ?>
