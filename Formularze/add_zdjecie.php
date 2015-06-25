@@ -19,7 +19,7 @@
 					resize_image( $path, 800, 600 );
 				}
 				else{
-					$walidacja = False;
+					$walidacja=False;
 				}
 			}
 			if( $walidacja ){
