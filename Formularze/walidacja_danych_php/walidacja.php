@@ -73,24 +73,25 @@
 		return true;
 	}
 
-	function resize_image( $img_path, $minimal_width, $minimal_height ){ //funkcja przeksztalca obraz do zadanych rozmiarow, zwraca obraz w zadanym rozmiarze
+	function resize_image( $img_path, $min_width, $min_height ){ //funkcja sprawdza czy obraz nie jest za maly, zwraca zwiekszony obraz
 		list( $width, $height ) = getimagesize( $img_path );
 		
-		if( $width < $minimal_width or $height < $minimal_height ){
-			$scale_factor = min( $width/$minimal_width, $height/$minimal_height );
-			$new_width = $width / $scale_factor;
-			$new_height = $height / $scale_factor;
+		if( $width < $min_width or $height < $min_height ){
+			// $scale_factor = min( $width/$min_width, $height/$min_height );
+			// $new_width = $width / $scale_factor;
+			// $new_height = $height / $scale_factor;
+			$new_width = max($min_width, $width);
+			$new_height = max($min_height, $height);
 
 			$src = imagecreatefromjpeg($img_path);
 			$dst = imagecreatetruecolor($new_width, $new_height);
 			imagecopyresampled($dst, $src, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 			
-			// imagejpeg( $dst, "test.jpg" );
-			return $dst;
-
-			// imagedestroy( $src );
-			// imagedestroy( $dst );
+			imagejpeg( $dst, $img_path );
+			// return $dst;
 		}
+		// return imagecreatefromjpeg($img_path);
+		imagejpeg( imagecreatefromjpeg($img_path), $img_path );
 	}
 
 ?>

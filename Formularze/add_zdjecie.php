@@ -3,6 +3,7 @@
 	require 'user.class.php';
 	require 'common.php';
 	require 'DB.php';
+	require 'walidacja_danych_php/walidacja.php';
 	top();
 	$DB=dbconnect();
 	$displayform=True;
@@ -10,22 +11,39 @@
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			$no_error=True;
-			if($st=$DB->prepare('INSERT INTO Zdjecie VALUES(NULL,?,?)')){
-				for($i=0;$i<count($_FILES['pliki']['name']);++$i){
-					$link='z2_'.$_FILES['pliki']['name'][$i];
-					move_uploaded_file($_FILES['pliki']['tmp_name'][$i],'uploads/'.$link);
-					if($st->execute(array($_POST['sprzet'],$link))){
-						echo 'Wstawiono zdjęcie '.$_FILES['pliki']['name'][$i].'<br /><br />';
+			$walidacja = True;
+			for($i=0;$i<count($_FILES['pliki']['name']);++$i){
+				$path = $_FILES['pliki']['tmp_name'][$i];
+				$czy_poprawny = valid_image( $path );
+				if( $czy_poprawny ){
+					resize_image( $path, 800, 600 );
+				}
+				else{
+					$walidacja = False;
+				}
+			}
+			if( $walidacja ){
+				if($st=$DB->prepare('INSERT INTO Zdjecie VALUES(NULL,?,?)')){
+					for($i=0;$i<count($_FILES['pliki']['name']);++$i){
+						$link='z2_'.$_FILES['pliki']['name'][$i];
+						move_uploaded_file($_FILES['pliki']['tmp_name'][$i],'uploads/'.$link);
+						if($st->execute(array($_POST['sprzet'],$link))){
+							echo 'Wstawiono zdjęcie '.$_FILES['pliki']['name'][$i].'<br /><br />';
+						}
+						else{
+							echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$st->errorInfo()).'<br /><br />';
+							$no_error=False;
+						}
 					}
-					else{
-						echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$st->errorInfo()).'<br /><br />';
-						$no_error=False;
-					}
+				}
+				else{
+					echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+					$no_error=False;
 				}
 			}
 			else{
-				echo 'Nastąpił błąd przy dodawaniu zdjęcia: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-				$no_error=False;
+				echo 'Nastąpił błąd podczas walidacji zdjęcia.'.'<br/>';
+				$no_error = False;
 			}
 			if($no_error){
 				echo 'Wszystkie zdjęcia zostały pomyślnie wstawione.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';

@@ -98,6 +98,6 @@
 	test_equal( $ob, false );
 
 	echo "TEST FUNKCJI resize_image\n";
-	$obraz = resize_image( "obraz_test2.jpg", 1024, 768 );
+	$obraz = resize_image( "obraz_test2.jpg", 100, 100 );
 	imagejpeg( $obraz, "obraz_po_przksztalceniu.jpg" );
 ?>
