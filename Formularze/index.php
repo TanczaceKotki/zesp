@@ -1,13 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="pl">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- TemplateBeginEditable name="doctitle" -->
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Tanczace kotki 2015</title>
-<!-- TemplateEndEditable -->
-<!-- TemplateBeginEditable name="head" -->
-<!-- TemplateEndEditable -->
-<link href="oneColLiqCtrHdr.css" rel="stylesheet" type="text/css" />
+<link href="css/oneColLiqCtrHdr.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -46,60 +42,62 @@
 
 
 <?php
+if(isset($_GET['menu'])){
+	switch ($_GET['menu'])
+	{
+		case 1:
+			include('home.php');
+			break;
  
-switch ($_GET['menu'])
-{
-	case 1:
-		include('home.php');
-	break;
+		case 2:
+			include('home.php');
+			break;
  
-	case 2:
-		include('home.php');
-	break;
+		case 3:
+			include('view_labs.php');
+			break;
+		case 4:
+			include('view_sprzety.php');
+			break;
+
+		case 5:
+			include('view_zespoly.php');
+			break;
+		case 6:
+			include('kontakt.php');
+			break;
+
+		case 10:
+			include('login.php');
+			break;
+		case 7:
+			include('zarzadzaj_lab.php');
+			break;
+
+		case 8:
+			include('zarzadzaj_sprzet.php');
+			break;
+		case 9:
+			include('zarzadzaj_grupy.php');
+			break;
  
-	case 3:
-		include('view_labs.php');
-	break;
- case 4:
-		include('view_sprzety.php');
-	break;
- 
-	case 5:
-		include('view_zespoly.php');
-	break;
-	case 6:
-		include('kontakt.php');
-	break;
- 
-	case 10:
-		include('login.php');
-	break;
-case 7:
-		include('zarzadzaj_lab.php');
-	break;
- 
-	case 8:
-		include('zarzadzaj_sprzet.php');
-	break;
- case 9:
-		include('zarzadzaj_grupy.php');
-	break;
- 
-	case 100:
-		include('zarzadzaj_osoby.php');
-	break;
-	
-	case 12:
-		include('zarzadzaj_zdjecia.php');
-	break;
- 
-	case 11:
-		include('login.php');
-	break;
-	default:
-		include('home.php');
-	break;
+		case 100:
+			include('zarzadzaj_osoby.php');
+			break;
+
+		case 12:
+			include('zarzadzaj_zdjecia.php');
+			break;
+
+		case 11:
+			include('login.php');
+			break;
+		default:
+			include('home.php');
+			break;
+	}
 }
+else include('home.php');
 ?>
 </div>
   <div id="footer"><p>

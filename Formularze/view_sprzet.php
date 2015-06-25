@@ -107,11 +107,11 @@
 	if($st=$DB->prepare('SELECT * FROM Sprzet WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-				?><form action="index.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+				?><form action="index_panel_admina.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 					<input type="submit" name="del_sprzet" value="Usuń" />
 				</form>
-				<form action="edit_sprzet.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+				<form action="edit_sprzet.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 					<input type="submit" value="Edytuj" />
 				</form>
@@ -173,7 +173,7 @@
 					if($result->execute(array($row['id']))){
 						while($row2=$result->fetch(PDO::FETCH_ASSOC)){
 							?><img src="uploads/<?php echo $row2['link']; ?>" width="200" alt="" />
-							<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+							<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 								<input type="hidden" name="id" value="<?php echo $row2['id']; ?>" />
 								<input type="submit" name="del_picture" value="Usuń" />
 							</form>
@@ -195,7 +195,7 @@
 								if($result2->execute(array($row2['tag']))){
 									if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 										?><a href="view_tag.php?id=<?php echo $row2['tag']; ?>"><?php echo $row3['nazwa']; ?>
-										<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+										<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="sprzet" value="<?php echo $row['id']; ?>" />
 											<input type="hidden" name="tag" value="<?php echo $row2['tag']; ?>" />
 											<input type="submit" name="del_tag" value="Usuń" />
@@ -223,7 +223,7 @@
 								if($result2->execute(array($row2['osoba']))){
 									if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 										?><a href="view_osoba.php?id=<?php echo $row2['osoba']; ?>"><?php echo $row3['imie'].' '.$row3['nazwisko'].' ('.$row3['email'].')'; ?></a>
-										<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+										<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="sprzet" value="<?php echo $row['id']; ?>" />
 											<input type="hidden" name="osoba" value="<?php echo $row2['osoba']; ?>" />
 											<input type="submit" name="del_kontakt" value="Usuń" />
@@ -251,6 +251,6 @@
 		else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a href="index.php">Wróć do strony głównej.</a><?php
+	?><br /><a href="index_panel_admina.php">Wróć do strony głównej.</a><?php
 	bottom();
 ?>

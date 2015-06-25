@@ -7,7 +7,7 @@
 				?>
 				<p class="listowanie">
 					
-						<a href="view_sprzet.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
+						<a href="view_lab.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
 					
 					</p>
 				<?php
