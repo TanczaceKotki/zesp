@@ -24,7 +24,7 @@
 	$max_length = 50;
 	$email1 = "jan.kowalski@gmail.com";
 	$email2 = "1jankowalski@o2..pl";
-	$email3 = "moj_adres@com.pl";
+	$email3 = "moj_adres@com";
 	$email4 = "jakub.braz@uj.edu.pl";
 	$email5 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@uj.edu.pl";
 	test_equal( valid_email( $email1, $max_length ), true );

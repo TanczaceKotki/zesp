@@ -12,6 +12,7 @@
 				else echo "<script type=\"text/javascript\" src=\"$item\"></script>";
 			}
 		?>
+		<style>table,tr,td{border:1px solid #000}</style>
 	</head>
 	<body>
 		<?php
