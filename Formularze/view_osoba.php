@@ -27,7 +27,12 @@
 		}
 		if($_POST['email']!==$_POST['old_email']){
 			if($st=$DB->prepare('UPDATE Uzytkownicy SET login=? WHERE login=?')){
-				if(!$st->execute(array($_POST['email'],$_POST['old_email']))) echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				if($st->execute(array($_POST['email'],$_POST['old_email']))){
+					if(!$send) echo 'Osoba została pomyślnie zmodyfikowana.<br /><br />';
+				}
+				else{
+					echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
 			}
 			else echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
