@@ -3,10 +3,11 @@
 ### HTML file
 
 1. footer wyciągnąć na szczyt drzewa tak, aby wyglądało ono jak poniżej:
-<br>
+```
 body
-<br>&nbsp;&nbsp;div.container
-<br>&nbsp;&nbsp;div#footer
+	div.container
+	div#footer
+```
 
 2. div#footer zamienić na footer#footer, czyli zamiast 
 ```HTML
@@ -17,11 +18,13 @@ napisać
 <footer id="footer">
 ```
 
-3. Wnętrze footera zrobić w sposób następujący:
+Trzy. Wnętrze footera zrobić w sposób następujący:
+```
 footer#footer
 	div.container
 		p.text-muted
 			wnętrze stopki (tańczącekotki itd)
+```
 			
 
 
