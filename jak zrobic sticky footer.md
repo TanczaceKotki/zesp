@@ -3,11 +3,19 @@
 ### HTML file
 
 1. footer wyciągnąć na szczyt drzewa tak, aby wyglądało ono jak poniżej:
+<br>
 body
-	div.container
-	div#footer
+<br>&nbsp;&nbsp;div.container
+<br>&nbsp;&nbsp;div#footer
 
-2. div#footer zamienić na footer#footer (czyli zamiast <div id=footer> napisać <footer id="footer">)
+2. div#footer zamienić na footer#footer, czyli zamiast 
+```HTML
+<div id=footer>
+``` 
+napisać 
+```HTML
+<footer id="footer">
+```
 
 3. Wnętrze footera zrobić w sposób następujący:
 footer#footer
