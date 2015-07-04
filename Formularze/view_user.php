@@ -39,11 +39,11 @@
 	if($st=$DB->prepare('SELECT * FROM Uzytkownicy WHERE id=?')){
 		if($st->execute(array($_POST['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-						?><form action="panel.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+						?><form action="panel.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 							<input type="submit" name="del_uzytkownika" value="Usuń" />
 						</form>
-						<form action="edit_user.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+						<form action="edit_user.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 							<input type="submit" value="Edytuj" />
 						</form><br />

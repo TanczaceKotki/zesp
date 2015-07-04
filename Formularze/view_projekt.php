@@ -65,11 +65,11 @@
 	if($st=$DB->prepare('SELECT * FROM Projekt WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-				?><form action="index.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+				?><form action="index_panel_admina.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 					<input type="submit" name="del_osoba" value="Usuń" />
 				</form>
-				<form action="edit_projekt.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+				<form action="edit_projekt.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 					<input type="submit" value="Edytuj" />
 				</form>
@@ -103,6 +103,6 @@
 		else echo 'Nastąpił błąd przy pobieraniu informacji o projekcie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy pobieraniu informacji o projekcie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a href="index.php">Wróć do strony głównej.</a><?php
+	?><br /><a href="index_panel_admina.php">Wróć do strony głównej.</a><?php
 	bottom();
 ?>
