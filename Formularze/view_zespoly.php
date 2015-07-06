@@ -1,16 +1,19 @@
-	Zespoły:
+	  <ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+    <li class="active">Zespoły</li>
+</ol>
+	<table class="table table-striped">
 	<?php
-	top();
 	$DB=dbconnect();
 		if($result=$DB->query('SELECT id,nazwa FROM Zespol ORDER BY nazwa')){
 			while($row=$result->fetch(PDO::FETCH_ASSOC)){
 				?>
-				<p class="listowanie">
+				<tr><td>
 					
 						<a href="view_sprzet.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
+					</td></tr>
 					
-					</p>
 				<?php
 			}
 		}
-	?>
+	?></table>

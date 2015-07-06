@@ -1,18 +1,92 @@
 <?php
 	session_start();
-	require 'user.class.php';
-	require 'common.php';
-	require 'DB.php';
 	if(user::isLogged()){
 		$user = user::getData('', '');
+		if(isset($_POST['submitted'])){
+		$send=False;
+		$params=array();
+		$sql='UPDATE Sprzet SET';
+		if($_POST['nazwa']!==$_POST['old_nazwa']){
+			$sql.=' nazwa=?';
+			$params[]=$_POST['nazwa'];
+			$send=True;
+		}
+		$data=$_POST['data_zakupu_rok'];
+		if($_POST['data_zakupu_miesiac']!==""){
+			$data.='-'.$_POST['data_zakupu_miesiac'];
+			if($_POST['data_zakupu_dzien']!=="") $data.='-'.$_POST['data_zakupu_dzien'];
+		}
+		if($data!==$_POST['old_data_zakupu']){
+			if($send) $sql.=',';
+			$sql.=' data_zakupu=?';
+			$params[]=$data;
+			$send=True;
+		}
+		$data="";
+		if($_POST['data_uruchom_rok']!==""){
+			$data=$_POST['data_uruchom_rok'];
+			if($_POST['data_uruchom_miesiac']!==""){
+				$data.='-'.$_POST['data_uruchom_miesiac'];
+				if($_POST['data_uruchom_dzien']!=="") $data.='-'.$_POST['data_uruchom_dzien'];
+			}
+		
+		if($data!==$_POST['old_data_uruchom']){
+			if($send) $sql.=',';
+			if($data==="") $sql.=' data_uruchom=NULL';
+			else{
+				$sql.=' data_uruchom=?';
+				$params[]=$data;
+			}
+			$send=True;
+		}
+		if($_POST['wartosc']!==$_POST['old_wartosc']){
+			if($send) $sql.=',';
+			if($data==="") $sql.=' wartosc=NULL';
+			else{
+				$sql.=' wartosc=?';
+				$params[]=$_POST['wartosc'];
+			}
+			$send=True;
+		}
+		if($_POST['opis']!==$_POST['old_opis']){
+			if($send) $sql.=',';
+			$sql.=' opis=?';
+			$params[]=$_POST['opis'];
+			$send=True;
+		}
+		if($_POST['projekt']!==$_POST['old_projekt']){
+			if($send) $sql.=',';
+			if($_POST['projekt']==="") $sql.=' projekt=NULL';
+			else{
+				$sql.=' projekt=?';
+				$params[]=$_POST['projekt'];
+			}
+			$send=True;
+		}
+		if($_POST['laboratorium']!==$_POST['old_laboratorium']){
+			if($send) $sql.=',';
+			if($_POST['laboratorium']==="") $sql.=' laboratorium=NULL';
+			else{
+				$sql.=' laboratorium=?';
+				$params[]=$_POST['laboratorium'];
+			}
+			$send=True;
+		}
+		if($send){
+			$sql.=' WHERE id=?';
+			$params[]=$_POST['id'];
+			if($st=$DB->prepare($sql)){
+				if($st->execute($params)) echo 'Sprzęt został pomyślnie zmodyfikowany.<br /><br />';
+				else echo 'Nastąpił błąd przy modyfikowaniu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			} }
+			else echo 'Nastąpił błąd przy modyfikowaniu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />'; }
 		if(isset($_POST['id'])){
-			top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
-			$DB=dbconnect();
+			#top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
 			if($st=$DB->prepare('SELECT * FROM Sprzet WHERE id=?')){
 				if($st->execute(array($_POST['id']))){
 					$row=$st->fetch(PDO::FETCH_ASSOC);
 ?>
-<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return check_if_number(document.getElementById('wartosc').value)">
+<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return check_if_number(document.getElementById('wartosc').value)">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<input type="hidden" name="old_data_zakupu" value="<?php echo $row['data_zakupu']; ?>" />
@@ -211,15 +285,15 @@
 			}
 		}
 		else{
-			top();
+			
 			echo 'Nie podano sprzętu do edycji.';
 			bottom();
 		}
-	}
+	} }
 	else {
-		top();
+		
 		echo '<br>Nie jesteś zalogowany.<br />
 		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 		bottom();
-	}
+	} 
 ?>

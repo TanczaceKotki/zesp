@@ -1,22 +1,22 @@
 <?php
 	session_start();
 	require_once 'user.class.php';
-	top();
 	$DB=dbconnect();
 	if (user::isLogged()) {
 		$user = user::getData('', '');
-		if(isset($_POST['del_sprzet'])){
-			if($st=$DB->prepare('DELETE FROM Sprzet WHERE id=?')){
-				if($st->execute(array($_POST['id']))) echo 'Sprzęt został usunięty.<br /><br />';
-				else echo 'Nastąpił błąd przy usuwaniu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
-			}
-			else echo 'Nastąpił błąd przy usuwaniu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		}
+		
 ?>
+  <ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+  <li class="active">Zarządzaj aparaturą</li>
+</ol>
+<a class="btn btn-warning" href="index.php?menu=25">Dodaj aparaturę</a><br/><br/>
+<a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do użytkownika</a><br/><br/>
 
-<a href="add_sprzet.php">Dodaj sprzęt</a><br />
+<a class="btn btn-warning" href="index.php?menu=33">Dodaj słowo kluczowe</a><br/><br/>
+<a class="btn btn-warning" href="index.php?menu=32">Przypisz słowo kluczowe do aparatury</a><br/><br/>
 
-<table><tr><td colspan="2">Sprzęt</td></tr>
+<table class="table table-striped">
 	<?php
 		if($result=$DB->query('SELECT id,nazwa FROM Sprzet ORDER BY nazwa')){
 			while($row=$result->fetch(PDO::FETCH_ASSOC)){
@@ -25,10 +25,16 @@
 					<td>
 						<a href="view_sprzet.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
 					</td>
-					<td>
-						<form action="index.php?menu=8" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+										<td>
+						<form action="index.php?menu=45" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-							<input type="submit" name="del_sprzet" value="Usuń" />
+							<input class="btn btn-warning" type="submit" name="del_lab" value="Edytuj" />
+						</form>
+					</td>
+					<td>
+						<form action="index.php?menu=31" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+							<input class="btn btn-danger" type="submit" name="del_sprzet" value="Usuń" />
 						</form>
 					</td>
 				</tr><?php
@@ -39,8 +45,8 @@
 <?php
 	}
 	else {
-		echo '<br />Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		echo '<br>Nie jesteś zalogowany.<br />
+		<a href="index.php?menu=10">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 	}
-	bottom();
+	
 ?>

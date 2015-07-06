@@ -1,33 +1,25 @@
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+ <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <meta charset="utf-8">
+ <ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+  <li><a href="index.php?menu=5">Zespoły</a></li>
+  <li class="active">Szczegóły zespołu</li>
+</ol>
+
 <?php
 	require 'common.php';
 	require 'DB.php';
-	top();
 	$DB=dbconnect();
-	if(isset($_POST['submitted'])){
-		if($_POST['nazwa']!==$_POST['old_nazwa']){
-			if($st=$DB->prepare('UPDATE Zespol SET nazwa=? WHERE id=?')){
-				if($st->execute(array($_POST['nazwa'],$_POST['id']))) echo 'Zespół został pomyślnie zmodyfikowany.<br /><br />';
-				else echo 'Nastąpił błąd przy modyfikowaniu zespołu: '.implode(' ',$st->errorInfo()).'<br /><br />';
-			}
-			else echo 'Nastąpił błąd przy modyfikowaniu zespołu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		}
-	}
+	
 	if($st=$DB->prepare('SELECT * FROM Zespol WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-				?><form action="index_panel_admina.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-					<input type="submit" name="del_zespol" value="Usuń" />
-				</form>
-				<form action="edit_zespol.php?=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-					<input type="submit" value="Edytuj" />
-				</form>
-				<br />
-				<table>
+				?>
+				<table class="table table-striped">
 					<tbody>
 						<tr>
-							<td>Nazwa</td>
+							<td>Nazwa:</td>
 							<td><?php echo $row['nazwa']; ?></td>
 						</tr>
 					</tbody>
@@ -38,6 +30,6 @@
 		else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a href="index_panel_admina.php">Wróć do strony głównej.</a><?php
-	bottom();
+	?><br /><a class="btn btn-warning" href="index.php?menu=9">Wróć do strony z zespołami</a><?php
+	
 ?>

@@ -22,11 +22,11 @@
 	if($st=$DB->prepare('SELECT * FROM Zaklad WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-				?><form action="index_panel_admina.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+				?><form action="index.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 					<input type="submit" name="del_zaklad" value="Usuń" />
 				</form>
-				<form action="edit_zaklad.php?=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+				<form action="edit_zaklad.php?=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 					<input type="submit" value="Edytuj" />
 				</form>
@@ -48,7 +48,7 @@
 								if($result2->execute(array($row2['laboratorium']))){
 									if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 										?><a href="view_lab.php?id=<?php echo $row2['laboratorium']; ?>"><?php echo $row3['nazwa']; ?>
-										<form action="view_zaklad.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+										<form action="view_zaklad.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="zaklad" value="<?php echo $row['id']; ?>" />
 											<input type="hidden" name="laboratorium" value="<?php echo $row2['laboratorium']; ?>" />
 											<input type="submit" name="del_lab" value="Usuń" />
@@ -75,6 +75,6 @@
 		else echo 'Nastąpił błąd przy pobieraniu informacji o zakładzie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy pobieraniu informacji o zakładzie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a href="index_panel_admina.php">Wróć do strony głównej.</a><?php
+	?><br /><a href="index.php">Wróć do strony głównej.</a><?php
 	bottom();
 ?>

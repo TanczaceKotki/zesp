@@ -1,7 +1,6 @@
 <?php
-	require 'common.php';
-	require 'DB.php';
-	top();
+	
+	
 	$DB=dbconnect();
 	
 	if(isset($_POST['submitted'])){
@@ -39,11 +38,11 @@
 	if($st=$DB->prepare('SELECT * FROM Uzytkownicy WHERE id=?')){
 		if($st->execute(array($_POST['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-						?><form action="panel.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+						?><form action="panel.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 							<input type="submit" name="del_uzytkownika" value="Usuń" />
 						</form>
-						<form action="edit_user.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+						<form action="edit_user.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 							<input type="submit" value="Edytuj" />
 						</form><br />
@@ -68,7 +67,7 @@
 		else echo 'Nastąpił błąd przy edytowaniu2: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy edytowaniu3: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a href="panel.php">Wróć do panelu administracyjnego.</a><?php
+	?><br /><?php
 	
-	bottom();
+	
 ?>

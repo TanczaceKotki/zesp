@@ -1,29 +1,58 @@
 <?php
 	session_start();
-	require 'user.class.php';
-	require 'common.php';
-	require 'DB.php';
-	top();
-	if(user::isLogged()){
+		if(user::isLogged()){
 		$user = user::getData('', '');
+		if(isset($_POST['submitted'])){
+		$send=False;
+		$params=array();
+		$sql='UPDATE Laboratorium SET';
+		if($_POST['nazwa']!==$_POST['old_nazwa']){
+			$sql.=' nazwa=?';
+			$params[]=$_POST['nazwa'];
+			$send=True;
+		}
+		if($_POST['zespol']!==$_POST['old_zespol']){
+			if($send) $sql.=',';
+			if($_POST['zespol']==="") $sql.=' zespol=NULL';
+			else{
+				$sql.=' zespol=?';
+				$params[]=$_POST['zespol'];
+			}
+			$send=True;
+		}
+		if($send){
+			$sql.=' WHERE id=?';
+			$params[]=$_POST['id'];
+			if($st=$DB->prepare($sql)){
+				if($st->execute($params)) echo 'Laboratorium zostało pomyślnie zmodyfikowane.<br /><br />';
+				else echo 'Nastąpił błąd przy modyfikowaniu laboratorium: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			}
+			else echo 'Nastąpił błąd przy modyfikowaniu laboratorium: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+		}
+	}
 		if(isset($_POST['id'])){
 			$DB=dbconnect();
 			if($st=$DB->prepare('SELECT * FROM Laboratorium WHERE id=?')){
 				if($st->execute(array($_POST['id']))){
 					$row=$st->fetch(PDO::FETCH_ASSOC);
 ?>
-<form action="view_lab.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+<ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+  <li><a href="index.php?menu=7">Zarządzaj laboratoriami</a></li>
+    <li class="active">Edytuj laboratorium</li>
+</ol>
+<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<input type="hidden" name="old_zespol" value="<?php echo $row['zespol']; ?>" />
 	<div>
 		<label for="nazwa">Nazwa<span class="color_red">*</span>: </label>
-		<input type="text" name="nazwa" id="nazwa" value="<?php echo $row['nazwa']; ?>" size="16" maxlength="64" required="required" />
+		<input class="form-control" type="text" name="nazwa" id="nazwa" value="<?php echo $row['nazwa']; ?>" size="16" maxlength="64" required="required" /><br>
 		<span id="nazwa_counter"></span>
 	</div>
 	<div>
 		<label for="zespol">Zespół<span class="color_red">*</span>: </label>
-		<select name="zespol" id="zespol">
+		<select class="form-control" name="zespol" id="zespol">
 			<option value=""<?php if($row['zespol']==="") echo ' selected="selected"'; ?>>-</option>
 			<?php
 				if($result=$DB->query('SELECT id,nazwa FROM Zespol ORDER BY nazwa')){
@@ -45,27 +74,26 @@
 			?>
 		</select>
 	</div>
-	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+	<div><br>
+		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js'));
+					#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js'));
 				}
 				else{
 					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
-					bottom();
+					
 				}
 			}
 			else{
 				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-				bottom();
-			}
+							}
 		}
 		else{
 			echo 'Nie podano osoby do edycji.';
-			bottom();
+			
 		}
 	}
 	else {

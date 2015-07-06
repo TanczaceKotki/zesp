@@ -1,9 +1,7 @@
 <?php
 	session_start();
-	require 'user.class.php';
-	require 'common.php';
-	require 'DB.php';
-	top();
+	
+	
 	if(user::isLogged()){
 		$displayform=True;
 		if(isset($_POST['send'])){
@@ -46,7 +44,7 @@
 										echo 'Użytkownik został pomyślnie wstawiony.<br /><br />';
 										echo 'Powrót do <a href="index.php">strony głównej</a>.<br /><br />';
 										$displayform=false;
-										bottom();
+										
 									}
 									else echo 'Nastąpił błąd przy dodawaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
 								}
@@ -62,7 +60,7 @@
 		}
 		if($displayform){
 ?>
-<form action="rejestracja.php" id="register_form" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
+<form  action="index.php?menu=14" id="register_form" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<label for="login" id="login_label">Login<span class="color_red">*</span>:</label>
 	<input type="text" name="login" id="login" value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>" maxlength="254" required="required" onchange="check_login()" />
 	<span id="login_counter"></span>
@@ -98,17 +96,17 @@
 	</fieldset>
 	<span class="color_red">*</span> - wymagane pola.
 	<br /><br />
-	<input type="submit" name="send" value="Zarejestruj" />
+	<input class="btn btn-warning" type="submit" name="send" value="Zarejestruj" />
 </form>
 <br />
-<a href="panel.php">Powrót do panelu administracyjnego</a><br /><br />
+
 <?php
-			bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db.js','js/check_email.js','js/remaining_char_counter.js','js/register.js'));
+			#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db.js','js/check_email.js','js/remaining_char_counter.js','js/register.js'));
 		}
 	}
 	else{
 		echo '<br />Nie jesteś zalogowany.<br />
 		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		bottom();
+		
 	}
 ?>

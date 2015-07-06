@@ -1,9 +1,5 @@
 <?php
 	session_start();
-	require 'user.class.php';
-	require 'common.php';
-	require 'DB.php';
-	top();
 	if(user::isLogged()){
 		$user = user::getData('', '');
 		if(isset($_POST['id'])){
@@ -31,7 +27,7 @@
 		<fieldset>
 			<legend>Data rozpoczęcia</legend>
 			<label for="data_rozp_dzien">Dzień: </label>
-			<select name="data_rozp_dzien" id="data_rozp_dzien" onchange="date_callback('data_rozp_dzien','data_rozp_miesiac','data_rozp_rok','data_zakoncz_dzien','data_zakoncz_miesiac','data_zakoncz_rok')">
+			<select  name="data_rozp_dzien" id="data_rozp_dzien" onchange="date_callback('data_rozp_dzien','data_rozp_miesiac','data_rozp_rok','data_zakoncz_dzien','data_zakoncz_miesiac','data_zakoncz_rok')">
 				<option value=""<?php if(!isset($data_rozp[2])) echo ' selected="selected"'; ?>>-</option>
 				<?php
 					for($i=1;$i<32;++$i){
@@ -148,21 +144,21 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js','js/projekt_form.js'));
+					#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js','js/projekt_form.js'));
 				}
 				else{
 					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
-					bottom();
+					
 				}
 			}
 			else{
 				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-				bottom();
+			
 			}
 		}
 		else{
 			echo 'Nie podano projektu do edycji.';
-			bottom();
+		
 		}
 	}
 	else {

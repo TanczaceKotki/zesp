@@ -1,12 +1,6 @@
 <?php
 	session_start();
-
-	require 'common.php';
-	require 'DB.php';
-	require 'user.class.php';
-	top();
-
 	session_destroy();
 	$_SESSION = array ();
-	echo 'Zostałeś wylogowany! <a href="login.php"><br>Zaloguj się</a> ponownie.';
+	echo 'Zostałeś wylogowany! <a href="index.php?menu=10"><br>Zaloguj się</a> ponownie.';
 ?>

@@ -1,12 +1,7 @@
 <?php
 	session_start();
-	require 'user.class.php';
-	require 'common.php';
-	require 'DB.php';
 	require 'walidacja_danych_php/walidacja.php';
 	require 'send_email.php';
-
-	top();
 	$displayform=True;
 	if(user::isLogged()){
 		$user = user::getData('', '');
@@ -34,11 +29,10 @@
 					if($st->execute(array($login,$pass_hash,$lvl))){
 						if($st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
 							if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['email']))){
-								echo 'Osoba została pomyślnie wstawiona. Login i hasło zostały wysłane do niej poprzez pocztę elektroniczną.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+								echo 'Osoba została pomyślnie wstawiona. Login i hasło zostały wysłane do niej poprzez pocztę elektroniczną.<br /><br /><a href="index.php?menu=100">Wróć do listy użytkowników.</a>';
 								wyslij_wiadomosc_z_haslem( $login, $pass );
 								$displayform=False;
-								bottom();
-							}
+															}
 							else{
 								echo 'Nastąpił błąd1 przy dodawaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
 							}
@@ -58,34 +52,38 @@
 		}
 		if($displayform){
 ?>
-<form action="add_osoba.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
-	<div>
-		<label for="imie">Imię<span class="color_red">*</span>: </label>
-		<input type="text" name="imie" id="imie" value="<?php if(isset($_POST['imie'])) echo $_POST['imie']; ?>" size="16" maxlength="16" required="required" />
+  <ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+  <li><a href="index.php?menu=100">Zarządzaj użytkownikami</a></li>
+    <li class="active">Dodaj użytkownika</li>
+</ol>
+<form action="index.php?menu=23" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
+	<div><br>
+		<label for="imie">Imię:<span class="color_red">*</span>: </label>
+		<input class="form-control" type="text" name="imie" id="imie" value="<?php if(isset($_POST['imie'])) echo $_POST['imie']; ?>" size="16" maxlength="16" required="required" />
 		<span id="imie_counter"></span>
 	</div>
-	<div>
-		<label for="nazwisko">Nazwisko<span class="color_red">*</span>: </label>
-		<input type="text" name="nazwisko" id="nazwisko" value="<?php if(isset($_POST['nazwisko'])) echo $_POST['nazwisko']; ?>" size="32" maxlength="32" required="required" />
+	<div><br>
+		<label for="nazwisko">Nazwisko:<span class="color_red">*</span>: </label>
+		<input class="form-control" type="text" name="nazwisko" id="nazwisko" value="<?php if(isset($_POST['nazwisko'])) echo $_POST['nazwisko']; ?>" size="32" maxlength="32" required="required" />
 		<span id="nazwisko_counter"></span>
 	</div>
-	<div>
-		<label for="email">Adres e-mail<span class="color_red">*</span>: </label>
-		<input type="email" name="email" id="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" size="100" maxlength="254" onchange="check_email()" required="required" />
+	<div><br>
+		<label for="email">Adres e-mail:<span class="color_red">*</span>: </label>
+		<input class="form-control" type="email" name="email" id="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" size="100" maxlength="254" onchange="check_email()" required="required" />
 		<span id="email_counter"></span>
 	</div>
-	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+	<div><br>
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db.js','js/remaining_char_counter.js','js/check_email.js','js/osoba_form.js'));
+			#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db.js','js/remaining_char_counter.js','js/check_email.js','js/osoba_form.js'));
 		}
 	}
 	else{
 		echo '<br />Nie jesteś zalogowany.<br />
 		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		bottom();
-	}
+			}
 ?>

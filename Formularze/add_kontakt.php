@@ -1,9 +1,6 @@
 <?php
 	session_start();
-	require 'user.class.php';
-	require 'common.php';
-	require 'DB.php';
-	top();
+
 	$displayform=True;
 	$DB=dbconnect();
 	if(user::isLogged()){
@@ -13,8 +10,7 @@
 				if($st->execute(array($_POST['sprzet'],$_POST['osoba']))){
 					echo 'Informacja kontaktowa została pomyślnie wstawiona.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
 					$displayform=False;
-					bottom();
-				}
+									}
 				else{
 					echo 'Nastąpił błąd przy dodawaniu informacji kontaktowej: '.implode(' ',$st->errorInfo()).'<br /><br />';
 				}
@@ -25,10 +21,10 @@
 		}
 		if($displayform){
 ?>
-<form action="add_kontakt.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
+<form action="index.php?menu=20" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<div>
-		<label for="sprzet">Sprzęt<span class="color_red">*</span>: </label>
-		<select name="sprzet" id="sprzet" onchange="ask_db_middle_table('kontakt',this.value,$('#osoba').val(),'Ta informacja kontaktowa jest już w bazie danych.','#kontakt_error')" required="required">
+		<label for="sprzet">Aparatura<span class="color_red">*</span>: </label>
+		<select class="form-control" name="sprzet" id="sprzet" onchange="ask_db_middle_table('kontakt',this.value,$('#osoba').val(),'Ta informacja kontaktowa jest już w bazie danych.','#kontakt_error')" required="required">
 			<option value=""<?php if(!isset($_POST['sprzet'])) echo ' selected="selected"'; ?>>-</option>
 			<?php
 				if($result=$DB->query('SELECT id,nazwa FROM Sprzet ORDER BY nazwa')){
@@ -55,7 +51,7 @@
 	</div>
 	<div>
 		<label for="osoba">Osoba<span class="color_red">*</span>: </label>
-		<select name="osoba" id="osoba" onchange="ask_db_middle_table('kontakt',$('#sprzet').val(),this.value,'Ta informacja kontaktowa jest już w bazie danych.','#kontakt_error')" required="required">
+		<select class="form-control" name="osoba" id="osoba" onchange="ask_db_middle_table('kontakt',$('#sprzet').val(),this.value,'Ta informacja kontaktowa jest już w bazie danych.','#kontakt_error')" required="required">
 			<option value=""<?php if(!isset($_POST['osoba'])) echo ' selected="selected"'; ?>>-</option>
 			<?php
 				if($result=$DB->query('SELECT id,imie,nazwisko FROM Osoba ORDER BY nazwisko')){
@@ -81,18 +77,17 @@
 		</select>
 	</div>
 	<div id="kontakt_error"></div>
-	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+	<div><br>
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db_middle_table.js','js/kontakt_form.js'));
+			#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db_middle_table.js','js/kontakt_form.js'));
 		}
 	}
 	else{
 		echo '<br />Nie jesteś zalogowany.<br />
 		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		bottom();
-	}
+		}
 ?>

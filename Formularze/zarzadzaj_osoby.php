@@ -1,27 +1,19 @@
 <?php
 	session_start();
 	require_once 'user.class.php';
-	top();
 	$DB=dbconnect();
 	if (user::isLogged()) {
 		$user = user::getData('', '');
-		if(isset($_POST['del_osoba'])){
-			if($st=$DB->prepare('SELECT email FROM Osoba WHERE id=?')){
-				if($st->execute(array($_POST['id']))){
-					if($row=$st->fetch(PDO::FETCH_ASSOC)){
-						if($st=$DB->prepare('DELETE FROM Uzytkownicy WHERE login=?')){
-							if($st->execute(array($row['email']))) echo 'Osoba została usunięta.<br /><br />';
-							else echo 'Nastąpił błąd przy usuwaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
-						}
-					}
-				}
-			}
-		}
+		
 ?>
+ <ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+    <li class="active">Zarządzaj użytkownikami</li>
+</ol>
+<a class="btn btn-warning" href="index.php?menu=23">Dodaj użytkownika</a><br/><br/>
+<a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do użytkownika</a><br/><br/>
 
-<a href="add_osoba.php">Dodaj osoba</a><br />
-
-	<table><tr><td colspan="2">Osoby</td></tr>
+	<table class="table table-striped">
 	<?php
 		if($result=$DB->query('SELECT id,imie,nazwisko FROM Osoba ORDER BY nazwisko')){
 			while($row=$result->fetch(PDO::FETCH_ASSOC)){
@@ -31,9 +23,15 @@
 						<a href="view_osoba.php?id=<?php echo $row['id']; ?>"><?php echo $row['imie'].' '.$row['nazwisko']; ?></a>
 					</td>
 					<td>
-						<form action="index.php?menu=100" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+						<form action="index.php?menu=42" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-							<input type="submit" name="del_osoba" value="Usuń" />
+							<input class="btn btn-warning" type="submit" name="del_lab" value="Edytuj" />
+						</form>
+					</td>
+					<td>
+						<form action="index.php?menu=31" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+							<input class="btn btn-danger" type="submit" name="del_osoba" value="Usuń" />
 						</form>
 					</td>
 				</tr><?php
@@ -44,8 +42,7 @@
 <?php
 	}
 	else {
-		echo '<br />Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
+		echo '<br>Nie jesteś zalogowany.<br />
+		<a href="index.php?menu=10">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 	}
-	bottom();
-?>
+	?>

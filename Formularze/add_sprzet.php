@@ -1,11 +1,8 @@
 <?php
 	session_start();
-	require 'user.class.php';
 	require 'common.php';
-	require 'DB.php';
 	require 'walidacja_danych_php/walidacja.php';
-	top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
-	$DB=dbconnect();
+	#top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
 	$displayform=True;
 	if(user::isLogged()){
 		$user = user::getData('', '');
@@ -70,10 +67,9 @@
 				}
 				if($st=$DB->prepare($sql)){
 					if($st->execute($params)){
-						echo 'Sprzęt został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+						echo 'Sprzęt został pomyślnie wstawiony.<br /><br /><a href="index.php?menu=8">Wróć do spisu aparatury.</a>';
 						$displayform=False;
-						bottom();
-					}
+										}
 					else{
 						echo 'Nastąpił błąd przy dodawaniu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
 					}
@@ -85,15 +81,20 @@
 		}
 		if($displayform){
 ?>
-<form action="add_sprzet.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return check_if_number(document.getElementById('wartosc').value)">
+  <ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+  <li><a href="index.php?menu=8">Zarządzaj aparaturą</a></li>
+    <li class="active">Dodaj aparaturę</li>
+</ol>
+<form action="index.php?menu=25" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return check_if_number(document.getElementById('wartosc').value)">
 	<div>
-		<label for="nazwa">Nazwa<span class="color_red">*</span>: </label>
-		<input type="text" name="nazwa" id="nazwa" value="<?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="100" maxlength="512" spellcheck="true" required="required" />
+		<label for="nazwa">Nazwa:<span class="color_red">*</span>: </label>
+		<input class="form-control" type="text" name="nazwa" id="nazwa" value="<?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="100" maxlength="512" spellcheck="true" required="required" />
 		<span id="nazwa_counter"></span>
 	</div>
 	<div>
 		<fieldset>
-			<legend>Data zakupu</legend>
+			<legend>Data zakupu:</legend>
 			<label for="data_zakupu_dzien">Dzień: </label>
 			<select name="data_zakupu_dzien" id="data_zakupu_dzien">
 				<option value=""<?php if(!isset($_POST['data_zakupu_dzien'])) echo ' selected="selected"'; elseif($_POST['data_zakupu_dzien']==="") echo ' selected="selected"'; ?>>-</option>
@@ -122,7 +123,7 @@
 					}
 				?>
 			</select>
-			<label for="data_zakupu_rok"> Rok<span class="color_red">*</span>: </label>
+			<label  for="data_zakupu_rok"> Rok<span class="color_red">*</span>: </label>
 			<select name="data_zakupu_rok" id="data_zakupu_rok" onchange="day_switch_with_required_year('data_zakupu_dzien','data_zakupu_miesiac','data_zakupu_rok')" required="required">
 				<option value=""<?php if(!isset($_POST['data_zakupu_rok'])) echo ' selected="selected"'; elseif($_POST['data_zakupu_rok']==="") echo ' selected="selected"'; ?>>-</option>
 				<?php
@@ -146,7 +147,7 @@
 	</div>
 	<div>
 		<fieldset>
-			<legend>Data uruchomienia</legend>
+			<legend>Data uruchomienia:</legend>
 			<label for="data_uruchom_dzien">Dzień: </label>
 			<select name="data_uruchom_dzien" id="data_uruchom_dzien">
 				<option value=""<?php if(!isset($_POST['data_uruchom_dzien'])) echo ' selected="selected"'; elseif($_POST['data_uruchom_dzien']==="") echo ' selected="selected"'; ?>>-</option>
@@ -198,17 +199,17 @@
 		</fieldset>
 	</div>
 	<div>
-		<label for="wartosc">Wartość: </label>
-		<input type="number" name="wartosc" id="wartosc" value="<?php if(isset($_POST['wartosc'])) echo $_POST['wartosc']; ?>" min="0" step="1" max="9223372036854775807" maxlength="19" size="19" onchange="check_if_number(this.value)" />gr
+		<label  for="wartosc">Wartość: </label>
+		<input  type="number" name="wartosc" id="wartosc" value="<?php if(isset($_POST['wartosc'])) echo $_POST['wartosc']; ?>" min="0" step="1" max="9223372036854775807" maxlength="19" size="19" onchange="check_if_number(this.value)" />gr
 	</div>
 	<div>
-		<label for="opis">Opis<span class="color_red">*</span>: </label>
+		<label for="opis">Opis:<span class="color_red">*</span>: </label>
 		<textarea name="opis" id="opis" rows="20" cols="100" maxlength="166666666" spellcheck="true" required="required"><?php if(isset($_POST['opis'])) echo $_POST['opis']; ?></textarea>
 		<span id="opis_counter"></span>
 	</div>
-	<div>
+	<div><br>
 		<label for="projekt">Projekt: </label>
-		<select name="projekt" id="projekt">
+		<select class="form-control" name="projekt" id="projekt">
 			<option value=""<?php if(!isset($_POST['projekt'])) echo ' selected="selected"'; ?>>-</option>
 			<?php
 				if($result=$DB->query("SELECT id,nazwa FROM Projekt ORDER BY nazwa")){
@@ -232,9 +233,9 @@
 			?>
 		</select>
 	</div>
-	<div>
-		<label for="laboratorium">Laboratorium: </label>
-		<select name="laboratorium" id="laboratorium">
+	<div><br>
+		<label  for="laboratorium">Laboratorium: </label>
+		<select class="form-control" name="laboratorium" id="laboratorium">
 			<option value=""<?php if(!isset($_POST['laboratorium'])) echo ' selected="selected"'; ?>>-</option>
 			<?php
 				if($result=$DB->query('SELECT id,nazwa FROM Laboratorium ORDER BY nazwa')){
@@ -260,12 +261,12 @@
 		</select>
 	</div>
 	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js'));
+			#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js'));
 		}
 	}
 	else{

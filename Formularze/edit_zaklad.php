@@ -1,9 +1,6 @@
 <?php
 	session_start();
-	require 'user.class.php';
-	require 'common.php';
-	require 'DB.php';
-	top();
+	
 	if(user::isLogged()){
 		$user = user::getData('', '');
 		if(isset($_POST['id'])){
@@ -21,26 +18,26 @@
 		<span id="nazwa_counter"></span>
 	</div>
 	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js'));
+					#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js'));
 				}
 				else{
 					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
-					bottom();
+					
 				}
 			}
 			else{
 				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-				bottom();
+				
 			}
 		}
 		else{
 			echo 'Nie podano zakładu do edycji.';
-			bottom();
+			
 		}
 	}
 	else {

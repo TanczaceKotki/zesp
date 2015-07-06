@@ -1,8 +1,16 @@
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+ <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <meta charset="utf-8">
+  <ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+  <li><a href="index.php?menu=17">Zarządzaj projektami</a></li>
+  <li class="active">Szczegóły projekt</li>
+</ol>
 <?php
 	require 'common.php';
 	require 'DB.php';
 	$DB=dbconnect();
-	top();
+	
 	if(isset($_POST['submitted'])){
 		$send=False;
 		$params=array();
@@ -65,35 +73,28 @@
 	if($st=$DB->prepare('SELECT * FROM Projekt WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-				?><form action="index_panel_admina.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-					<input type="submit" name="del_osoba" value="Usuń" />
-				</form>
-				<form action="edit_projekt.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-					<input type="submit" value="Edytuj" />
-				</form>
+				?>
 				<br />
-				<table>
+				<table class="table table-striped">
 					<tbody>
 						<tr>
-							<td>Nazwa</td>
+							<td>Nazwa:</td>
 							<td><?php echo $row['nazwa']; ?></td>
 						</tr>
 						<tr>
-							<td>Data rozpoczęcia</td>
+							<td>Data rozpoczęcia:</td>
 							<td><?php echo $row['data_rozp']; ?></td>
 						</tr>
 						<tr>
-							<td>Data Zakończenia</td>
+							<td>Data Zakończenia:</td>
 							<td><?php echo $row['data_zakoncz']; ?></td>
 						</tr>
 						<tr>
-							<td>Opis</td>
+							<td>Opis:</td>
 							<td><?php echo $row['opis']; ?></td>
 						</tr>
 						<tr>
-							<td>Logo</td>
+							<td>Logo:</td>
 							<td><img src="<?php echo $row['logo']; ?>" width="200" alt="" /></td>
 						</tr>
 					</tbody>
@@ -103,6 +104,6 @@
 		else echo 'Nastąpił błąd przy pobieraniu informacji o projekcie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy pobieraniu informacji o projekcie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a href="index_panel_admina.php">Wróć do strony głównej.</a><?php
-	bottom();
+	?><br /><a class="btn btn-warning" href="index.php?menu=17">Wróć do strony zarządzania projektami</a><?php
+	
 ?>
