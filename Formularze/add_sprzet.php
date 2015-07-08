@@ -240,7 +240,6 @@
 			<?php
 				if($result=$DB->query('SELECT id,nazwa FROM Laboratorium ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
-						sort($rows);
 						$first_letter=$rows[0]['nazwa'][0];
 						echo '<optgroup label="'.strtoupper($first_letter).'">';
 						foreach($rows as $row){
@@ -266,7 +265,9 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js'));
+			foreach(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js') as $script){
+				echo '<script src="'.$script.'" type="text/javascript"></script>';
+			}
 		}
 	}
 	else{

@@ -5,9 +5,9 @@ function ask_db(dest,query,message,input_id){
 	else if(dest==='login') var addr='ajax_query_login.php';
 	post_request=$.post(addr,{q:query});
 	post_request.done(function(data){
+		ajax_wait=false;
 		if(data==='0') $(input_id)[0].setCustomValidity('');
 		else $(input_id)[0].setCustomValidity(message);
-		ajax_wait=false;
 	});
 }
 

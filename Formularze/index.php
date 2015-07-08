@@ -6,21 +6,11 @@ $DB=dbconnect();
 
 	
 	?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="pl">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="js/jquery-1.11.3.min.js"></script>
-   <script src="js/modernizr.js"></script>
-    <script src="js/js-webshim/minified/polyfiller.js"></script>
-     <script src="js/default_form.js"></script>
-      <script src="js/ask_db.js"></script>
-       <script src="js/ask_db.js"></script>
-        <script src="js/check_email.js"></script>
-         <script src="js/osoba_form.js"></script>
-       <script src=https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css></script>
-  <script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>Tanczace kotki 2015</title>
 <!-- TemplateEndEditable -->
@@ -32,15 +22,14 @@ $DB=dbconnect();
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
- 
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" type="text/javascript"></script>
     <![endif]-->
-  
+	 <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>

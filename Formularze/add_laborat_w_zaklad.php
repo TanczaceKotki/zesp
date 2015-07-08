@@ -33,7 +33,6 @@
 			<?php
 				if($result=$DB->query('SELECT id,nazwa FROM Laboratorium ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
-						sort($rows);
 						$first_letter=$rows[0]['nazwa'][0];
 						echo '<optgroup label="'.strtoupper($first_letter).'">';
 						foreach($rows as $row){
@@ -60,7 +59,6 @@
 			<?php
 				if($result=$DB->query('SELECT id,nazwa FROM Zaklad ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
-						sort($rows);
 						$first_letter=$rows[0]['nazwa'][0];
 						echo '<optgroup label="'.strtoupper($first_letter).'">';
 						foreach($rows as $row){
@@ -87,7 +85,9 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			#bottom(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db_middle_table.js','js/laborat_w_zaklad_form.js'));
+			foreach(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db_middle_table.js','js/laborat_w_zaklad_form.js') as $script){
+				echo '<script src="'.$script.'" type="text/javascript"></script>';
+			}
 		}
 	}
 	else{
