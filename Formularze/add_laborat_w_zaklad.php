@@ -6,7 +6,7 @@
 		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			if($st=$DB->prepare('INSERT INTO Laborat_w_zaklad VALUES(?,?)')){
-				if($st->execute(array($_POST['laboratorium'],$_POST['zaklad']))){
+				if($st->execute(array($_POST['zaklad'],$_POST['laboratorium']))){
 					echo 'Informacja o laboratorium w zakładzie została pomyślnie wstawiona.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
 					$displayform=False;
 									}
