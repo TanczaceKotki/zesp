@@ -15,7 +15,7 @@
 
 	<table class="table table-striped">
 	<?php
-		if($result=$DB->query('SELECT id,imie,nazwisko FROM Osoba ORDER BY nazwisko')){
+		if($result=$DB->query('SELECT id,imie,nazwisko,email FROM Osoba ORDER BY nazwisko')){
 			while($row=$result->fetch(PDO::FETCH_ASSOC)){
 				?>
 				<tr>
@@ -25,12 +25,12 @@
 					<td>
 						<form action="index.php?menu=42" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-							<input class="btn btn-warning" type="submit" name="del_lab" value="Edytuj" />
+							<input class="btn btn-warning" type="submit" value="Edytuj" />
 						</form>
 					</td>
 					<td>
 						<form action="index.php?menu=31" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+							<input type="hidden" name="email" value="<?php echo $row['email']; ?>" />
 							<input class="btn btn-danger" type="submit" name="del_osoba" value="Usuń" />
 						</form>
 					</td>

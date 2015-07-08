@@ -23,7 +23,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					foreach(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js') as $script){
+					foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js') as $script){
 						echo '<script src="'.$script.'" type="text/javascript"></script>';
 					}
 				}

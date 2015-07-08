@@ -11,6 +11,27 @@
 	require 'DB.php';
 	
 	$DB=dbconnect();
+	if(isset($_POST['del_picture'])){
+		if($st=$DB->prepare('DELETE FROM Zdjecie WHERE id=?')){
+			if($st->execute(array($_POST['id']))) echo 'Zdjecie zostało usunięte.<br /><br />';
+			else echo 'Nastąpił błąd przy usuwaniu zdjęcia: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		}
+		else echo 'Nastąpił błąd przy usuwaniu zdjęcia: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	}
+	if(isset($_POST['del_tag'])){
+		if($st=$DB->prepare('DELETE FROM Tagi_sprzetu WHERE sprzet=? AND tag=?')){
+			if($st->execute(array($_POST['sprzet'],$_POST['tag']))) echo 'Tag został usunięty.<br /><br />';
+			else echo 'Nastąpił błąd przy usuwaniu tagu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		}
+		else echo 'Nastąpił błąd przy usuwaniu tagu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	}
+	if(isset($_POST['del_kontakt'])){
+		if($st=$DB->prepare('DELETE FROM Kontakt WHERE sprzet=? AND osoba=?')){
+			if($st->execute(array($_POST['sprzet'],$_POST['osoba']))) echo 'Informacje kontaktowe zostały usunięte.<br /><br />';
+			else echo 'Nastąpił błąd przy usuwaniu informacji kontaktowych: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		}
+		else echo 'Nastąpił błąd przy usuwaniu informacji kontaktowych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	}
 
 	if($st=$DB->prepare('SELECT * FROM Sprzet WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
@@ -95,7 +116,7 @@
 							if($result2=$DB->prepare('SELECT nazwa FROM Tag WHERE id=?')){
 								if($result2->execute(array($row2['tag']))){
 									if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
-										?><a href="view_tag.php?id=<?php echo $row2['tag']; ?>"><?php echo $row3['nazwa']; ?>
+										echo $row3['nazwa']; ?>
 										<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="sprzet" value="<?php echo $row['id']; ?>" />
 											<input type="hidden" name="tag" value="<?php echo $row2['tag']; ?>" />

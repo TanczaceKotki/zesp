@@ -10,7 +10,51 @@
 	require 'common.php';
 	require 'DB.php';
 	$DB=dbconnect();
-	
+	if(isset($_POST['del_kontakt'])){
+		if($st=$DB->prepare('DELETE FROM Kontakt WHERE sprzet=? AND osoba=?')){
+			if($st->execute(array($_POST['sprzet'],$_POST['osoba']))) echo 'Informacje kontaktowe zostały usunięte.<br /><br />';
+			else echo 'Nastąpił błąd przy usuwaniu informacji kontaktowych: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		}
+		else echo 'Nastąpił błąd przy usuwaniu informacji kontaktowych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	}
+	if(isset($_POST['submitted'])){
+		$send=False;
+		$params=array();
+		$sql='UPDATE Osoba SET';
+		if($_POST['imie']!==$_POST['old_imie']){
+			$sql.=' imie=?';
+			$params[]=$_POST['imie'];
+			$send=True;
+		}
+		if($_POST['nazwisko']!==$_POST['old_nazwisko']){
+			if($send) $sql.=',';
+			$sql.=' nazwisko=?';
+			$params[]=$_POST['nazwisko'];
+			$send=True;
+		}
+		if($_POST['email']!==$_POST['old_email']){
+			if($st=$DB->prepare('UPDATE Uzytkownicy SET login=? WHERE login=?')){
+				if($st->execute(array($_POST['email'],$_POST['old_email']))){
+					if(!$send) echo 'Osoba została pomyślnie zmodyfikowana.<br /><br />';
+				}
+				else{
+					echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
+			}
+			else echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+		}
+		if($send){
+			$sql.=' WHERE id=?';
+			$params[]=$_POST['id'];
+			if($st=$DB->prepare($sql)){
+				if($st->execute($params)){
+					echo 'Osoba została pomyślnie zmodyfikowana.<br /><br />';
+				}
+				else echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			}
+			else echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+		}
+	}
 	if($st=$DB->prepare('SELECT * FROM Osoba WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -63,6 +107,5 @@
 		else echo 'Nastąpił błąd przy pobieraniu informacji o osobie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy pobieraniu informacji o osobie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><a class="btn btn-warning" href="index.php?menu=100">Wróć do strony zarządzania użytkownikami</a><?php
-	
 ?>
+<a class="btn btn-warning" href="index.php?menu=100">Wróć do strony zarządzania użytkownikami</a>

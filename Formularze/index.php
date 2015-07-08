@@ -3,13 +3,11 @@
 	require 'common.php';
 require 'DB.php';
 $DB=dbconnect();
-
-	
-	?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- TemplateBeginEditable name="doctitle" -->
 <title>Tanczace kotki 2015</title>
@@ -17,9 +15,8 @@ $DB=dbconnect();
 <!-- TemplateBeginEditable name="head" -->
 <!-- TemplateEndEditable -->
 <link href="oneColLiqCtrHdr.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
    
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -35,13 +32,13 @@ $DB=dbconnect();
 <body>
 
 <div class="container">
-  <div id= "header"class="header"> 
-    <div align="left"><a href="index.php"><img src="logo_atomin.png" alt="Insert Logo Here" name="Insert_logo" width="546" height="74" id="Insert_logo" style="background-color: #white; display:block;" /><a href="#"></a></div>
+  <div id= "header" class="header"> 
+    <div align="left"><a href="index.php"><img src="logo_atomin.png" alt="Insert Logo Here" name="Insert_logo" width="546" height="74" id="Insert_logo" style="background-color: #white; display:block;" /></a></div>
    <div id="zaloguj" align="right" style>
     <?php if (user::isLogged()) { ?>        
-        <a href="index.php?menu=15"><button  class="btn btn-warning"" type="button">wyloguj</button></a>
+        <a href="index.php?menu=15"><button class="btn btn-warning" type="button">wyloguj</button></a>
         <?php }
-        else { ?> <a href="index.php?menu=10"><button  class="btn btn-warning" type="button">zaloguj</button></a> <?php } ?></div><br>
+        else { ?> <a href="index.php?menu=10"><button class="btn btn-warning" type="button">zaloguj</button></a> <?php } ?></div><br />
 <div id="wyszukiwarka" align="right"><?php include("search_bar.php"); ?></div></div>
     <!-- end .header -->
   <div class="menu">
@@ -49,25 +46,25 @@ $DB=dbconnect();
 
 
 <ul class="menu_niezalogowany">
-<li> <a href="index.php?menu=1">O projekcie</a> </li>
-<li> <a href="index.php?menu=2">Komunikaty</a> </li>
-<li> <a href="index.php?menu=4">Aparatura</a> </li>
-<li> <a href="index.php?menu=3">Laboratoria</a> </li>
-<li> <a href="index.php?menu=5">Zespoły lab</a> </li>
-<li> <a href="index.php?menu=107">Projekty</a> </li>
-<li> <a href="index.php?menu=6">Kontakt</a> </li>
+<li><a href="index.php?menu=1">O projekcie</a></li>
+<li><a href="index.php?menu=2">Komunikaty</a></li>
+<li><a href="index.php?menu=4">Aparatura</a></li>
+<li><a href="index.php?menu=3">Laboratoria</a></li>
+<li><a href="index.php?menu=5">Zespoły lab</a></li>
+<li><a href="index.php?menu=107">Projekty</a></li>
+<li><a href="index.php?menu=6">Kontakt</a></li>
 </ul>
 
 <?php if (user::isLogged()) { ?>
 <ul class="menu_admin">
-<li> <a href="index.php?menu=12">Zarządzanie newsami</a> </li>
-<li> <a href="index.php?menu=7">Zarządzanie laboratoriami</a> </li>
-<li> <a href="index.php?menu=8">Zarządzanie aparaturą</a> </li>
-<li> <a href="index.php?menu=9">Zarządzanie zespołami lab</a> </li>
-<li> <a href="index.php?menu=17">Zarządzanie projektami</a> </li>
-<li> <a href="index.php?menu=100">Zarządzanie użytkownikami</a> </li>
-<li> <a href="index.php?menu=13">Zarządzanie uprawnieniami dostępu</a> </li>
-<li> <a href="index.php?menu=12">Zarządzanie zdjęciami</a> </li>
+<li><a href="index.php?menu=12">Zarządzanie newsami</a></li>
+<li><a href="index.php?menu=7">Zarządzanie laboratoriami</a></li>
+<li><a href="index.php?menu=8">Zarządzanie aparaturą</a></li>
+<li><a href="index.php?menu=9">Zarządzanie zespołami lab</a></li>
+<li><a href="index.php?menu=17">Zarządzanie projektami</a></li>
+<li><a href="index.php?menu=100">Zarządzanie użytkownikami</a></li>
+<li><a href="index.php?menu=13">Zarządzanie uprawnieniami dostępu</a></li>
+<li><a href="index.php?menu=12">Zarządzanie zdjęciami</a></li>
 
 </ul>
     </nav>

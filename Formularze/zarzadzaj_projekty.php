@@ -2,9 +2,11 @@
   <li><a href="index.php">Start</a></li>
     <li class="active">zarządzaj projektami</li>
 </ol>
-<a href="index.php?menu=24">Dodaj projekt</a>
 
-</table><table class="table table-striped">
+
+<a class="btn btn-warning" href="index.php?menu=24">Dodaj projekt</a><br /><br />
+
+<table class="table table-striped">
 	<?php
 		if($result=$DB->query('SELECT * FROM Projekt ORDER BY nazwa')){
 			while($row=$result->fetch(PDO::FETCH_ASSOC)){

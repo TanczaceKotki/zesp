@@ -13,7 +13,9 @@
 </ol>
 <a class="btn btn-warning" href="index.php?menu=21">Dodaj laboratorium</a><br /> <br />
 
-<a class="btn btn-warning" href="index.php?menu=22">Dodaj informację o laboratorium w zakładzie</a>
+<a class="btn btn-warning" href="index.php?menu=22">Dodaj informację o laboratorium w zakładzie</a><br /> <br />
+
+<a class="btn btn-warning" href="index.php?menu=28">Dodaj zakład</a>
 <br /><br />
 
 	<table class="table table-striped"> <tbody>

@@ -58,11 +58,11 @@
 				if($result=$DB->query('SELECT id,nazwa FROM Zespol ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
 						$first_letter=$rows[0]['nazwa'][0];
-						echo '<optgroup label="'.strtoupper($first_letter).'">';
+						echo '<optgroup label="'.$first_letter.'">';
 						foreach($rows as $row2){
 							if($first_letter!==$row2['nazwa'][0]){
 								$first_letter=$row2['nazwa'][0];
-								echo '</optgroup><optgroup label="'.strtoupper($first_letter).'">';
+								echo '</optgroup><optgroup label="'.$first_letter.'">';
 							}
 							echo '<option value="'.$row2['id'].'"';
 							if($row['zespol']===$row2['id']) echo ' selected="selected"';
@@ -80,7 +80,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					foreach(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js') as $script){
+					foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/remaining_char_counter.js') as $script){
 						echo '<script src="'.$script.'" type="text/javascript"></script>';
 					}
 				}

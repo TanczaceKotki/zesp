@@ -31,11 +31,11 @@
 				if($result=$DB->query('SELECT id,nazwa FROM Sprzet ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
 						$first_letter=$rows[0]['nazwa'][0];
-						echo '<optgroup label="'.strtoupper($first_letter).'">';
+						echo '<optgroup label="'.$first_letter.'">';
 						foreach($rows as $row){
 							if($first_letter!==$row['nazwa'][0]){
 								$first_letter=$row['nazwa'][0];
-								echo '</optgroup><optgroup label="'.strtoupper($first_letter).'">';
+								echo '</optgroup><optgroup label="'.$first_letter.'">';
 							}
 							echo '<option value="'.$row['id'].'"';
 							if(isset($_POST['sprzet'])){
@@ -57,11 +57,11 @@
 				if($result=$DB->query('SELECT id,nazwa FROM Tag ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
 						$first_letter=$rows[0]['nazwa'][0];
-						echo '<optgroup label="'.strtoupper($first_letter).'">';
+						echo '<optgroup label="'.$first_letter.'">';
 						foreach($rows as $row){
 							if($first_letter!==$row['nazwa'][0]){
 								$first_letter=$row['nazwa'][0];
-								echo '</optgroup><optgroup label="'.strtoupper($first_letter).'">';
+								echo '</optgroup><optgroup label="'.$first_letter.'">';
 							}
 							echo '<option value="'.$row['id'].'"';
 							if(isset($_POST['tag'])){
@@ -82,7 +82,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			foreach(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db_middle_table.js','js/tagi_sprzetu_form.js') as $script){
+			foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db_middle_table.js','js/tagi_sprzetu_form.js') as $script){
 				echo '<script src="'.$script.'" type="text/javascript"></script>';
 			}
 		}

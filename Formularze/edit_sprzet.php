@@ -29,7 +29,7 @@
 				$data.='-'.$_POST['data_uruchom_miesiac'];
 				if($_POST['data_uruchom_dzien']!=="") $data.='-'.$_POST['data_uruchom_dzien'];
 			}
-		
+		}
 		if($data!==$_POST['old_data_uruchom']){
 			if($send) $sql.=',';
 			if($data==="") $sql.=' data_uruchom=NULL';
@@ -78,10 +78,11 @@
 			if($st=$DB->prepare($sql)){
 				if($st->execute($params)) echo 'Sprzęt został pomyślnie zmodyfikowany.<br /><br />';
 				else echo 'Nastąpił błąd przy modyfikowaniu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
-			} }
-			else echo 'Nastąpił błąd przy modyfikowaniu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />'; }
+			} 
+			else echo 'Nastąpił błąd przy modyfikowaniu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+		}
+		}
 		if(isset($_POST['id'])){
-			#top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
 			if($st=$DB->prepare('SELECT * FROM Sprzet WHERE id=?')){
 				if($st->execute(array($_POST['id']))){
 					$row=$st->fetch(PDO::FETCH_ASSOC);
@@ -225,11 +226,11 @@
 				if($result=$DB->query('SELECT id,nazwa FROM Projekt ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
 						$first_letter=$rows[0]['nazwa'][0];
-						echo '<optgroup label="'.strtoupper($first_letter).'">';
+						echo '<optgroup label="'.$first_letter.'">';
 						foreach($rows as $row2){
 							if($first_letter!==$row2['nazwa'][0]){
 								$first_letter=$row2['nazwa'][0];
-								echo '</optgroup><optgroup label="'.strtoupper($first_letter).'">';
+								echo '</optgroup><optgroup label="'.$first_letter.'">';
 							}
 							echo '<option value="'.$row2['id'].'"';
 							if($row['projekt']===$row2['id']) echo ' selected="selected"';
@@ -250,11 +251,11 @@
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
 						
 						$first_letter=$rows[0]['nazwa'][0];
-						echo '<optgroup label="'.strtoupper($first_letter).'">';
+						echo '<optgroup label="'.$first_letter.'">';
 						foreach($rows as $row2){
 							if($first_letter!==$row2['nazwa'][0]){
 								$first_letter=$row2['nazwa'][0];
-								echo '</optgroup><optgroup label="'.strtoupper($first_letter).'">';
+								echo '</optgroup><optgroup label="'.$first_letter.'">';
 							}
 							echo '<option value="'.$row2['id'].'"';
 							if($row['laboratorium']===$row2['id']) echo ' selected="selected"';
@@ -272,7 +273,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					foreach(array('js/jquery-1.11.3.min.js','js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js') as $script){
+					foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js') as $script){
 						echo '<script src="'.$script.'" type="text/javascript"></script>';
 					}
 				}
@@ -291,7 +292,7 @@
 			echo 'Nie podano sprzętu do edycji.';
 			bottom();
 		}
-	} }
+	}
 	else {
 		
 		echo '<br>Nie jesteś zalogowany.<br />

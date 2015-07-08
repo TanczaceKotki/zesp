@@ -29,17 +29,17 @@
 						<tbody>
 					<?php
 						if (user::isLogged()) {
-							if($result=$DB->query('SELECT id, login, lvl FROM Uzytkownicy')){
+							if($result=$DB->query('SELECT id,login,lvl FROM Uzytkownicy')){
 								echo '<h5>Jesteś zalogowany jako: '.$_SESSION['login'].'</h5>';
 								while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 								?>
 									<tr>
-										<td ><?php echo $row['login']; ?></td>
-											<td >
+										<td><a href="view_user.php?id=<?php echo $row['id']; ?>"><?php echo $row['login']; ?></a></td>
+											<td>
 												<?php 
-												if($row['lvl'] == 0) echo "Administrator";
-												elseif($row['lvl'] == 1) echo "Moderator";
-												elseif($row['lvl'] == 2) echo "Osoba kontaktowa"; 
+													if($row['lvl']==='0') echo 'Administrator';
+													else if($row['lvl']==='1') echo 'Moderator';
+													else if($row['lvl']==='2') echo 'Osoba kontaktowa';
 												?>
 											</td>
 										<td>
