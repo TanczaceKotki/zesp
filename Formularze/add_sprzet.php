@@ -265,7 +265,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js') as $script){
+			foreach(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js') as $script){
 				echo '<script src="'.$script.'" type="text/javascript"></script>';
 			}
 		}

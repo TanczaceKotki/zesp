@@ -85,7 +85,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-			foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db_middle_table.js','js/laborat_w_zaklad_form.js') as $script){
+			foreach(array('js/ask_db_middle_table.js','js/laborat_w_zaklad_form.js') as $script){
 				echo '<script src="'.$script.'" type="text/javascript"></script>';
 			}
 		}

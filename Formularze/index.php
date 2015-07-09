@@ -9,15 +9,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
 		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-		<!-- TemplateBeginEditable name="doctitle" -->
 		<title>Tanczace kotki 2015</title>
-		<!-- TemplateEndEditable -->
-		<!-- TemplateBeginEditable name="head" -->
-		<!-- TemplateEndEditable -->
 		<link href="oneColLiqCtrHdr.css" rel="stylesheet" type="text/css" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -81,11 +76,11 @@
 						<li><a href="index.php?menu=13">Zarządzanie użytkownikami</a></li>
 						<li><a href="index.php?menu=12">Zarządzanie zdjęciami</a></li>
 					</ul>
+					<?php
+						}
+					?>
 				</nav>
 			</div>
-			<?php
-				}
-			?>
 			<div id="content">
 				<?php
 					switch ($_GET['menu']){
@@ -263,5 +258,6 @@
 			</div>
 			<!-- end .container -->
 		</div>
+		<script src="js/modernizr.js" type="text/javascript"></script><script src="js/js-webshim/minified/polyfiller.js" type="text/javascript"></script><script src="js/default_form.js" type="text/javascript"></script>
 	</body>
 </html>

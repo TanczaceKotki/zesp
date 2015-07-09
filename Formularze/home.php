@@ -56,6 +56,6 @@ Celem projektu jest klasyfikacja i organizacja sprzętu wydz. Fizyki, Astronomii
 <div class="col-lg-4">
 <p class="row">Ogłoszenia</p>
 Zakupiono nowy sprzęt
-<p class="row"">Zarząd projektu</p>
+<p class="row">Zarząd projektu</p>
 Dyrektor katedry
 </div>

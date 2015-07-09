@@ -24,7 +24,7 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js','js/ask_db.js','js/remaining_char_counter.js','js/check_tag.js','js/tag_form_edit.js') as $script){
+					foreach(array('js/ask_db.js','js/remaining_char_counter.js','js/check_tag.js','js/tag_form_edit.js') as $script){
 						echo '<script src="'.$script.'" type="text/javascript"></script>';
 					}
 				}

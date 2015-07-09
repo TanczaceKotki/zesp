@@ -1,22 +1,20 @@
-
-  <ol class="breadcrumb">
-  <li><a href="index.php">Start</a></li>
-    <li class="active">Wyniki wyszukiwania</li>
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li class="active">Wyniki wyszukiwania</li>
 </ol>
 <div>
 <?php
-if(isset($_POST['submit'])){
-	if(isset($_POST['category'])){
-		if(isset($_POST['keyword'])){
-			if(preg_match("/^[ \w\s\d@]*$/", $_POST['keyword'])){
+	if(isset($_GET['category'])){
+		if(isset($_GET['keyword'])){
+			if(preg_match("/^[ \w\s\d@]*$/", $_GET['keyword'])){
 			
 			
-$category = $_POST['category'];
-$keyword = $_POST['keyword'];
+$category = $_GET['category'];
+$keyword = $_GET['keyword'];
 	
 echo"<table class='table table-striped'>";
-
-switch($_POST['category'])		
+$i=1;
+switch($_GET['category'])		
 {
 	
 	case "Osoba":
@@ -28,12 +26,13 @@ switch($_POST['category'])
 					$nazwisko = $row['nazwisko'];
 					$email = $row['email'];
 					
-					echo "<tr>";	
-					echo "<td><a href=\"index.php?menu=54&amp;id=$ID\">$ID</a></td>";
-					echo "<td><a href=\"index.php?menu=54&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['imie']) . " </a></td>";
-					echo "<td><a href=\"index.php?menu=54&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwisko']) . " </a></td>";
-					echo "<td><a href=\"index.php?menu=54&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['email']) . " </a></td>";
-					echo "</tr>";
+					echo "<tr class=\"result\">
+						<td><a href=\"index.php?menu=54&amp;id=$ID\" class=\"result_1\">$ID</a></td>
+						<td><a href=\"index.php?menu=54&amp;id=$ID\" class=\"result_2\">".str_replace($keyword,"<span class=\"highlight\">$keyword</span>",$row['imie'])."</a></td>
+						<td><a href=\"index.php?menu=54&amp;id=$ID\" class=\"result_3\">".str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['nazwisko'])." </a></td>
+						<td><a href=\"index.php?menu=54&amp;id=$ID\" class=\"result_4\">".str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['email'])." </a></td>
+					</tr>";
+					++$i;
 				}
 				break;
 	
@@ -45,10 +44,10 @@ switch($_POST['category'])
 					$nazwa = $row['nazwa'];
 					$opis = $row['opis'];
 					
-					echo "<tr>";	
-					echo "<td><a href=\"index.php?menu=52&amp;id=$ID\">$ID</a></td>";
-					echo "<td><a href=\"index.php?menu=52&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
-					echo "<td>" . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['opis']) . "</td>";
+					echo "<tr class=\"result\">";	
+					echo "<td><a href=\"index.php?menu=52&amp;id=$ID\" class=\"result_1\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=52&amp;id=$ID\" class=\"result_2\">".str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['nazwa'])." </a></td>";
+					echo "<td>" . str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['opis'])."</td>";
 					echo "</tr>";
 				}
 				break;
@@ -61,9 +60,9 @@ switch($_POST['category'])
 					$nazwa = $row['nazwa'];
 					$zespol = $row['zespol'];
 					
-					echo "<tr>";	
-					echo "<td><a href=\"index.php?menu=40&amp;id=$ID\">$ID</a></td>";
-					echo "<td><a href=\"index.php?menu=40&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<tr class=\"result\">";	
+					echo "<td><a href=\"index.php?menu=40&amp;id=$ID\" class=\"result_1\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=40&amp;id=$ID\" class=\"result_2\">".str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['nazwa'])." </a></td>";
 					echo "<td>" . $zespol . " </td>";
 					echo "</tr>";
 				}
@@ -76,9 +75,9 @@ switch($_POST['category'])
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
 					
-					echo "<tr>";	
-					echo "<td><a href=\"index.php?menu=60&amp;id=$ID\">$ID</a></td>";
-					echo "<td><a href=\"index.php?menu=60&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<tr class=\"result\">";	
+					echo "<td><a href=\"index.php?menu=60&amp;id=$ID\" class=\"result_1\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=60&amp;id=$ID\" class=\"result_2\">".str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['nazwa'])." </a></td>";
 					echo "</tr>";
 				}
 				break;
@@ -90,9 +89,9 @@ switch($_POST['category'])
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
 					
-					echo "<tr>";	
-					echo "<td><a href=\"index.php?menu=53&amp;id=$ID\">$ID</a></td>";
-					echo "<td><a href=\"index.php?menu=53&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<tr class=\"result\">";	
+					echo "<td><a href=\"index.php?menu=53&amp;id=$ID\" class=\"result_1\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=53&amp;id=$ID\" class=\"result_2\">".str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['nazwa'])." </a></td>";
 					echo "</tr>";
 				}	
 				break;
@@ -104,9 +103,9 @@ switch($_POST['category'])
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
 					
-					echo "<tr>";	
-					echo "<td><a href=\"index.php?menu=61&amp;id=$ID\">$ID</a></td>";
-					echo "<td><a href=\"index.php?menu=61&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<tr class=\"result\">";	
+					echo "<td><a href=\"index.php?menu=61&amp;id=$ID\" class=\"result_1\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=61&amp;id=$ID\" class=\"result_2\">".str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['nazwa'])." </a></td>";
 					echo "</tr>";
 				}
 				break;
@@ -118,10 +117,10 @@ switch($_POST['category'])
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
 					$opis = $row['opis'];					
-					echo "<tr>";	
-					echo "<td><a href=\"index.php?menu=51&amp;id=$ID\">$ID</a></td>";
-					echo "<td><a href=\"index.php?menu=51&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
-					echo "<td> " . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['opis']) . "</td>";
+					echo "<tr class=\"result\">";	
+					echo "<td><a href=\"index.php?menu=51&amp;id=$ID\" class=\"result_1\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=51&amp;id=$ID\" class=\"result_2\">".str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['nazwa'])." </a></td>";
+					echo "<td> " . str_replace($keyword, "<span class=\"highlight\">$keyword</span>",$row['opis'])."</td>";
 					echo "</tr>";
 				}
 				break;
@@ -134,9 +133,8 @@ echo "</table>";
 }else{echo "Niepoprawne znaki w zapytaniu.<br>Dozwolone znaki a-z, A-Z, 0-9, '@'.";}
 }else{echo "Niepoprawne zapytanie.<br>Spróbuj jeszcze raz.";}
 }else{echo "Niepoprawna kategoria";}
-}
 
 ?>
 
 </div>
-
+<script src="js/search_result.js" type="text/javascript"></script>
