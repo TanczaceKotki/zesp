@@ -8,10 +8,10 @@
 ?>
  <ol class="breadcrumb">
   <li><a href="index.php">Start</a></li>
-    <li class="active">Zarządzaj użytkownikami</li>
+    <li class="active">Zarządzaj osobami kontaktowymi</li>
 </ol>
-<a class="btn btn-warning" href="index.php?menu=23">Dodaj użytkownika</a><br/><br/>
-<a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do użytkownika</a><br/><br/>
+<a class="btn btn-warning" href="index.php?menu=23">Dodaj osobę kontaktową</a><br/><br/>
+<a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do osoby kontaktowej</a><br/><br/>
 
 	<table class="table table-striped">
 	<?php
@@ -20,7 +20,7 @@
 				?>
 				<tr>
 					<td>
-						<a href="view_osoba.php?id=<?php echo $row['id']; ?>"><?php echo $row['imie'].' '.$row['nazwisko']; ?></a>
+						<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>"><?php echo $row['imie'].' '.$row['nazwisko']; ?></a>
 					</td>
 					<td>
 						<form action="index.php?menu=42" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">

@@ -1,8 +1,9 @@
+<ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+  <li class="active">Szczegóły tag</li>
+</ol>
 <?php
-	require 'common.php';
-	require 'DB.php';
 	$DB=dbconnect();
-	top();
 	if(isset($_POST['del_tag'])){
 		if($st=$DB->prepare('DELETE FROM Tagi_sprzetu WHERE sprzet=? AND tag=?')){
 			if($st->execute(array($_POST['sprzet'],$_POST['tag']))) echo 'Tag został usunięty.<br /><br />';
@@ -22,16 +23,9 @@
 	if($st=$DB->prepare('SELECT * FROM Tag WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-				?><form action="index_panel_admina.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-					<input type="submit" name="del_tag" value="Usuń" />
-				</form>
-				<form action="edit_tag.php" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-					<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-					<input type="submit" value="Edytuj" />
-				</form>
+				?>
 				<br />
-				<table>
+				<table class="table table-striped">
 					<tbody>
 						<tr>
 							<td>Nazwa</td>
@@ -46,8 +40,8 @@
 							if($result2=$DB->prepare('SELECT nazwa FROM Sprzet WHERE id=?')){
 								if($result2->execute(array($row2['sprzet']))){
 									if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
-										?><a href="view_sprzet.php?id=<?php echo $row2['sprzet']; ?>"><?php echo $row3['nazwa']; ?></a>
-										<form action="view_tag.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+										?><a href="index.php?menu=52&amp;id=<?php echo $row2['sprzet']; ?>"><?php echo $row3['nazwa']; ?></a>
+										<form action="index.php?menu=60&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="tag" value="<?php echo $row['id']; ?>" />
 											<input type="hidden" name="sprzet" value="<?php echo $row2['sprzet']; ?>" />
 											<input type="submit" name="del_tag" value="Usuń" />
@@ -69,6 +63,4 @@
 		else echo 'Nastąpił błąd przy pobieraniu informacji o tagu: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy pobieraniu informacji o tagu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a href="index_panel_admina.php">Wróć do strony głównej.</a><?php
-	bottom();
 ?>

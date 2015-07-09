@@ -34,7 +34,7 @@
 								while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 								?>
 									<tr>
-										<td><a href="view_user.php?id=<?php echo $row['id']; ?>"><?php echo $row['login']; ?></a></td>
+										<td><?php echo $row['login']; ?></td>
 											<td>
 												<?php 
 													if($row['lvl']==='0') echo 'Administrator';

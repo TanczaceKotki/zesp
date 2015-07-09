@@ -1,73 +1,112 @@
+<ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+  <li><a href="index.php?menu=13">Zarządzanie uprawnieniami dostępu</a></li>
+  <li class="active">Szczegóły użytkownik</li>
+</ol>
 <?php
-	
-	
 	$DB=dbconnect();
-	
 	if(isset($_POST['submitted'])){
-		$send=False;
+		$send=false;
+		$add_osoba=false;
 		$params=array();
 		$sql='UPDATE Uzytkownicy SET';
-		$sql.=' login=?';
-		$params[]=$_POST['login'];
-		if($_POST['pass'] == $_POST['pass_v']){
-			$pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-			if($pass!==$_POST['old_pass2']){
-				$sql.=', pass=?';
-				$params[]=$pass;
-				$send=True;
-			}
-			else echo 'Hasło jest takie samo jak wcześniejsze<br /><br />';
+		if($_POST['login']!==$_POST['old_login']){
+			$sql.=' login=?';
+			$params[]=$_POST['login'];
+			$send=true;
 		}
-		else echo 'Wpisane hasła nie są takie same<br /><br />';
-					
-		if($send) $sql.=',';
-		$sql.=' lvl=?';
-		$params[]=$_POST['lvl'];
-		
-		
+		if($_POST['pass']!==''){
+			if($_POST['pass']===$_POST['pass_v']){
+				if($send) $sql.=',';
+				$sql.=' pass=?';
+				$params[]=password_hash($_POST['pass'], PASSWORD_DEFAULT);
+				$send=true;
+			}
+			else echo 'Wpisane hasła nie są takie same<br /><br />';
+		}
+		if($_POST['lvl']!==$_POST['old_lvl']){
+			if($send) $sql.=',';
+			$sql.=' lvl=?';
+			$params[]=$_POST['lvl'];
+			if($_POST['lvl']==='2') $add_osoba=true;
+			else if($_POST['old_lvl']==='2'){
+				if($st=$DB->prepare('DELETE FROM Osoba WHERE email=?')){
+					if(!$st->execute(array($_POST['old_login']))) echo 'Nastąpił błąd przy modyfikowaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
+			}
+			$send=true;
+		}
+		else if($_POST['lvl']==='2'){
+			$send2=False;
+			$params2=array();
+			$sql2='UPDATE Osoba SET';
+			if($_POST['imie']!==$_POST['old_imie']){
+				$sql2.=' imie=?';
+				$params2[]=$_POST['imie'];
+				$send2=True;
+			}
+			if($_POST['nazwisko']!==$_POST['old_nazwisko']){
+				if($send2) $sql2.=',';
+				$sql2.=' nazwisko=?';
+				$params2[]=$_POST['nazwisko'];
+				$send2=True;
+			}
+			if($send2){
+				$sql2.=' WHERE email=?';
+				$params2[]=$_POST['login'];
+				if($st=$DB->prepare($sql2)){
+					if($st->execute($params2)){
+						echo 'Osoba została pomyślnie zmodyfikowana.<br /><br />';
+					}
+					else echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
+				else echo 'Nastąpił błąd przy modyfikowaniu osoby: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+			}
+		}
 		if($send){
 			$sql.=' WHERE id=?';
 			$params[]=$_POST['id'];
 			if($st=$DB->prepare($sql)){
-				if($st->execute($params)) echo 'Osoba została pomyślnie zmodyfikowana.<br /><br />';
-				else echo 'Nastąpił błąd przy modyfikowaniu osoby1: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				if($st->execute($params)){
+					echo 'Użytkownik został pomyślnie zmodyfikowany.<br /><br />';
+					if($add_osoba){
+						if($st2=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
+							if(!$st2->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['login']))) echo 'Nastąpił błąd przy modyfikowaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
+						}
+					}
+				}
+				else echo 'Nastąpił błąd przy modyfikowaniu użytkownika: '.implode(' ',$st->errorInfo()).'<br /><br />';
 			}
-			else echo 'Nastąpił błąd przy modyfikowaniu osoby2: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+			else echo 'Nastąpił błąd przy modyfikowaniu użytkownika: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
 	}
-	if($st=$DB->prepare('SELECT * FROM Uzytkownicy WHERE id=?')){
+	if($st=$DB->prepare('SELECT id,login,lvl FROM Uzytkownicy WHERE id=?')){
 		if($st->execute(array($_POST['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-						?><form action="panel.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-							<input type="submit" name="del_uzytkownika" value="Usuń" />
-						</form>
-						<form action="edit_user.php" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-							<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-							<input type="submit" value="Edytuj" />
-						</form><br />
-						<table>
-							<tbody>
-								<tr>
-									<td>Login</td>
-									<td><?php echo $row['login']; ?></td>
-								</tr>
-								<tr>
-									<td>Prawa dostępu:</td>
-									<td><?php 
-										if($row['lvl'] == 0) echo "Administrator";
-										elseif($row['lvl'] == 1) echo "Moderator";
-										elseif($row['lvl'] == 2) echo "Osoba kontaktowa";
-									?></td>
-								</tr></tbody>
+				?>
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<td>Login</td>
+							<td><?php echo $row['login']; ?></td>
+						</tr>
+						<tr>
+							<td>Prawa dostępu:</td>
+							<td>
+								<?php 
+									if($row['lvl']==='0') echo 'Administrator';
+									elseif($row['lvl']==='1') echo 'Moderator';
+									elseif($row['lvl']==='2') echo 'Osoba kontaktowa';
+								?>
+							</td>
+						</tr>
+					</tbody>
 				</table><?php 
 			}
-			else echo 'Nastąpił błąd przy edytowaniu1: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			else echo 'Nastąpił błąd przy pobieraniu danych.<br /><br />';
 		}
-		else echo 'Nastąpił błąd przy edytowaniu2: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo 'Nastąpił błąd przy pobieraniu danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
-	else echo 'Nastąpił błąd przy edytowaniu3: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><?php
-	
-	
+	else echo 'Nastąpił błąd przy pobieraniu danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 ?>
+<a class="btn btn-warning" href="index.php?menu=13">Wróć do strony zarządzania uprawnieniami dostępu</a>

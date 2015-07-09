@@ -41,7 +41,7 @@
 				$no_error = False;
 			}
 			if($no_error){
-				echo 'Wszystkie zdjęcia zostały pomyślnie wstawione.<br /><br /><a href="index.php?menu=29">Wróć do listy zdjęć.</a>';
+				echo 'Wszystkie zdjęcia zostały pomyślnie wstawione.<br /><br /><a href="index.php?menu=12">Wróć do listy zdjęć.</a>';
 				$displayform=False;
 					}
 		}

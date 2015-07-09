@@ -13,7 +13,7 @@
   <li><a href="index.php?menu=100">Zarządzaj użytkownikami</a></li>
     <li class="active">Edytuj użytkownika</li>
 </ol>
-<form action="view_osoba.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
+<form action="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_imie" value="<?php echo $row['imie']; ?>" />
 	<input type="hidden" name="old_nazwisko" value="<?php echo $row['nazwisko']; ?>" />

@@ -23,7 +23,7 @@
 				?>
 				<tr>
 					<td>
-						<a href="view_sprzet.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
+						<a href="index.php?menu=52&amp;id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
 					</td>
 										<td>
 						<form action="index.php?menu=45" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">

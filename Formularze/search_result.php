@@ -20,8 +20,7 @@ switch($_POST['category'])
 {
 	
 	case "Osoba":
-				$st=$DB->prepare("SELECT id, imie, nazwisko, email FROM Osoba WHERE imie LIKE '%" . $keyword . "%' OR nazwisko LIKE '%" . $keyword . "%' OR email LIKE '%" . $keyword . "%'");
-				$st->execute();
+				$st=$DB->query("SELECT id, imie, nazwisko, email FROM Osoba WHERE imie LIKE '%$keyword%' OR nazwisko LIKE '% $keyword%' OR email LIKE '%$keyword%'");
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
 					$ID = $row['id'];
@@ -30,17 +29,16 @@ switch($_POST['category'])
 					$email = $row['email'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  .$ID. "</a></td>";
-					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['imie']) . " </a></td>";
-					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwisko']) . " </a></td>";
-					echo "<td><a  href=\"view_osoba.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['email']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=54&amp;id=$ID\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=54&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['imie']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=54&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwisko']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=54&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['email']) . " </a></td>";
 					echo "</tr>";
 				}
 				break;
 	
 	case "Sprzet":
-				$st=$DB->prepare("SELECT id, nazwa, SUBSTR(opis, 1, 160) AS opis FROM Sprzet WHERE nazwa LIKE '%" . $keyword . "%' OR opis LIKE '%" . $keyword . "%'"); 
-				$st->execute();
+				$st=$DB->query("SELECT id, nazwa, SUBSTR(opis, 1, 160) AS opis FROM Sprzet WHERE nazwa LIKE '%$keyword%' OR opis LIKE '%$keyword%'");
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
 					$ID = $row['id'];
@@ -48,16 +46,15 @@ switch($_POST['category'])
 					$opis = $row['opis'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_sprzet.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_sprzet.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=52&amp;id=$ID\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=52&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "<td>" . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['opis']) . "</td>";
 					echo "</tr>";
 				}
 				break;
 	
 	case "Laboratorium":
-				$st=$DB->prepare("SELECT id, nazwa, zespol FROM Laboratorium WHERE nazwa LIKE '%" . $keyword . "%'"); 
-				$st->execute();
+				$st=$DB->query("SELECT id, nazwa, zespol FROM Laboratorium WHERE nazwa LIKE '%$keyword%'");
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
 					$ID = $row['id'];
@@ -65,69 +62,65 @@ switch($_POST['category'])
 					$zespol = $row['zespol'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_lab.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_lab.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=40&amp;id=$ID\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=40&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "<td>" . $zespol . " </td>";
 					echo "</tr>";
 				}
 				break;
 				
 	case "Tag":
-				$st=$DB->prepare("SELECT id, nazwa FROM Tag WHERE nazwa LIKE '%" . $keyword . "%'"); 
-				$st->execute();
+				$st=$DB->query("SELECT id, nazwa FROM Tag WHERE nazwa LIKE '%$keyword%'");
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_tag.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_tag.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=60&amp;id=$ID\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=60&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "</tr>";
 				}
 				break;
 				
 	case "Zespol":
-				$st=$DB->prepare("SELECT id, nazwa FROM Zespol WHERE nazwa LIKE '%" . $keyword . "%'"); 
-				$st->execute();
+				$st=$DB->query("SELECT id, nazwa FROM Zespol WHERE nazwa LIKE '%$keyword%'");
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_zespol.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_zespol.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=53&amp;id=$ID\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=53&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "</tr>";
 				}	
 				break;
 				
 	case "Zaklad":
-				$st=$DB->prepare("SELECT id, nazwa FROM Zaklad WHERE nazwa LIKE '%" . $keyword . "%'"); 
-				$st->execute();
+				$st=$DB->query("SELECT id, nazwa FROM Zaklad WHERE nazwa LIKE '%$keyword%'");
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
 					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_zaklad.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_zaklad.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=61&amp;id=$ID\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=61&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "</tr>";
 				}
 				break;
 				
 	case "Projekt":
-				$st=$DB->prepare("SELECT id, nazwa, SUBSTR(opis, 1, 120) AS opis FROM Projekt WHERE nazwa LIKE '%" . $keyword . "%' OR opis LIKE '%" . $keyword . "%'"); 
-				$st->execute();
+				$st=$DB->query("SELECT id, nazwa, SUBSTR(opis, 1, 120) AS opis FROM Projekt WHERE nazwa LIKE '%$keyword%' OR opis LIKE '%$keyword%'"); 
 				while($row=$st->fetch(PDO::FETCH_ASSOC))
 				{
 					$ID = $row['id'];
 					$nazwa = $row['nazwa'];
 					$opis = $row['opis'];					
 					echo "<tr>";	
-					echo "<td><a  href=\"view_projekt.php?id=$ID\">" .$ID. "</a></td>";
-					echo "<td><a  href=\"view_projekt.php?id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
+					echo "<td><a href=\"index.php?menu=51&amp;id=$ID\">$ID</a></td>";
+					echo "<td><a href=\"index.php?menu=51&amp;id=$ID\">"  . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['nazwa']) . " </a></td>";
 					echo "<td> " . str_replace($keyword, "<span class=\"highlight\">$keyword</span>", $row['opis']) . "</td>";
 					echo "</tr>";
 				}

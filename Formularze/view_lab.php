@@ -1,16 +1,10 @@
-<script src="../bootstrap/js/bootstrap.min.js"></script>
- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
- <meta charset="utf-8">
-  <ol class="breadcrumb">
+<ol class="breadcrumb">
   <li><a href="index.php">Start</a></li>
   <li><a href="index.php?menu=3">Laboratoria</a></li>
   <li class="active">Szczegóły laboratorium</li>
 </ol>
 <?php
-	require 'common.php';
-	require 'DB.php';
-		$DB=dbconnect();
-	
+	$DB=dbconnect();
 	if($st=$DB->prepare('SELECT * FROM Laboratorium WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){

@@ -11,7 +11,7 @@
 				?>
 			
 				
-						<tr><td><a href="view_lab.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a></td></tr>
+						<tr><td><a href="index.php?menu=57&amp;id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a></td></tr>
 					
 				
 				<?php

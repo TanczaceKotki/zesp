@@ -17,7 +17,7 @@
 			while($row=$result->fetch(PDO::FETCH_ASSOC)){
 				?><tr>
 					<td>
-						<a href="view_zdjecie.php?id=<?php echo $row['id']; ?>"><img src="uploads/<?php echo $row['link']; ?>" width="200" alt="" /></a>
+						<a href="index.php?menu=55&amp;id=<?php echo $row['id']; ?>"><img src="uploads/<?php echo $row['link']; ?>" width="200" alt="" /></a>
 					</td>
 					
 					<td>

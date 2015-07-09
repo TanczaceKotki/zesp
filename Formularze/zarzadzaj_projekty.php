@@ -12,7 +12,7 @@
 			while($row=$result->fetch(PDO::FETCH_ASSOC)){
 				?><tr>
 					<td>
-						<a href="view_projekt.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
+						<a href="index.php?menu=51&amp;id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
 					</td>
 					
 					<td>

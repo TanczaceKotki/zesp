@@ -14,7 +14,7 @@
 				?>
 				<tr><td>
 					
-						<a href="view_sprzet_NZ.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
+						<a href="index.php?menu=56&amp;id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
 					</td></tr>
 					
 				<?php

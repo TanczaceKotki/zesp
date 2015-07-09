@@ -1,15 +1,9 @@
- <script src="../bootstrap/js/bootstrap.min.js"></script>
- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
- <meta charset="utf-8">
- <ol class="breadcrumb">
-  <li><a href="index.php">Start</a></li>
-  <li><a href="index.php?menu=3">Zarządzanie zdjęciami</a></li>
-  <li class="active">Zdjęcia</li>
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=3">Zarządzanie zdjęciami</a></li>
+	<li class="active">Zdjęcia</li>
 </ol>
 <?php
-	require 'common.php';
-	require 'DB.php';
-	
 	$DB=dbconnect();
 	if($st=$DB->prepare('SELECT * FROM Zdjecie WHERE id=?')){
 		if($st->execute(array($_GET['id']))){

@@ -7,12 +7,18 @@ function check_login(){
 	}
 }
 
+function check_log(){
+	if(typeof check_login_edit==='function') check_login_edit();
+	else check_login();
+}
+
 function level_2(){
 	$('#login_label').html('Adres email<span class="color_red">*</span>:');
 	$('#login').attr('type','email');
 	$('#kont_inputs').css('display','block');
 	$('#imie').attr('required','required');
 	$('#nazwisko').attr('required','required');
+	check_log();
 }
 
 function not_level_2(){
@@ -21,6 +27,7 @@ function not_level_2(){
 	$('#kont_inputs').css('display','none');
 	$('#imie').removeAttr('required');
 	$('#nazwisko').removeAttr('required');
+	check_log();
 }
 
 function compare_pass(){
@@ -38,10 +45,9 @@ function compare_pass(){
 	}
 }
 
-
 $(document).ready(function(){
 	var ajax_wait=false;
 	if($('#kont').is(':checked')) level_2();
 	else not_level_2();
-	check_login();
+	check_log();
 });

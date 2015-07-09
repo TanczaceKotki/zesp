@@ -1,17 +1,10 @@
-<script src="../bootstrap/js/bootstrap.min.js"></script>
- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
- <meta charset="utf-8">
- <ol class="breadcrumb">
-  <li><a href="index.php">Start</a></li>
-  <li><a href="index.php?menu=4">Aparatura</a></li>
-  <li class="active">Szczegóły aparatura</li>
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=4">Aparatura</a></li>
+	<li class="active">Szczegóły aparatura</li>
 </ol>
 <?php
-	require 'common.php';
-	require 'DB.php';
-	
 	$DB=dbconnect();
-
 	if($st=$DB->prepare('SELECT * FROM Sprzet WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){

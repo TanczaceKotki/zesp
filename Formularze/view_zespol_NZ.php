@@ -1,9 +1,8 @@
- <ol class="breadcrumb">
+<ol class="breadcrumb">
   <li><a href="index.php">Start</a></li>
   <li><a href="index.php?menu=5">Zespoły</a></li>
-  <li class="active">Szczegóły zespołu</li>
+  <li class="active">Szczegóły zespołu laboratoriów</li>
 </ol>
-
 <?php
 	$DB=dbconnect();
 	if($st=$DB->prepare('SELECT * FROM Zespol WHERE id=?')){
@@ -21,9 +20,8 @@
 			}
 			else echo 'Nie znaleziono zespołu o podanym identyfikatorze.<br /><br />';
 		}
-		else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole.<br /><br />';
 	}
-	else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a class="btn btn-warning" href="index.php?menu=9">Wróć do strony z zespołami</a><?php
-	
+	else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole.<br /><br />';
 ?>
+<a class="btn btn-warning" href="index.php?menu=5">Wróć do strony z zespołami</a>

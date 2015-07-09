@@ -25,7 +25,7 @@
 				?><tr>
 				
 					<td>
-						<a href="view_lab.php?id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
+						<a href="index.php?menu=40&amp;id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
 					</td>
 					<td>
 						</td>

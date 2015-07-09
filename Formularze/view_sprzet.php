@@ -1,15 +1,9 @@
-<script src="../bootstrap/js/bootstrap.min.js"></script>
- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
- <meta charset="utf-8">
  <ol class="breadcrumb">
   <li><a href="index.php">Start</a></li>
   <li><a href="index.php?menu=4">Aparatura</a></li>
   <li class="active">Szczegóły aparatura</li>
 </ol>
 <?php
-	require 'common.php';
-	require 'DB.php';
-	
 	$DB=dbconnect();
 	if(isset($_POST['del_picture'])){
 		if($st=$DB->prepare('DELETE FROM Zdjecie WHERE id=?')){
@@ -66,7 +60,7 @@
 				if($row['projekt']!==""){
 					if($result=$DB->prepare('SELECT nazwa FROM Projekt WHERE id=?')){
 						if($result->execute(array($row['projekt']))){
-							if($row2=$result->fetch(PDO::FETCH_ASSOC)) echo '<a href=view_projekt.php?id='.$row['projekt'].'>'.$row2['nazwa'].'</a>';
+							if($row2=$result->fetch(PDO::FETCH_ASSOC)) echo '<a href=index.php?menu=51&amp;id='.$row['projekt'].'>'.$row2['nazwa'].'</a>';
 						}
 						else echo 'Nie udało się pobrać danych z bazy danych.';
 					}
@@ -95,7 +89,7 @@
 					if($result->execute(array($row['id']))){
 						while($row2=$result->fetch(PDO::FETCH_ASSOC)){
 							?><img src="uploads/<?php echo $row2['link']; ?>" width="200" alt="" />
-							<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+							<form action="index.php?menu=52&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 								<input type="hidden" name="id" value="<?php echo $row2['id']; ?>" />
 								<input type="submit" name="del_picture" value="Usuń" />
 							</form>
@@ -116,8 +110,8 @@
 							if($result2=$DB->prepare('SELECT nazwa FROM Tag WHERE id=?')){
 								if($result2->execute(array($row2['tag']))){
 									if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
-										echo $row3['nazwa']; ?>
-										<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+										?><a href="index.php?menu=60&amp;id=<?php echo $row2['tag']; ?>"><?php echo $row3['nazwa']; ?></a>
+										<form action="index.php?menu=52&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="sprzet" value="<?php echo $row['id']; ?>" />
 											<input type="hidden" name="tag" value="<?php echo $row2['tag']; ?>" />
 											<input type="submit" name="del_tag" value="Usuń" />
@@ -144,8 +138,8 @@
 							if($result2=$DB->prepare('SELECT imie,nazwisko,email FROM Osoba WHERE id=?')){
 								if($result2->execute(array($row2['osoba']))){
 									if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
-										?><a href="view_osoba.php?id=<?php echo $row2['osoba']; ?>"><?php echo $row3['imie'].' '.$row3['nazwisko'].' ('.$row3['email'].')'; ?></a>
-										<form action="view_sprzet.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+										?><a href="index.php?menu=54&amp;id=<?php echo $row2['osoba']; ?>"><?php echo $row3['imie'].' '.$row3['nazwisko'].' ('.$row3['email'].')'; ?></a>
+										<form action="index.php?menu=52&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="sprzet" value="<?php echo $row['id']; ?>" />
 											<input type="hidden" name="osoba" value="<?php echo $row2['osoba']; ?>" />
 											<input type="submit" name="del_kontakt" value="Usuń" />
@@ -173,7 +167,5 @@
 		else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><a class="btn btn-warning" href="index.php?menu=8">Wróć do strony aparatura</a><?php
-	
 ?>
-
+<a class="btn btn-warning" href="index.php?menu=8">Wróć do strony aparatura</a>

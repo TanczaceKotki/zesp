@@ -1,14 +1,9 @@
-<script src="../bootstrap/js/bootstrap.min.js"></script>
- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
- <meta charset="utf-8">
-  <ol class="breadcrumb">
-  <li><a href="index.php">Start</a></li>
-  <li><a href="index.php?menu=100">Zarządzaj użytkownikami</a></li>
-  <li class="active">Szczegóły użytkownik</li>
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=100">Zarządzaj użytkownikami</a></li>
+	<li class="active">Szczegóły użytkownik</li>
 </ol>
 <?php
-	require 'common.php';
-	require 'DB.php';
 	$DB=dbconnect();
 	if(isset($_POST['del_kontakt'])){
 		if($st=$DB->prepare('DELETE FROM Kontakt WHERE sprzet=? AND osoba=?')){
@@ -82,8 +77,8 @@
 							if($result2=$DB->prepare('SELECT nazwa FROM Sprzet WHERE id=?')){
 								if($result2->execute(array($row2['sprzet']))){
 									if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
-										?><a href="view_sprzet.php?id=<?php echo $row2['sprzet']; ?>"><?php echo $row3['nazwa']; ?></a>
-										<form action="view_osoba.php?id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+										?><a href="index.php?menu=52&amp;id=<?php echo $row2['sprzet']; ?>"><?php echo $row3['nazwa']; ?></a>
+										<form action="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 											<input type="hidden" name="osoba" value="<?php echo $row['id']; ?>" />
 											<input type="hidden" name="sprzet" value="<?php echo $row2['sprzet']; ?>" />
 											<input type="submit" name="del_kontakt" value="Usuń" />

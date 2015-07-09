@@ -1,14 +1,9 @@
-<script src="../bootstrap/js/bootstrap.min.js"></script>
- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
- <meta charset="utf-8">
-  <ol class="breadcrumb">
-  <li><a href="index.php">Start</a></li>
-  <li><a href="index.php?menu=17">Zarządzaj projektami</a></li>
-  <li class="active">Szczegóły projekt</li>
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=17">Zarządzaj projektami</a></li>
+	<li class="active">Szczegóły projekt</li>
 </ol>
 <?php
-	require 'common.php';
-	require 'DB.php';
 	$DB=dbconnect();
 	
 	if(isset($_POST['submitted'])){
