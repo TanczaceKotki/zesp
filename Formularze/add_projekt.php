@@ -1,13 +1,8 @@
 <?php
-	session_start();
-	
-	require 'walidacja_danych_php/walidacja.php';
-	
 	$displayform=True;
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
-			$DB=dbconnect();
+			require 'walidacja_danych_php/walidacja.php';
 			$walidacja = true;
 			if( valid_length($_POST['nazwa'], 512) == false ){
 				$walidacja = false;
@@ -179,17 +174,17 @@
 			</select>
 		</fieldset>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="opis">Opis<span class="color_red">*</span>: </label>
 		<textarea class="form-control" name="opis" id="opis" rows="20" cols="100" maxlength="166666666" spellcheck="true" required="required"><?php if(isset($_POST['opis'])) echo $_POST['opis']; ?></textarea>
 		<span id="opis_counter"></span>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="logo">Logo<span class="color_red">*</span>: </label>
 		<input class="form-control" type="text" name="logo" id="logo" value="<?php if(isset($_POST['logo'])) echo $_POST['logo']; ?>" size="100" maxlength="128" required="required" />
 		<span id="logo_counter"></span>
 	</div>
-	<div><br>
+	<div><br />
 		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>

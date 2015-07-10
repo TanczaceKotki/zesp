@@ -1,12 +1,8 @@
 <?php
-	session_start();
-	require 'common.php';
-	require 'walidacja_danych_php/walidacja.php';
-	#top(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css'));
 	$displayform=True;
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
+			require 'walidacja_danych_php/walidacja.php';
 			$walidacja = true;
 			if( valid_length($_POST['nazwa'], 512) == false ){
 				$walidacja = false;
@@ -207,7 +203,7 @@
 		<textarea name="opis" id="opis" rows="20" cols="100" maxlength="166666666" spellcheck="true" required="required"><?php if(isset($_POST['opis'])) echo $_POST['opis']; ?></textarea>
 		<span id="opis_counter"></span>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="projekt">Projekt: </label>
 		<select class="form-control" name="projekt" id="projekt">
 			<option value=""<?php if(!isset($_POST['projekt'])) echo ' selected="selected"'; ?>>-</option>
@@ -233,7 +229,7 @@
 			?>
 		</select>
 	</div>
-	<div><br>
+	<div><br />
 		<label  for="laboratorium">Laboratorium: </label>
 		<select class="form-control" name="laboratorium" id="laboratorium">
 			<option value=""<?php if(!isset($_POST['laboratorium'])) echo ' selected="selected"'; ?>>-</option>

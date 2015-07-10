@@ -38,6 +38,10 @@ function compare_pass(){
 			$('#pass')[0].setCustomValidity('Hasła się nie zgadzają.');
 			$('#pass_v')[0].setCustomValidity('Hasła się nie zgadzają.');
 		}
+		else{
+			$('#pass')[0].setCustomValidity('');
+			$('#pass_v')[0].setCustomValidity('');
+		}
 	}
 	else{
 		$('#pass')[0].setCustomValidity('');

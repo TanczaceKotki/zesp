@@ -1,0 +1,42 @@
+$(document).ready(function(){
+	var items=$('.item');
+	var length=items.length;
+	for(var i=0;i<length;++i){
+		$(items[i]).find('.item_1').hover(function(){
+			$(this).closest('.item').find('.item_2').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_3').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_4').attr('style','text-decoration:underline');
+		},function(){
+			$(this).closest('.item').find('.item_2').removeAttr('style');
+			$(this).closest('.item').find('.item_3').removeAttr('style');
+			$(this).closest('.item').find('.item_4').removeAttr('style');
+		});
+		$(items[i]).find('.item_2').hover(function(){
+			$(this).closest('.item').find('.item_1').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_3').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_4').attr('style','text-decoration:underline');
+		},function(){
+			$(this).closest('.item').find('.item_1').removeAttr('style');
+			$(this).closest('.item').find('.item_3').removeAttr('style');
+			$(this).closest('.item').find('.item_4').removeAttr('style');
+		});
+		$(items[i]).find('.item_3').hover(function(){
+			$(this).closest('.item').find('.item_2').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_1').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_4').attr('style','text-decoration:underline');
+		},function(){
+			$(this).closest('.item').find('.item_2').removeAttr('style');
+			$(this).closest('.item').find('.item_1').removeAttr('style');
+			$(this).closest('.item').find('.item_4').removeAttr('style');
+		});
+		$(items[i]).find('.item_4').hover(function(){
+			$(this).closest('.item').find('.item_2').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_3').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_1').attr('style','text-decoration:underline');
+		},function(){
+			$(this).closest('.item').find('.item_2').removeAttr('style');
+			$(this).closest('.item').find('.item_3').removeAttr('style');
+			$(this).closest('.item').find('.item_1').removeAttr('style');
+		});
+	}
+});

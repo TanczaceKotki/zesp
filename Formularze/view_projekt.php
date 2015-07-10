@@ -1,11 +1,12 @@
+<?php
+	if(user::isLogged()){
+?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
 	<li><a href="index.php?menu=17">Zarządzaj projektami</a></li>
 	<li class="active">Szczegóły projekt</li>
 </ol>
 <?php
-	$DB=dbconnect();
-	
 	if(isset($_POST['submitted'])){
 		$send=False;
 		$params=array();
@@ -73,24 +74,24 @@
 				<table class="table table-striped">
 					<tbody>
 						<tr>
-							<td>Nazwa:</td>
+							<th>Nazwa:</th>
 							<td><?php echo $row['nazwa']; ?></td>
 						</tr>
 						<tr>
-							<td>Data rozpoczęcia:</td>
+							<th>Data rozpoczęcia:</th>
 							<td><?php echo $row['data_rozp']; ?></td>
 						</tr>
 						<tr>
-							<td>Data Zakończenia:</td>
+							<th>Data Zakończenia:</th>
 							<td><?php echo $row['data_zakoncz']; ?></td>
 						</tr>
 						<tr>
-							<td>Opis:</td>
-							<td><?php echo $row['opis']; ?></td>
+							<th>Opis:</th>
+							<td><?php echo htmlspecialchars($row['opis'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
-							<td>Logo:</td>
-							<td><img src="<?php echo $row['logo']; ?>" width="200" alt="" /></td>
+							<th>Logo:</th>
+							<td><a href="<?php echo $row['logo']; ?>"><img src="<?php echo $row['logo']; ?>" width="200" alt="" /></a></td>
 						</tr>
 					</tbody>
 				</table><?php
@@ -99,6 +100,9 @@
 		else echo 'Nastąpił błąd przy pobieraniu informacji o projekcie: '.implode(' ',$st->errorInfo()).'<br /><br />';
 	}
 	else echo 'Nastąpił błąd przy pobieraniu informacji o projekcie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	?><br /><a class="btn btn-warning" href="index.php?menu=17">Wróć do strony zarządzania projektami</a><?php
-	
+	?>
+<a class="btn btn-warning" href="index.php?menu=17">Wróć do strony zarządzania projektami</a>
+<?php
+	}
+	else echo '<br />Nie jesteś zalogowany.<br /><a href="index.php?menu=10">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

@@ -1,11 +1,7 @@
 <?php
-	session_start();
-	require 'common.php';
 	$displayform=True;
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
-			$DB=dbconnect();
 			require 'walidacja_danych_php/walidacja.php';
 			$walidacja = true;
 			if( valid_length($_POST['nazwa'], 64) == false ){

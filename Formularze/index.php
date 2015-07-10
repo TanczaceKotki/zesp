@@ -1,30 +1,31 @@
 <?php
 	session_start(); 
-	require_once 'user.class.php';
+	require 'user.class.php';
 	require 'DB.php';
 	$DB=dbconnect();
 ?><!DOCTYPE html>
 <html lang="pl">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-		<title>Tanczace kotki 2015</title>
-		<link href="oneColLiqCtrHdr.css" rel="stylesheet" type="text/css" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Tanczace kotki 2015</title>
+		<link href="css/oneColLiqCtrHdr.css" rel="stylesheet" type="text/css" />
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js" type="text/javascript"></script>
 		<![endif]-->
-		<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
 		<?php
 			if(isset($_GET['menu'])){
+				$menu=$_GET['menu'];
 				if($_GET['menu']==='15'){
 					session_unset();
 					session_destroy();
@@ -32,49 +33,78 @@
 					setcookie(session_name(),'',0,'/');
 					session_regenerate_id(true);
 				}
+				else if($_GET['menu']==='10'){
+					$displayform=True;
+					$message='';
+					if(isset($_POST['send'])){
+						$login=$_POST['login'];
+						$pass=$_POST['pass'];
+						if($login===""){
+							$message='Wypełnij pole z loginem!<br /><br />';
+						}
+						if($pass===""){
+							$message='Wypełnij pole z hasłem!<br /><br />';
+						}
+						if($login!=="" && $pass!==""){
+							if($st=$DB->prepare('SELECT * FROM Uzytkownicy WHERE login=?')){
+								if($st->execute(array($login))){
+									$userExists = $st->fetch(PDO::FETCH_ASSOC);
+									if(password_verify($pass,$userExists['pass'])){
+										//$user = user::getData();
+										//$_SESSION['id'] = $id;
+										$_SESSION['login'] = $login;
+										$_SESSION['pass'] = $pass;
+										$message='Zostałeś zalogowany pomyślnie.<br /><br />Przejdź do <a href="index.php">strony głównej</a>.';
+										$displayform=False;
+									}
+									else $message='Użytkownik o podanym loginie i haśle nie istnieje.<br /><br />';
+								}
+								else $message='Nastąpił błąd przy pobieraniu danych z bazy danych.<br /><br />';
+							}
+							else $message='Nastąpił błąd przy pobieraniu danych z bazy danych.<br /><br />';
+						}
+						else $message='Użytkownik o podanym loginie i haśle nie istnieje<br /><a href="login.php">Zaloguj ponownie</a>';
+					}
+				}
 			}
+			else $menu='1';
 		?>
 		<div class="container">
 			<div id= "header" class="header"> 
-				<div align="left"><a href="index.php"><img src="logo_atomin.png" alt="Insert Logo Here" name="Insert_logo" width="546" height="74" id="Insert_logo" style="background-color: #white; display:block;" /></a></div>
-				<div id="zaloguj" align="right" style>
+				<div class="align_left"><a href="index.php"><img src="logo_atomin.png" alt="Baza sprzętu laboratoryjnego FAIS UJ" width="546" height="74" id="Insert_logo" style="background-color: #white; display:block;" /></a></div>
+				<div id="zaloguj" class="align_right">
 					<?php
-						if (user::isLogged()) {
-					?>        
-					<a href="index.php?menu=15"><button class="btn btn-warning" type="button">wyloguj</button></a>
-					<?php
-						}
-						else{
+						if (user::isLogged()) echo '<a class="btn btn-warning" href="index.php?menu=15"><span class="color_white">wyloguj</span></a>';
+						else echo '<a class="btn btn-warning" href="index.php?menu=10"><span class="color_white">zaloguj</span></a>';
 					?>
-					<a href="index.php?menu=10"><button class="btn btn-warning" type="button">zaloguj</button></a> <?php } ?>
 				</div>
 				<br />
-				<div id="wyszukiwarka" align="right"><?php include('search_bar.php'); ?></div>
+				<div id="wyszukiwarka" class="align_right"><?php require 'search_bar.php'); ?></div>
 			</div>
 			<!-- end .header -->
 			<div class="menu">
 				<nav id="navigation">
 					<ul class="menu_niezalogowany">
-						<li><a href="index.php?menu=1">O projekcie</a></li>
-						<li><a href="index.php?menu=2">Komunikaty</a></li>
-						<li><a href="index.php?menu=4">Aparatura</a></li>
-						<li><a href="index.php?menu=3">Laboratoria</a></li>
-						<li><a href="index.php?menu=5">Zespoły lab</a></li>
-						<li><a href="index.php?menu=107">Projekty</a></li>
-						<li><a href="index.php?menu=6">Kontakt</a></li>
+						<li class="vertical_align"><a href="index.php?menu=1">O projekcie</a></li>
+						<li class="vertical_align"><a href="index.php?menu=2">Komunikaty</a></li>
+						<li class="vertical_align"><a href="index.php?menu=4">Aparatura</a></li>
+						<li class="vertical_align"><a href="index.php?menu=3">Laboratoria</a></li>
+						<li class="vertical_align"><a href="index.php?menu=5">Zespoły laboratoriów</a></li>
+						<li class="vertical_align"><a href="index.php?menu=107">Projekty</a></li>
+						<li class="vertical_align"><a href="index.php?menu=6">Kontakt</a></li>
 					</ul>
 					<?php
 						if(user::isLogged()){
 					?>
 					<ul class="menu_admin">
-						<li><a href="index.php?menu=12">Zarządzanie newsami</a></li>
-						<li><a href="index.php?menu=7">Zarządzanie laboratoriami</a></li>
-						<li><a href="index.php?menu=8">Zarządzanie aparaturą</a></li>
-						<li><a href="index.php?menu=9">Zarządzanie zespołami lab</a></li>
-						<li><a href="index.php?menu=17">Zarządzanie projektami</a></li>
-						<li><a href="index.php?menu=100">Zarządzanie osobami kontaktowymi</a></li>
-						<li><a href="index.php?menu=13">Zarządzanie użytkownikami</a></li>
-						<li><a href="index.php?menu=12">Zarządzanie zdjęciami</a></li>
+						<li class="vertical_align"><a href="index.php?menu=12">Zarządzanie newsami</a></li>
+						<li class="vertical_align"><a href="index.php?menu=7">Zarządzanie laboratoriami</a></li>
+						<li class="vertical_align"><a href="index.php?menu=8">Zarządzanie aparaturą</a></li>
+						<li class="vertical_align"><a href="index.php?menu=9">Zarządzanie zespołami laboratoriów</a></li>
+						<li class="vertical_align"><a href="index.php?menu=17">Zarządzanie projektami</a></li>
+						<li class="vertical_align"><a href="index.php?menu=100">Zarządzanie osobami kontaktowymi</a></li>
+						<li class="vertical_align"><a href="index.php?menu=13">Zarządzanie użytkownikami</a></li>
+						<li class="vertical_align"><a href="index.php?menu=12">Zarządzanie zdjęciami</a></li>
 					</ul>
 					<?php
 						}
@@ -83,172 +113,183 @@
 			</div>
 			<div id="content">
 				<?php
-					switch ($_GET['menu']){
+					switch ($menu){
 						case 1:
-							include('home.php');
+							require 'home.php';
 							break;
 						case 2:
-							include('komunikaty.php');
+							require 'komunikaty.php';
 							break;
 						case 3:
-							include('view_labs.php');
+							require 'view_labs.php';
 							break;
 						case 4:
-							include('view_sprzety.php');
+							require 'view_sprzety.php';
 							break;
 						case 5:
-							include('view_zespoly.php');
+							require 'view_zespoly.php';
 							break;
 						case 6:
-							include('kontakt.php');
+							require 'kontakt.php';
 							break;
 						case 7:
-							include('zarzadzaj_lab.php');
+							require 'zarzadzaj_lab.php';
 							break;
 						case 8:
-							include('zarzadzaj_sprzet.php');
+							require 'zarzadzaj_sprzet.php';
 							break;
 						case 9:
-							include('zarzadzaj_grupy.php');
+							require 'zarzadzaj_grupy.php';
 							break;
 						case 10:
-							include('login.php');
+							require 'login.php';
 							break;
 						case 11:
-							include('login.php');
+							require 'login.php';
 							break;
 						case 12:
-							include('zarzadzaj_zdjecia.php');
+							require 'zarzadzaj_zdjecia.php';
 							break;
 						case 13:
-							include('panel.php');
+							require 'panel.php';
 							break;
 						case 14:
-							include('rejestracja.php');
+							require 'rejestracja.php';
 							break;
 						case 15:
-							echo 'Zostałeś wylogowany! <a href="index.php?menu=10"><br>Zaloguj się</a> ponownie.';
+							echo 'Zostałeś wylogowany! <a href="index.php?menu=10"><br />Zaloguj się</a> ponownie.';
 							break;
 						case 16:
-							include('search_result.php');
+							require 'search_result.php';
 							break;
 						case 17:
-							include('zarzadzaj_projekty.php');
+							require 'zarzadzaj_projekty.php';
 							break;
 						case 20:
-							include('add_kontakt.php');
+							require 'add_kontakt.php';
 							break;
 						case 21:
-							include('add_lab.php');
+							require 'add_lab.php';
 							break;
 						case 22:
-							include('add_laborat_w_zaklad.php');
+							require 'add_laborat_w_zaklad.php';
 							break;
 						case 23:
-							include('add_osoba.php');
+							require 'add_osoba.php';
 							break;
 						case 24:
-							include('add_projekt.php');
+							require 'add_projekt.php';
 							break;
 						case 25:
-							include('add_sprzet.php');
+							require 'add_sprzet.php';
 							break;
 						case 26:
-							include('add_tag.php');
+							require 'add_tag.php';
 							break;
 						case 27:
-							include('add_tagi_sprzetu.php');
+							require 'add_tagi_sprzetu.php';
 							break;
 						case 28:
-							include('add_zaklad.php');
+							require 'add_zaklad.php';
 							break;
 						case 29:
-							include('add_zdjecie.php');
+							require 'add_zdjecie.php';
 							break;
 						case 30:
-							include('add_zespol.php');
+							require 'add_zespol.php';
 							break;
 						case 31:
-							include('usun.php');
+							require 'usun.php';
 							break;
 						case 32:
-							include('add_tagi_sprzetu.php');
+							require 'add_tagi_sprzetu.php';
 							break;
 						case 33:
-							include('add_tag.php');
+							require 'add_tag.php';
 							break;
 						case 40:
-							include('view_lab.php');
+							require 'view_lab.php';
 							break;
 						case 41:
-							include('edit_lab.php');
+							require 'edit_lab.php';
 							break;
 						case 42:
-							include('edit_osoba.php');
+							require 'edit_osoba.php';
 							break;
 						case 43:
-							include('edit_user.php');
+							require 'edit_user.php';
 							break;
 						case 44:
-							include('edit_projekt.php');
+							require 'edit_projekt.php';
 							break;
 						case 45:
-							include('edit_sprzet.php');
+							require 'edit_sprzet.php';
 							break;
 						case 46:
-							include('edit_tag.php');
+							require 'edit_tag.php';
 							break;
 						case 47:
-							include('edit_zespol.php');
+							require 'edit_zespol.php';
 							break;
 						case 48:
-							include('edit_zaklad.php');
+							require 'edit_zaklad.php';
 							break;
 						case 51:
-							include('view_projekt.php');
+							require 'view_projekt.php';
 							break;	
 						case 52:
-							include('view_sprzet.php');
+							require 'view_sprzet.php';
 							break;
 						case 53:
-							include('view_zespol.php');
+							require 'view_zespol.php';
 							break;
 						case 54:
-							include('view_osoba.php');
+							require 'view_osoba.php';
 							break;
 						case 55:
-							include('view_zdjecie.php');
+							require 'view_zdjecie.php';
 							break;
 						case 56:
-							include('view_sprzet_NZ.php');
+							require 'view_sprzet_NZ.php';
 							break;
 						case 57:
-							include('view_lab_NZ.php');
+							require 'view_lab_NZ.php';
 							break;
 						case 58:
-							include('view_zespol_NZ.php');
+							require 'view_zespol_NZ.php';
 							break;
 						case 59:
-							include('view_projekt_NZ.php');
+							require 'view_projekt_NZ.php';
 							break;
 						case 60:
-							include('view_tag.php');
+							require 'view_tag.php';
 							break;
 						case 61:
-							include('view_zaklad.php');
+							require 'view_zaklad.php';
+							break;
+						case 62:
+							require 'view_zdjecie_NZ.php';
+							break;
+						case 63:
+							require 'view_zaklad_NZ.php';
+							break;
+						case 64:
+							require 'view_tag_NZ.php';
+							break;
+						case 65:
+							require 'view_osoba_NZ.php';
 							break;
 						case 100:
-							include('zarzadzaj_osoby.php');
+							require 'zarzadzaj_osoby.php';
 							break;
 						case 107:
-							include('view_projekty.php');
+							require 'view_projekty.php';
 							break;
 						case 118:
-							include('view_user.php');
+							require 'view_user.php';
 							break;
 						default:
-							include('home.php');
-							break;
+							require 'home.php';
 					}
 				?>
 			</div>
@@ -258,6 +299,8 @@
 			</div>
 			<!-- end .container -->
 		</div>
-		<script src="js/modernizr.js" type="text/javascript"></script><script src="js/js-webshim/minified/polyfiller.js" type="text/javascript"></script><script src="js/default_form.js" type="text/javascript"></script>
+		<script src="js/modernizr.js" type="text/javascript"></script>
+		<script src="js/js-webshim/minified/polyfiller.js" type="text/javascript"></script>
+		<script src="js/default_form.js" type="text/javascript"></script>
 	</body>
 </html>

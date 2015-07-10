@@ -1,13 +1,8 @@
 <?php
-	session_start();
-	#require 'common.php';
-	#require 'DB.php';
-	require 'walidacja_danych_php/walidacja.php';
     $displayform=True;
-	$DB=dbconnect();
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
+			require 'walidacja_danych_php/walidacja.php';
 			$walidacja = true;
 			if( valid_length($_POST['nazwa'], 64) == false ){
 				$walidacja = false;
@@ -39,7 +34,7 @@
 		<input class="form-control" type="text" name="nazwa" id="nazwa" value="<?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="64" maxlength="64" spellcheck="true" required="required" />
 		<span id="nazwa_counter"></span>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="zespol">Zespół: </label>
 		<select class="form-control" name="zespol" id="zespol">
 			<option value=""<?php if(!isset($_POST['zespol'])) echo ' selected="selected"'; ?>>-</option>
@@ -65,7 +60,7 @@
 			?> 
 		</select>
 	</div>
-	<div><br>
+	<div><br />
 		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>

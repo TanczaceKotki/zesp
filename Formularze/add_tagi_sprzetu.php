@@ -1,24 +1,15 @@
 <?php
-	session_start();
-
 	$displayform=True;
-	$DB=dbconnect();
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			if($st=$DB->prepare('INSERT INTO Tagi_sprzetu VALUES(?,?)')){
 				if($st->execute(array($_POST['sprzet'],$_POST['tag']))){
 					echo 'Informacja o słowie kluczowym sprzętu  została pomyślnie wstawiona.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
 					$displayform=False;
-					
 				}
-				else{
-					echo 'Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
-				}
+				else echo 'Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
 			}
-			else{
-				echo 'Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-			}
+			else echo 'Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
 		if($displayform){
 ?>
@@ -49,7 +40,7 @@
 			?>
 		</select>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="tag">Słowo kluczowe<span class="color_red">*</span>: </label>
 		<select class="form-control" name="tag" id="tag" onchange="ask_db_middle_table('tagi_sprzetu',$('#sprzet').val(),this.value,'Ta informacja o tagu sprzętu jest już w bazie danych.','#tag_error')" required="required">
 			<option value=""<?php if(!isset($_POST['tag'])) echo ' selected="selected"'; ?>>-</option>
@@ -76,7 +67,7 @@
 		</select>
 	</div>
 	<div id="tag_error"></div>
-	<div><br>
+	<div><br />
 		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
@@ -87,9 +78,5 @@
 			}
 		}
 	}
-	else{
-		echo '<br />Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		
-	}
+	else echo '<br />Nie jesteś zalogowany.<br /><a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

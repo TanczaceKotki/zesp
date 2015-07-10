@@ -1,10 +1,6 @@
 <?php
-	session_start();
-
 	$displayform=True;
-	$DB=dbconnect();
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			if($st=$DB->prepare('INSERT INTO Kontakt VALUES(?,?)')){
 				if($st->execute(array($_POST['sprzet'],$_POST['osoba']))){
@@ -75,7 +71,7 @@
 		</select>
 	</div>
 	<div id="kontakt_error"></div>
-	<div><br>
+	<div><br />
 		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>

@@ -51,7 +51,7 @@
   </a>
 </div>
 
-Celem projektu jest klasyfikacja i organizacja sprzętu wydz. Fizyki, Astronomii i Informatyki Stosowanej UJ.
+<p>Celem projektu jest klasyfikacja i organizacja sprzętu wydz. Fizyki, Astronomii i Informatyki Stosowanej UJ.</p>
 </div>
 <div class="col-lg-4">
 <p class="row">Ogłoszenia</p>

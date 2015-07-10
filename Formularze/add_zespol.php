@@ -1,11 +1,8 @@
 <?php
-	session_start();
-	require 'walidacja_danych_php/walidacja.php';
 	$displayform=True;
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
-			$DB=dbconnect();
+			require 'walidacja_danych_php/walidacja.php';
 			$walidacja = true;
 			if( valid_length($_POST['nazwa'], 128) == false ){
 				$walidacja = false;
@@ -38,7 +35,7 @@
 		<input class="form-control" type="text" name="nazwa" id="nazwa" value="<?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="100" maxlength="128" spellcheck="true" required="required" />
 		<span id="nazwa_counter"></span>
 	</div>
-	<div><br>
+	<div><br />
 		<input type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
@@ -49,9 +46,5 @@
 			}
 		}
 	}
-	else{
-		echo '<br />Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		
-	}
+	else echo '<br />Nie jesteś zalogowany.<br /><a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

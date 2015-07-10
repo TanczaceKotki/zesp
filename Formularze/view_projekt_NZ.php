@@ -13,24 +13,24 @@
 				<table class="table table-striped">
 					<tbody>
 						<tr>
-							<td>Nazwa:</td>
+							<th>Nazwa:</th>
 							<td><?php echo $row['nazwa']; ?></td>
 						</tr>
 						<tr>
-							<td>Data rozpoczęcia:</td>
+							<th>Data rozpoczęcia:</th>
 							<td><?php echo $row['data_rozp']; ?></td>
 						</tr>
 						<tr>
-							<td>Data Zakończenia:</td>
+							<th>Data Zakończenia:</th>
 							<td><?php echo $row['data_zakoncz']; ?></td>
 						</tr>
 						<tr>
-							<td>Opis:</td>
-							<td><?php echo $row['opis']; ?></td>
+							<th>Opis:</th>
+							<td><?php echo htmlspecialchars($row['opis'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
-							<td>Logo:</td>
-							<td><img src="<?php echo $row['logo']; ?>" width="200" alt="" /></td>
+							<th>Logo:</th>
+							<td><a href="<?php echo $row['logo']; ?>"><img src="<?php echo $row['logo']; ?>" width="200" alt="" /></a></td>
 						</tr>
 					</tbody>
 				</table><?php

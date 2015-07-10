@@ -1,7 +1,4 @@
 <?php
-	session_start();
-	
-	
 	if(user::isLogged()){
 		$displayform=True;
 		if(isset($_POST['send'])){
@@ -18,7 +15,6 @@
 				if($lvl == 2) {
 					if(!filter_var($login, FILTER_VALIDATE_EMAIL)) $errors .= '- Podaj poprawny email osoby kontaktowej<br /><br />';
 				}
-				$DB=dbconnect();
 				if($st=$DB->prepare('SELECT login FROM Uzytkownicy WHERE login=?')){
 					if($st->execute(array($login))){
 						if($row=$st->fetch(PDO::FETCH_ASSOC)){

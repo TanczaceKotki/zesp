@@ -1,9 +1,6 @@
 <?php
-	session_start();
-	require 'common.php';
 	$displayform=True;
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			if($st=$DB->prepare('INSERT INTO Laborat_w_zaklad VALUES(?,?)')){
 				if($st->execute(array($_POST['zaklad'],$_POST['laboratorium']))){
@@ -52,7 +49,7 @@
 			?>
 		</select>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="zaklad">Zakład:<span class="color_red">*</span>: </label>
 		<select class="form-control" name="zaklad" id="zaklad" onchange="ask_db_middle_table('laborat_w_zaklad',$('#laboratorium').val(),this.value,'Ta informacja o laboratorium w zakładzie jest już w bazie danych.','#laborat_w_zaklad_error')" required="required">
 			<option value=""<?php if(!isset($_POST['zaklad'])) echo ' selected="selected"'; ?>>-</option>
@@ -79,7 +76,7 @@
 		</select>
 	</div>
 	<div id="laborat_w_zaklad_error"></div>
-	<div><br>
+	<div><br />
 		<input type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>

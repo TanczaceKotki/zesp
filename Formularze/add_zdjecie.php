@@ -1,11 +1,9 @@
 <?php
-	session_start();
-	require 'walidacja_danych_php/walidacja.php';
 	$displayform=True;
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 			$no_error=True;
+			require 'walidacja_danych_php/walidacja.php';
 			$walidacja = True;
 			for($i=0;$i<count($_FILES['pliki']['name']);++$i){
 				$path = $_FILES['pliki']['tmp_name'][$i];
@@ -37,7 +35,7 @@
 				}
 			}
 			else{
-				echo 'Nastąpił błąd podczas walidacji zdjęcia.'.'<br/>';
+				echo 'Nastąpił błąd podczas walidacji zdjęcia.'.'<br />';
 				$no_error = False;
 			}
 			if($no_error){
@@ -79,12 +77,12 @@
 			?>
 		</select>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="pliki">Pliki<span class="color_red">*</span>: </label>
 		<input  type="file" name="pliki[]" id="pliki" onchange="process_images()" multiple="multiple" required="required" />
 	</div>
 	<div id="img_msg_view"></div>
-	<div><br>
+	<div><br />
 		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>

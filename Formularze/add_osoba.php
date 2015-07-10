@@ -1,12 +1,9 @@
 <?php
-	session_start();
-	require 'walidacja_danych_php/walidacja.php';
-	require 'send_email.php';
 	$displayform=True;
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
-			$DB=dbconnect();
+			require 'walidacja_danych_php/walidacja.php';
+			require 'send_email.php';
 			$walidacja = true;
 			if( valid_length($_POST['imie'], 16) == false ){
 				$walidacja = false;
@@ -58,22 +55,22 @@
     <li class="active">Dodaj użytkownika</li>
 </ol>
 <form action="index.php?menu=23" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
-	<div><br>
+	<div><br />
 		<label for="imie">Imię:<span class="color_red">*</span>: </label>
 		<input class="form-control" type="text" name="imie" id="imie" value="<?php if(isset($_POST['imie'])) echo $_POST['imie']; ?>" size="16" maxlength="16" required="required" />
 		<span id="imie_counter"></span>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="nazwisko">Nazwisko:<span class="color_red">*</span>: </label>
 		<input class="form-control" type="text" name="nazwisko" id="nazwisko" value="<?php if(isset($_POST['nazwisko'])) echo $_POST['nazwisko']; ?>" size="32" maxlength="32" required="required" />
 		<span id="nazwisko_counter"></span>
 	</div>
-	<div><br>
+	<div><br />
 		<label for="email">Adres e-mail:<span class="color_red">*</span>: </label>
 		<input class="form-control" type="email" name="email" id="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" size="100" maxlength="254" onchange="check_email()" required="required" />
 		<span id="email_counter"></span>
 	</div>
-	<div><br>
+	<div><br />
 		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
