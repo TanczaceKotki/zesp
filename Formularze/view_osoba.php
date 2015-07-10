@@ -21,19 +21,19 @@
 				<table class="table table-striped">
 					<tbody>
 						<tr>
-							<th>Imię:</th>
-							<td colspan="2"><?php echo $row['imie']; ?></td>
+							<th>Imię</th>
+							<td colspan="2"><?php echo htmlspecialchars($row['imie'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
-							<th>Nazwisko:</th>
-							<td colspan="2"><?php echo $row['nazwisko']; ?></td>
+							<th>Nazwisko</th>
+							<td colspan="2"><?php echo htmlspecialchars($row['nazwisko'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
-							<th>Adres email:</th>
-							<td colspan="2"><a href="mailto:<?php echo $row['email']; ?>"><?php echo $row['email']; ?></a></td>
+							<th>Adres email</th>
+							<td colspan="2"><a href="mailto:<?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?>"><?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a></td>
 						</tr>
 						<tr>
-							<th>Sprzęt:</th>
+							<th>Apratura</th>
 							<td
 								<?php
 								$i=1;
@@ -45,7 +45,7 @@
 													if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 														if($i>1) echo '</tr><tr><td></td><td>';
 														else echo '>';
-														?><a href="index.php?menu=52&amp;id=<?php echo $row2['sprzet']; ?>"><?php echo $row3['nazwa']; ?></a>
+														?><a href="index.php?menu=52&amp;id=<?php echo $row2['sprzet']; ?>"><?php echo htmlspecialchars($row3['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 													</td>
 													<td>
 														<form action="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">

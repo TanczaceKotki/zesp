@@ -1,16 +1,28 @@
 <?php
 	if(user::isLogged()){
+		if(isset($_POST['submitted'])){
+			if($_POST['nazwa']!==$_POST['old_nazwa']){
+				if($st=$DB->prepare('UPDATE Zaklad SET nazwa=? WHERE id=?')){
+					if($st->execute(array($_POST['nazwa'],$_POST['id']))){
+						header('Location:index.php?menu=61&id='.$_POST['id']);
+						die();
+					}
+					else echo 'Nastąpił błąd przy modyfikowaniu zakładu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
+				else echo 'Nastąpił błąd przy modyfikowaniu zakładu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+			}
+		}
 		if(isset($_POST['id'])){
 			if($st=$DB->prepare('SELECT * FROM Zaklad WHERE id=?')){
 				if($st->execute(array($_POST['id']))){
-					if($row=$st->fetch(PDO::FETCH_ASSOC){
+					if($row=$st->fetch(PDO::FETCH_ASSOC)){
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
 	<li><a href="index.php?menu=61&amp;id=<?php echo $_POST['id']; ?>">Szczegóły zakładu</a></li>
 	<li class="active">Edytuj zakład</li>
 </ol>
-<form action="view_zaklad.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+<form action="index.php?menu=48" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<div>
@@ -23,10 +35,8 @@
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
+<script src="js/remaining_char_counter.js" type="text/javascript"></script>
 <?php
-						foreach(array('js/remaining_char_counter.js') as $script){
-							echo '<script src="'.$script.'" type="text/javascript"></script>';
-						}
 					}
 					else echo 'Nie znaleziono zakładu o podanym identyfikatorze.<br /><br />';
 				}

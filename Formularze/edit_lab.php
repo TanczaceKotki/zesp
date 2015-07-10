@@ -42,7 +42,7 @@
 	<li><a href="index.php?menu=7">Zarządzaj laboratoriami</a></li>
 	<li class="active">Edytuj laboratorium</li>
 </ol>
-<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+<form action="index.php?menu=41" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<input type="hidden" name="old_zespol" value="<?php echo $row['zespol']; ?>" />
@@ -80,10 +80,8 @@
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
+<script src="js/remaining_char_counter.js" type="text/javascript"></script>
 <?php
-						foreach(array('js/remaining_char_counter.js') as $script){
-							echo '<script src="'.$script.'" type="text/javascript"></script>';
-						}
 					}
 					else echo 'Nie znaleziono laboratorium o podanym identyfikatorze.<br /><br />';
 				}

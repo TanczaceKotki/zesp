@@ -36,10 +36,8 @@
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
+<script src="js/remaining_char_counter.js" type="text/javascript"></script>
 <?php
-						foreach(array('js/remaining_char_counter.js') as $script){
-							echo '<script src="'.$script.'" type="text/javascript"></script>';
-						}
 					}
 					else echo 'Nie znaleziono zespołu o podanym identyfikatorze.<br /><br />';
 				}

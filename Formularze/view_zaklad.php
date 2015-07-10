@@ -3,6 +3,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=66">Zarządzanie laboratoriami</a></li>
 	<li class="active">Szczegóły zakład</li>
 </ol>
 <?php
@@ -12,15 +13,6 @@
 			else echo 'Nastąpił błąd przy usuwaniu laboratorium: '.implode(' ',$st->errorInfo()).'<br /><br />';
 		}
 		else echo 'Nastąpił błąd przy usuwaniu laboratorium: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	}
-	if(isset($_POST['submitted'])){
-		if($_POST['nazwa']!==$_POST['old_nazwa']){
-			if($st=$DB->prepare('UPDATE Zaklad SET nazwa=? WHERE id=?')){
-				if($st->execute(array($_POST['nazwa'],$_POST['id']))) echo 'Zakład został pomyślnie zmodyfikowany.<br /><br />';
-				else echo 'Nastąpił błąd przy modyfikowaniu zakładu: '.implode(' ',$st->errorInfo()).'<br /><br />';
-			}
-			else echo 'Nastąpił błąd przy modyfikowaniu zakładu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		}
 	}
 	if($st=$DB->prepare('SELECT * FROM Zaklad WHERE id=?')){
 		if($st->execute(array($_GET['id']))){

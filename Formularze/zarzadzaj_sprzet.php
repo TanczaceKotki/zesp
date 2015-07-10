@@ -7,8 +7,7 @@
 	<li class="active">Zarządzaj aparaturą</li>
 </ol>
 <a class="btn btn-warning" href="index.php?menu=25">Dodaj aparaturę</a><br /><br />
-<a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do użytkownika</a><br /><br />
-<a class="btn btn-warning" href="index.php?menu=33">Dodaj słowo kluczowe</a><br /><br />
+<a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do osoby kontaktowej</a><br /><br />
 <a class="btn btn-warning" href="index.php?menu=32">Przypisz słowo kluczowe do aparatury</a><br /><br />
 <table class="table table-striped">
 	<thead>
@@ -24,7 +23,7 @@
 					?>
 					<tr>
 						<td>
-							<a href="index.php?menu=52&amp;id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
+							<a href="index.php?menu=52&amp;id=<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 						</td>
 						<td>
 							<form action="index.php?menu=45" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">

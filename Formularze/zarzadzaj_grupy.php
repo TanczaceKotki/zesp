@@ -21,7 +21,7 @@
 					?>
 					<tr>
 						<td>
-							<a href="index.php?menu=53&amp;id=<?php echo $row['id']; ?>"><?php echo $row['nazwa']; ?></a>
+							<a href="index.php?menu=53&amp;id=<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 						</td>
 						<td>
 							<form action="index.php?menu=47" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">

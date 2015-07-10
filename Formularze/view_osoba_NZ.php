@@ -10,19 +10,19 @@
 				<table class="table table-striped">
 					<tbody>
 						<tr>
-							<th>Imię:</th>
-							<td><?php echo $row['imie']; ?></td>
+							<th>Imię</th>
+							<td><?php echo htmlspecialchars($row['imie'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
-							<th>Nazwisko:</th>
-							<td><?php echo $row['nazwisko']; ?></td>
+							<th>Nazwisko</th>
+							<td><?php echo htmlspecialchars($row['nazwisko'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
-							<th>Adres email:</th>
-							<td><a href="mailto:<?php echo $row['email']; ?>"><?php echo $row['email']; ?></a></td>
+							<th>Adres email</th>
+							<td><a href="mailto:<?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?>"><?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a></td>
 						</tr>
 						<tr>
-							<th>Sprzęt:</th>
+							<th>Apratura</th>
 							<td>
 								<?php
 									if($result=$DB->prepare('SELECT sprzet FROM Kontakt WHERE osoba=? ORDER BY sprzet')){
@@ -34,7 +34,7 @@
 														if($i>1) echo '</td></tr><tr><td></td><td>';
 														if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 															?>
-															<a href="index.php?menu=56&amp;id=<?php echo $row2['sprzet']; ?>"><?php echo $row3['nazwa']; ?></a>
+															<a href="index.php?menu=56&amp;id=<?php echo $row2['sprzet']; ?>"><?php echo htmlspecialchars($row3['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 															<?php
 															++$i;
 														}

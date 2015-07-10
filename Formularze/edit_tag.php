@@ -4,7 +4,7 @@
 			if($_POST['nazwa']!==$_POST['old_nazwa']){
 				if($st=$DB->prepare('UPDATE Tag SET nazwa=? WHERE id=?')){
 					if($st->execute(array($_POST['nazwa'],$_POST['id']))){
-						header('Location:index.php?menu=60&id='.$row['id']);
+						header('Location:index.php?menu=60&id='.$_POST['id']);
 						die();
 					}
 					else echo 'Nastąpił błąd przy modyfikowaniu słowa kluczowego: '.implode(' ',$st->errorInfo()).'<br /><br />';
@@ -19,10 +19,10 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li><a href="index.php?menu=60&id=<?php echo $_POST['id']; ?>">Szczegóły tagu</a></li>
-	<li class="active">Edytuj tag</li>
+	<li><a href="index.php?menu=60&id=<?php echo $_POST['id']; ?>">Szczegóły słowa kluczowego</a></li>
+	<li class="active">Edytuj słowo kluczowe</li>
 </ol>
-<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
+<form action="index.php?menu=46" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" id="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<div>

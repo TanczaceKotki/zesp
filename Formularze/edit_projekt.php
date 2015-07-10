@@ -73,7 +73,7 @@
 	<li><a href="index.php?menu=51&amp;id=<?php echo $_POST['id']; ?>">Szczegóły projektu</a></li>
 	<li class="active">Edytuj projekt</li>
 </ol>
-<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+<form action="index.php?menu=44" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<input type="hidden" name="old_data_rozp" value="<?php echo $row['data_rozp']; ?>" />

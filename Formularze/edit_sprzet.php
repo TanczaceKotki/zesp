@@ -94,7 +94,7 @@
 	<li><a href="index.php?menu=52&amp;id=<?php echo $_POST['id']; ?>">Szczegóły aparatury</a></li>
 	<li class="active">Edytuj aparaturę</li>
 </ol>
-<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return check_if_number(document.getElementById('wartosc').value)">
+<form action="index.php?menu=45" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return check_if_number(document.getElementById('wartosc').value)">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<input type="hidden" name="old_data_zakupu" value="<?php echo $row['data_zakupu']; ?>" />

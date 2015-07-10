@@ -43,6 +43,9 @@
 		}
 	}
 		if(isset($_POST['id'])){
+			if($st=$DB->prepare('SELECT * FROM Osoba WHERE id=?')){
+				if($st->execute(array($_POST['id']))){
+					if($row=$st->fetch(PDO::FETCH_ASSOC)){
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
@@ -50,12 +53,7 @@
 	<li><a href="index.php?menu=54&id=<?php echo $_POST['id']; ?>">Szczegóły osoby kontaktowej</a></li>
 	<li class="active">Edytuj osobę kontaktową</li>
 </ol>
-<?php
-			if($st=$DB->prepare('SELECT * FROM Osoba WHERE id=?')){
-				if($st->execute(array($_POST['id']))){
-					$row=$st->fetch(PDO::FETCH_ASSOC);
-?>
-<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
+<form action="index.php?menu=42" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_imie" value="<?php echo $row['imie']; ?>" />
 	<input type="hidden" name="old_nazwisko" value="<?php echo $row['nazwisko']; ?>" />
@@ -81,28 +79,17 @@
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					foreach(array('js/ask_db.js','js/remaining_char_counter.js','js/check_email.js','js/osoba_form_edit.js') as $script){
-						echo '<script src="'.$script.'" type="text/javascript"></script>';
+						foreach(array('js/ask_db.js','js/remaining_char_counter.js','js/check_email.js','js/osoba_form_edit.js') as $script){
+							echo '<script src="'.$script.'" type="text/javascript"></script>';
+						}
 					}
+					else echo 'Nie znaleziono laboratorium o podanym identyfikatorze.<br /><br />';
 				}
-				else{
-					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
-				
-				}
+				else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 			}
-			else{
-				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-				
-			}
+			else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
-		else{
-			echo 'Nie podano osoby do edycji.';
-			
-		}
+		else echo 'Nie podano osoby do edycji.';
 	}
-	else {
-		echo '<br />Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		bottom();
-	}
+	else echo '<br />Nie jesteś zalogowany.<br /><a href="login.php">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

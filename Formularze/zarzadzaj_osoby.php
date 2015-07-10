@@ -20,10 +20,10 @@
 					?>
 					<tr class="item">
 						<td>
-							<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item_1"><?php echo $row['imie']; ?></a>
+							<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item_1"><?php echo htmlspecialchars($row['imie'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 						</td>
 						<td>
-							<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item_2"><?php echo $row['nazwisko']; ?></a>
+							<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item_2"><?php echo htmlspecialchars($row['nazwisko'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 						</td>
 						<td>
 							<form action="index.php?menu=42" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">

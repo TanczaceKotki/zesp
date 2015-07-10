@@ -8,12 +8,11 @@
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
 				?>
-				<br />
 				<table class="table table-striped">
 					<tbody>
 						<tr>
 							<th>Nazwa</th>
-							<td><?php echo $row['nazwa']; ?></td>
+							<td><?php echo htmlspecialchars(htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false),ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
 							<th>Zespół</th>
@@ -22,7 +21,7 @@
 									if($row['zespol']!==""){
 										if($result=$DB->prepare('SELECT nazwa FROM Zespol WHERE id=?')){
 											if($result->execute(array($row['zespol']))){
-												if($row2=$result->fetch(PDO::FETCH_ASSOC)) echo '<a href="index.php?menu=58&amp;id='.$row['zespol'].'">'.$row2['nazwa'].'</a>';
+												if($row2=$result->fetch(PDO::FETCH_ASSOC)) echo '<a href="index.php?menu=58&amp;id='.$row['zespol'].'">'.htmlspecialchars($row2['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false).'</a>';
 												else echo 'Nie udało się pobrać danych z bazy danych.';
 											}
 											else echo 'Nie udało się pobrać danych z bazy danych.';
@@ -45,7 +44,7 @@
 														if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 															if($i>1) echo '</td></tr><tr><td></td><td>';
 															?>
-															<a href="index.php?menu=63&amp;id=<?php echo $row2['zaklad']; ?>"><?php echo $row3['nazwa']; ?></a>
+															<a href="index.php?menu=63&amp;id=<?php echo $row2['zaklad']; ?>"><?php echo htmlspecialchars($row3['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 															<?php
 															++$i;
 														}
@@ -53,6 +52,27 @@
 													else echo 'Nie udało się pobrać danych z bazy danych.';
 												}
 												else echo 'Nie udało się pobrać danych z bazy danych.';
+											}
+										}
+										else echo 'Nie udało się pobrać danych z bazy danych.';
+									}
+									else echo 'Nie udało się pobrać danych z bazy danych.';
+								?>
+							</td>
+						</tr>
+						<tr>
+							<th>Apratura</th>
+							<td>
+								<?php
+									if($result=$DB->prepare('SELECT id,nazwa FROM Sprzet WHERE laboratorium=? ORDER BY nazwa')){
+										if($result->execute(array($row['id']))){
+											$i=1;
+											while($row2=$result->fetch(PDO::FETCH_ASSOC)){
+												if($i>1) echo '</td></tr><tr><td></td><td>';
+												?>
+												<a href="index.php?menu=56&amp;id=<?php echo $row2['id']; ?>"><?php echo htmlspecialchars($row2['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
+												<?php
+												++$i
 											}
 										}
 										else echo 'Nie udało się pobrać danych z bazy danych.';

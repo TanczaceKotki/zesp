@@ -51,8 +51,6 @@
 								if($st->execute(array($login))){
 									$userExists = $st->fetch(PDO::FETCH_ASSOC);
 									if(password_verify($pass,$userExists['pass'])){
-										//$user = user::getData();
-										//$_SESSION['id'] = $id;
 										$_SESSION['login'] = $login;
 										$_SESSION['pass'] = $pass;
 										$message='Zostałeś zalogowany pomyślnie.<br /><br />Przejdź do <a href="index.php">strony głównej</a>.';
@@ -82,7 +80,6 @@
 				<br />
 				<div id="wyszukiwarka" class="align_right"><?php require 'search_bar.php'; ?></div>
 			</div>
-			<!-- end .header -->
 			<div class="menu">
 				<nav id="navigation">
 					<ul class="menu_niezalogowany">
@@ -99,8 +96,10 @@
 					?>
 					<ul class="menu_admin">
 						<li class="vertical_align"><a href="index.php?menu=12">Zarządzanie newsami</a></li>
-						<li class="vertical_align"><a href="index.php?menu=7">Zarządzanie laboratoriami</a></li>
 						<li class="vertical_align"><a href="index.php?menu=8">Zarządzanie aparaturą</a></li>
+						<li class="vertical_align"><a href="index.php?menu=67">Zarządzanie słowami kluczowymi</a></li>
+						<li class="vertical_align"><a href="index.php?menu=7">Zarządzanie laboratoriami</a></li>
+						<li class="vertical_align"><a href="index.php?menu=66">Zarządzanie zakładami</a></li>
 						<li class="vertical_align"><a href="index.php?menu=9">Zarządzanie zespołami laboratoriów</a></li>
 						<li class="vertical_align"><a href="index.php?menu=17">Zarządzanie projektami</a></li>
 						<li class="vertical_align"><a href="index.php?menu=100">Zarządzanie osobami kontaktowymi</a></li>
@@ -280,6 +279,12 @@
 						case 65:
 							require 'view_osoba_NZ.php';
 							break;
+						case 66:
+							require 'zarzadzaj_zaklady.php';
+							break;
+						case 67:
+							require 'zarzadzaj_tagi.php';
+							break;
 						case 100:
 							require 'zarzadzaj_osoby.php';
 							break;
@@ -296,9 +301,7 @@
 			</div>
 			<div id="footer">
 				<p>© 2015 TańcząceKotki || <a href="mailto:mail@admin">administrator strony</a></p>
-				<!-- end .footer -->
 			</div>
-			<!-- end .container -->
 		</div>
 		<?php
 			foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js') as $script){
