@@ -1,17 +1,19 @@
 <?php
-	session_start();
 	if(user::isLogged()){
-		$user = user::getData('', '');
-		if(isset($_POST['id'])){
-			$login = $_SESSION["login"];
-			if($st=$DB->prepare('SELECT lvl FROM Uzytkownicy WHERE login=?'))
-			if($st->execute(array($_SESSION["login"])))
-			if($row=$st->fetch(PDO::FETCH_ASSOC)){
-				if($row['lvl']==='0'){
+		if($st=$DB->prepare('SELECT lvl FROM Uzytkownicy WHERE login=?'))
+		if($st->execute(array($_SESSION['login'])))
+		if($row=$st->fetch(PDO::FETCH_ASSOC)){
+			if($row['lvl']==='0'){
+				if(isset($_POST['id'])){
 					if($st=$DB->prepare('SELECT id,login,lvl FROM Uzytkownicy WHERE id=?')){
 						if($st->execute(array($_POST['id']))){
-							$row=$st->fetch(PDO::FETCH_ASSOC);
+							if($row=$st->fetch(PDO::FETCH_ASSOC)){
 ?>
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=13">Zarządzanie użytkownikami</a></li>
+	<li class="active">Edytuj użytkownika</li>
+</ol>
 <form action="index.php?menu=118&amp;id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_login" id="old_login" value="<?php echo $row['login']; ?>" />
@@ -67,39 +69,25 @@
 		<span id="nazwisko_counter"></span>
 	</fieldset>
 	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-							foreach(array('js/ask_db.js','js/check_email.js','js/remaining_char_counter.js','js/user_form_edit.js','js/user_lib.js') as $script){
-								echo '<script src="'.$script.'" type="text/javascript"></script>';
+								foreach(array('js/ask_db.js','js/check_email.js','js/remaining_char_counter.js','js/user_form_edit.js','js/user_lib.js') as $script){
+									echo '<script src="'.$script.'" type="text/javascript"></script>';
+								}
 							}
+							else echo 'Nie znaleziono użytkownika o podanym identyfikatorze.<br /><br />';
 						}
-						else{
-						echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
-					
-						}
+						else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 					}
-					else{
-						echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-				
-					}
+					else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 				}
-				else{
-					echo 'Dostęp do panelu administracyjnego dozwolony jest tylko z uprawnieniami administratora.<br /><br />';
-					echo '<a href="index.php">Powrót do strony głównej</a><br><br><br>';
-				}	
+				else echo 'Nie podano użytkownika do edycji.';
 			}
+			else echo 'Dostęp do panelu administracyjnego dozwolony jest tylko z uprawnieniami administratora.<br /><br /><a href="index.php">Powrót do strony głównej</a><br /><br /><br />';
 		}
-		else{
-			echo 'Nie podano użytkownika do edycji.';
-			
-		}
-		
 	}
-	else{
-		echo '<br>Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-	}
+	else echo '<br />Nie jesteś zalogowany.<br /><a href="login.php">Zaloguj się</a><br /><br />Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

@@ -9,18 +9,9 @@
 	if(isset($_POST['del_tag'])){
 		if($st=$DB->prepare('DELETE FROM Tagi_sprzetu WHERE sprzet=? AND tag=?')){
 			if($st->execute(array($_POST['sprzet'],$_POST['tag']))) echo 'Tag został usunięty.<br /><br />';
-			else echo 'Nastąpił błąd przy usuwaniu tagu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			else echo 'Nastąpił błąd przy usuwaniu słowa kluczowego: '.implode(' ',$st->errorInfo()).'<br /><br />';
 		}
-		else echo 'Nastąpił błąd przy usuwaniu tagu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-	}
-	if(isset($_POST['submitted'])){
-		if($_POST['nazwa']!==$_POST['old_nazwa']){
-			if($st=$DB->prepare('UPDATE Tag SET nazwa=? WHERE id=?')){
-				if($st->execute(array($_POST['nazwa'],$_POST['id']))) echo 'Tag został pomyślnie zmodyfikowany.<br /><br />';
-				else echo 'Nastąpił błąd przy modyfikowaniu tagu: '.implode(' ',$st->errorInfo()).'<br /><br />';
-			}
-			else echo 'Nastąpił błąd przy modyfikowaniu tagu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-		}
+		else echo 'Nastąpił błąd przy usuwaniu słowa kluczowego: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 	}
 	if($st=$DB->prepare('SELECT * FROM Tag WHERE id=?')){
 		if($st->execute(array($_GET['id']))){

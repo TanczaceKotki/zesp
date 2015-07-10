@@ -1,14 +1,79 @@
 <?php
-	session_start();
 	if(user::isLogged()){
-		$user = user::getData('', '');
+		if(isset($_POST['submitted'])){
+		$send=False;
+		$params=array();
+		$sql='UPDATE Projekt SET';
+		if($_POST['nazwa']!==$_POST['old_nazwa']){
+			$sql.=' nazwa=?';
+			$params[]=$_POST['nazwa'];
+			$send=True;
+		}
+		$data=$_POST['data_rozp_rok'];
+		if($_POST['data_rozp_miesiac']!==""){
+			$data.='-'.$_POST['data_rozp_miesiac'];
+			if($_POST['data_rozp_dzien']!=="") $data.='-'.$_POST['data_rozp_dzien'];
+		}
+		if($data!==$_POST['old_data_rozp']){
+			if($send) $sql.=',';
+			$sql.=' data_rozp=?';
+			$params[]=$data;
+			$send=True;
+		}
+		$data="";
+		if($_POST['data_zakoncz_rok']!==""){
+			$data=$_POST['data_zakoncz_rok'];
+			if($_POST['data_zakoncz_miesiac']!==""){
+				$data.='-'.$_POST['data_zakoncz_miesiac'];
+				if($_POST['data_zakoncz_dzien']!=="") $data.='-'.$_POST['data_zakoncz_dzien'];
+			}
+		}
+		if($data!==$_POST['old_data_zakoncz']){
+			if($send) $sql.=',';
+			if($data==="") $sql.=' data_zakoncz=NULL';
+			else{
+				$sql.=' data_zakoncz=?';
+				$params[]=$data;
+			}
+			$send=True;
+		}
+		if($_POST['opis']!==$_POST['old_opis']){
+			if($send) $sql.=',';
+			$sql.=' opis=?';
+			$params[]=$_POST['opis'];
+			$send=True;
+		}
+		if($_POST['logo']!==$_POST['old_logo']){
+			if($send) $sql.=',';
+			$sql.=' logo=?';
+			$params[]=$_POST['logo'];
+			$send=True;
+		}
+		if($send){
+			$sql.=' WHERE id=?';
+			$params[]=$_POST['id'];
+			if($st=$DB->prepare($sql)){
+				if($st->execute($params)){
+					header('Location:index.php?menu=51&id='.$_POST['id']);
+					die();
+				}
+				else echo 'Nastąpił błąd przy modyfikowaniu projektu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+			}
+			else echo 'Nastąpił błąd przy modyfikowaniu projektu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+		}
+	}
 		if(isset($_POST['id'])){
-			$DB=dbconnect();
 			if($st=$DB->prepare('SELECT * FROM Projekt WHERE id=?')){
 				if($st->execute(array($_POST['id']))){
-					$row=$st->fetch(PDO::FETCH_ASSOC);
+					if($row=$st->fetch(PDO::FETCH_ASSOC)){
 ?>
-<form action="view_projekt.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=17">Zarządzanie projektami</a></li>
+	<li><a href="index.php?menu=51&amp;id=<?php echo $_POST['id']; ?>">Szczegóły projektu</a></li>
+	<li class="active">Edytuj projekt</li>
+</ol>
+<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<input type="hidden" name="old_data_rozp" value="<?php echo $row['data_rozp']; ?>" />
@@ -139,33 +204,22 @@
 		<span id="logo_counter"></span>
 	</div>
 	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					foreach(array('js/remaining_char_counter.js','js/projekt_form.js') as $script){
-						echo '<script src="'.$script.'" type="text/javascript"></script>';
+						foreach(array('js/remaining_char_counter.js','js/projekt_form.js') as $script){
+							echo '<script src="'.$script.'" type="text/javascript"></script>';
+						}
 					}
+					else echo 'Nie znaleziono projektu o podanym identyfikatorze.<br /><br />';
 				}
-				else{
-					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
-					
-				}
+				else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 			}
-			else{
-				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-			
-			}
+			else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
-		else{
-			echo 'Nie podano projektu do edycji.';
-		
-		}
+		else echo 'Nie podano projektu do edycji.';
 	}
-	else {
-		echo '<br>Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		bottom();
-	}
+	else echo '<br />Nie jesteś zalogowany.<br /><a href="login.php">Zaloguj się</a><br /><br />Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

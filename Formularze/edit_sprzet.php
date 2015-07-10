@@ -1,7 +1,5 @@
 <?php
-	session_start();
 	if(user::isLogged()){
-		$user = user::getData('', '');
 		if(isset($_POST['submitted'])){
 		$send=False;
 		$params=array();
@@ -76,7 +74,10 @@
 			$sql.=' WHERE id=?';
 			$params[]=$_POST['id'];
 			if($st=$DB->prepare($sql)){
-				if($st->execute($params)) echo 'Sprzęt został pomyślnie zmodyfikowany.<br /><br />';
+				if($st->execute($params)){
+					header('Location:index.php?menu=52&id='.$_POST['id']);
+					die();
+				}
 				else echo 'Nastąpił błąd przy modyfikowaniu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';
 			} 
 			else echo 'Nastąpił błąd przy modyfikowaniu sprzętu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
@@ -85,8 +86,14 @@
 		if(isset($_POST['id'])){
 			if($st=$DB->prepare('SELECT * FROM Sprzet WHERE id=?')){
 				if($st->execute(array($_POST['id']))){
-					$row=$st->fetch(PDO::FETCH_ASSOC);
+					if($row=$st->fetch(PDO::FETCH_ASSOC)){
 ?>
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=8">Zarządzanie aparaturą</a></li>
+	<li><a href="index.php?menu=52&amp;id=<?php echo $_POST['id']; ?>">Szczegóły aparatury</a></li>
+	<li class="active">Edytuj aparaturę</li>
+</ol>
 <form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return check_if_number(document.getElementById('wartosc').value)">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
@@ -268,35 +275,22 @@
 		</select>
 	</div>
 	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					foreach(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js') as $script){
-						echo '<script src="'.$script.'" type="text/javascript"></script>';
+						foreach(array('https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js','js/remaining_char_counter.js','js/sprzet_form.js') as $script){
+							echo '<script src="'.$script.'" type="text/javascript"></script>';
+						}
 					}
+					else echo 'Nie znaleziono aparatury o podanym identyfikatorze.<br /><br />';
 				}
-				else{
-					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
-					bottom();
-				}
+				else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 			}
-			else{
-				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-				bottom();
-			}
+			else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
-		else{
-			
-			echo 'Nie podano sprzętu do edycji.';
-			bottom();
-		}
+		else echo 'Nie podano sprzętu do edycji.';
 	}
-	else {
-		
-		echo '<br>Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		bottom();
-	} 
+	else echo '<br />Nie jesteś zalogowany.<br /><a href="login.php">Zaloguj się</a><br /><br />Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

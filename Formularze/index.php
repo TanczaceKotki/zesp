@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	session_start(); 
 	require 'user.class.php';
 	require 'DB.php';
@@ -79,7 +80,7 @@
 					?>
 				</div>
 				<br />
-				<div id="wyszukiwarka" class="align_right"><?php require 'search_bar.php'); ?></div>
+				<div id="wyszukiwarka" class="align_right"><?php require 'search_bar.php'; ?></div>
 			</div>
 			<!-- end .header -->
 			<div class="menu">
@@ -299,8 +300,10 @@
 			</div>
 			<!-- end .container -->
 		</div>
-		<script src="js/modernizr.js" type="text/javascript"></script>
-		<script src="js/js-webshim/minified/polyfiller.js" type="text/javascript"></script>
-		<script src="js/default_form.js" type="text/javascript"></script>
+		<?php
+			foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js') as $script){
+				echo '<script src="'.$script.'" type="text/javascript"></script>';
+			}
+		?>
 	</body>
 </html>

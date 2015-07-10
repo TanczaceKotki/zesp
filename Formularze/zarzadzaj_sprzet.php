@@ -29,7 +29,7 @@
 						<td>
 							<form action="index.php?menu=45" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 								<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
-								<input class="btn btn-warning" type="submit" name="del_lab" value="Edytuj" />
+								<input class="btn btn-warning" type="submit" value="Edytuj" />
 							</form>
 						</td>
 						<td>

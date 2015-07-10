@@ -1,15 +1,28 @@
 <?php
-	session_start();
-	
 	if(user::isLogged()){
-		$user = user::getData('', '');
+		if(isset($_POST['submitted'])){
+			if($_POST['nazwa']!==$_POST['old_nazwa']){
+				if($st=$DB->prepare('UPDATE Tag SET nazwa=? WHERE id=?')){
+					if($st->execute(array($_POST['nazwa'],$_POST['id']))){
+						header('Location:index.php?menu=60&id='.$row['id']);
+						die();
+					}
+					else echo 'Nastąpił błąd przy modyfikowaniu słowa kluczowego: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				}
+				else echo 'Nastąpił błąd przy modyfikowaniu słowa kluczowego: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+			}
+		}
 		if(isset($_POST['id'])){
-			$DB=dbconnect();
 			if($st=$DB->prepare('SELECT * FROM Tag WHERE id=?')){
 				if($st->execute(array($_POST['id']))){
-					$row=$st->fetch(PDO::FETCH_ASSOC);
+					if($row=$st->fetch(PDO::FETCH_ASSOC)){
 ?>
-<form action="view_tag.php?id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=60&id=<?php echo $_POST['id']; ?>">Szczegóły tagu</a></li>
+	<li class="active">Edytuj tag</li>
+</ol>
+<form action="#" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 	<input type="hidden" name="old_nazwa" id="old_nazwa" value="<?php echo $row['nazwa']; ?>" />
 	<div>
@@ -19,34 +32,22 @@
 		<div id="tag_error"></div>
 	</div>
 	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
 <?php
-					foreach(array('js/ask_db.js','js/remaining_char_counter.js','js/check_tag.js','js/tag_form_edit.js') as $script){
-						echo '<script src="'.$script.'" type="text/javascript"></script>';
+						foreach(array('js/ask_db.js','js/remaining_char_counter.js','js/check_tag.js','js/tag_form_edit.js') as $script){
+							echo '<script src="'.$script.'" type="text/javascript"></script>';
+						}
 					}
+					else echo 'Nie znaleziono słowa kluczowego o podanym identyfikatorze.<br /><br />';
 				}
-				else{
-					echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
-					
-				}
+				else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$st->errorInfo()).'<br /><br />';
 			}
-			else{
-				echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
-			
-			}
+			else echo 'Nie udało się pobrać danych z bazy danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 		}
-		else{
-			echo 'Nie podano tagu do edycji.';
-		
-		}
+		else echo 'Nie podano słowa kluczowego do edycji.';
 	}
-	else {
-		top();
-		echo '<br>Nie jesteś zalogowany.<br />
-		<a href="login.php">Zaloguj się</a><br><br> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-		bottom();
-	}
+	else echo '<br />Nie jesteś zalogowany.<br /><a href="login.php">Zaloguj się</a><br /><br />Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

@@ -3,7 +3,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li><a href="index.php?menu=5">Zespoły</a></li>
+	<li><a href="index.php?menu=9">Zarządzanie zespołami</a></li>
 	<li class="active">Szczegóły zespołu</li>
 </ol>
 <?php
@@ -14,11 +14,11 @@
 				<table class="table table-striped">
 					<tbody>
 						<tr>
-							<td>Nazwa:</td>
+							<th>Nazwa:</th>
 							<td><?php echo $row['nazwa']; ?></td>
 						</tr>
 						<tr>
-							<td>Laboratoria</td>
+							<th>Laboratoria</th>
 							<td>
 								<?php
 									if($result=$DB->prepare('SELECT id,nazwa FROM Laboratorium WHERE zespol=? ORDER BY nazwa')){
