@@ -11,8 +11,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Tanczace kotki 2015</title>
-		<link href="css/oneColLiqCtrHdr.css" rel="stylesheet" type="text/css" />
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/oneColLiqCtrHdr.css" rel="stylesheet" type="text/css" />
 		<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
 		<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
 		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
