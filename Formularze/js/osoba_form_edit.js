@@ -1,4 +1,4 @@
- function check_email_2(){
+function check_email_2(){
 	ajax_wait=true;
 	if($('#email').val()!==$('#old_email').val()){
 		check_email();

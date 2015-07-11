@@ -1,4 +1,4 @@
- $(document).ready(function(){
+$(document).ready(function(){
 	var items=$('.item');
 	var length=items.length;
 	for(var i=0;i<length;++i){

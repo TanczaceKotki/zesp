@@ -1,4 +1,4 @@
- $(document).ready(function(){
+$(document).ready(function(){
 	var ajax_wait=false;
 	check_email();
 });
