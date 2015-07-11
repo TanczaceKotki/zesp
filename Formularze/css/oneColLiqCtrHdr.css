@@ -32,8 +32,7 @@ a img{
 }
 
 a:link{
-	color:#000;
-	text-decoration:none
+	color:#000
 	/* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
 }
 
@@ -44,7 +43,6 @@ a:visited{
 
 a:hover, a:active, a:focus{
 	/* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
-	text-decoration:none;
 	color:#005097
 }
 
