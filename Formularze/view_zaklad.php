@@ -1,4 +1,4 @@
-<?php
+ <?php
 	if(user::isLogged()){
 ?>
 <ol class="breadcrumb">
@@ -6,7 +6,7 @@
 	<li><a href="index.php?menu=66">Zarządzanie zakładami</a></li>
 	<li class="active">Szczegóły zakład</li>
 </ol>
-<?php
+ <?php
 	if(isset($_POST['del_lab'])){
 		if($st=$DB->prepare('DELETE FROM Laborat_w_zaklad WHERE laboratorium=? AND zaklad=?')){
 			if($st->execute(array($_POST['laboratorium'],$_POST['zaklad']))) echo 'Laboratorium zostało usunięte.<br /><br />';
@@ -22,12 +22,12 @@
 					<tbody>
 						<tr>
 							<th>Nazwa</th>
-							<td colspan="2"><?php echo $row['nazwa']; ?></td>
+							<td colspan="2"> <?php echo $row['nazwa']; ?></td>
 						</tr>
 						<tr>
 							<th>Laboratoria</th>
 							<td
-								<?php
+								 <?php
 								$i=1;
 								if($result=$DB->prepare('SELECT * FROM Laborat_w_zaklad WHERE zaklad=? ORDER BY laboratorium')){
 									if($result->execute(array($row['id']))){
@@ -37,16 +37,16 @@
 													if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 														if($i>1) echo '</tr><tr><td></td><td>';
 														else echo '>';
-														?><a href="index.php?menu=40&amp;id=<?php echo $row2['laboratorium']; ?>"><?php echo $row3['nazwa']; ?></a>
+														?><a href="index.php?menu=40&amp;id= <?php echo $row2['laboratorium']; ?>"> <?php echo $row3['nazwa']; ?></a>
 													</td>
 													<td>
-														<form action="index.php?menu=61&amp;id=<?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-															<input type="hidden" name="zaklad" value="<?php echo $row['id']; ?>" />
-															<input type="hidden" name="laboratorium" value="<?php echo $row2['laboratorium']; ?>" />
+														<form action="index.php?menu=61&amp;id= <?php echo $row['id']; ?>" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+															<input type="hidden" name="zaklad" value=" <?php echo $row['id']; ?>" />
+															<input type="hidden" name="laboratorium" value=" <?php echo $row2['laboratorium']; ?>" />
 															<input type="submit" class="btn btn-danger" name="del_lab" value="Usuń" />
 														</form>
 														<br />
-														<?php
+														 <?php
 														++$i;
 													}
 												}
@@ -63,7 +63,7 @@
 							</td>
 						</tr>
 					</tbody>
-				</table><?php
+				</table> <?php
 			}
 			else echo 'Nie znaleziono zakładu o podanym identyfikatorze.<br /><br />';
 		}
