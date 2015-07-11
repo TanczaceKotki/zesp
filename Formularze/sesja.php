@@ -1,5 +1,5 @@
 <?php
-	 function logowanie() { 
+	function logowanie() { 
      
 if($_SESSION['logowanie'] == 'poprawne') { 
      
@@ -24,6 +24,6 @@ if($_SESSION['logowanie'] == 'poprawne') {
 } 
 return $string; 
 }  ?>
-	 <html>lkjsajd</html>
-	 
+	<html>lkjsajd</html>
+	
 
