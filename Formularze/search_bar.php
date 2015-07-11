@@ -13,7 +13,7 @@
 		</select>
 	</div>
 	<div class="col-lg-5">
-		<input class="form-control" type="text" name="keyword" required="required" />
+		<input class="form-control" type="text" name="keyword" maxlength="49990" required="required" />
 	</div>
 	<div class="col-lg-2">
 		<input class="btn btn-primary" type="submit" value="Szukaj" />
