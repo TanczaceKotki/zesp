@@ -1,4 +1,4 @@
-<?php if (user::isLogged()) {
+ <?php if (user::isLogged()) {
 		$user = user::getData('', '');
 		if(isset($_POST['del_sprzet'])){
 			if($st=$DB->prepare('DELETE FROM Sprzet WHERE id=?')){

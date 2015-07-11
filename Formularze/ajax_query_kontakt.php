@@ -1,4 +1,4 @@
-<?php
+ <?php
 	require 'DB.php';
 	$DB=dbconnect();
 	if($st=$DB->prepare('SELECT sprzet FROM Kontakt WHERE sprzet=? AND osoba=?')){

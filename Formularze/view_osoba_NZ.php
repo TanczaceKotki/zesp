@@ -2,7 +2,7 @@
 	<li><a href="index.php">Start</a></li>
 	<li class="active">Szczegóły osoba kontaktowa</li>
 </ol>
-<?php
+ <?php
 	if($st=$DB->prepare('SELECT * FROM Osoba WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -11,20 +11,20 @@
 					<tbody>
 						<tr>
 							<th>Imię</th>
-							<td><?php echo htmlspecialchars($row['imie'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
+							<td> <?php echo htmlspecialchars($row['imie'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
 							<th>Nazwisko</th>
-							<td><?php echo htmlspecialchars($row['nazwisko'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
+							<td> <?php echo htmlspecialchars($row['nazwisko'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
 							<th>Adres email</th>
-							<td><a href="mailto:<?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?>"><?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a></td>
+							<td><a href="mailto: <?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?>"> <?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a></td>
 						</tr>
 						<tr>
 							<th>Apratura</th>
 							<td>
-								<?php
+								 <?php
 									if($result=$DB->prepare('SELECT sprzet FROM Kontakt WHERE osoba=? ORDER BY sprzet')){
 										if($result->execute(array($row['id']))){
 											$i=0;
@@ -34,8 +34,8 @@
 														if($i>1) echo '</td></tr><tr><td></td><td>';
 														if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 															?>
-															<a href="index.php?menu=56&amp;id=<?php echo $row2['sprzet']; ?>"><?php echo htmlspecialchars($row3['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
-															<?php
+															<a href="index.php?menu=56&amp;id= <?php echo $row2['sprzet']; ?>"> <?php echo htmlspecialchars($row3['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
+															 <?php
 															++$i;
 														}
 													}
@@ -51,7 +51,7 @@
 							</td>
 						</tr>
 					</tbody>
-				</table><?php 
+				</table> <?php 
 			}
 			else echo 'Nie znaleziono osoby o podanym identyfikatorze.<br /><br />';
 		}
