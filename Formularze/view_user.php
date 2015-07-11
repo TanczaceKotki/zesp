@@ -1,4 +1,4 @@
- <?php
+<?php
 	if(user::isLogged()){
 		if($st=$DB->prepare('SELECT lvl FROM Uzytkownicy WHERE login=?'))
 			if($st->execute(array($_SESSION["login"])))
@@ -10,7 +10,7 @@
 	<li><a href="index.php?menu=13">Zarządzanie uprawnieniami dostępu</a></li>
 	<li class="active">Szczegóły użytkownik</li>
 </ol>
- <?php
+<?php
 	if(isset($_POST['submitted'])){
 		$send=false;
 		$add_osoba=false;
@@ -95,7 +95,7 @@
 						<tr>
 							<th>Login</th>
 							<td>
-								 <?php
+								<?php
 									if($row['lvl']==='2') echo '<a href="mailto:'.$row['login'].'">'.$row['login'].'</a>';
 									else echo $row['login'];
 								?>
@@ -104,7 +104,7 @@
 						<tr>
 							<th>Prawa dostępu:</th>
 							<td>
-								 <?php
+								<?php
 									if($row['lvl']==='0') echo 'Administrator';
 									elseif($row['lvl']==='1') echo 'Moderator';
 									elseif($row['lvl']==='2') echo 'Osoba kontaktowa';
@@ -112,7 +112,7 @@
 							</td>
 						</tr>
 					</tbody>
-				</table> <?php 
+				</table><?php 
 			}
 			else echo 'Nastąpił błąd przy pobieraniu danych.<br /><br />';
 		}
@@ -121,7 +121,7 @@
 	else echo 'Nastąpił błąd przy pobieraniu danych: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 ?>
 <a class="btn btn-warning" href="index.php?menu=13">Wróć do strony zarządzania użytkownikami</a>
- <?php
+<?php
 					}
 					else echo 'Dostęp do panelu administracyjnego dozwolony jest tylko z uprawnieniami administratora.<br /><br />';
 				}

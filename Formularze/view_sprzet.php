@@ -1,4 +1,4 @@
- <?php
+<?php
 	if(user::isLogged()){
 ?>
 <ol class="breadcrumb">
@@ -6,7 +6,7 @@
 	<li><a href="index.php?menu=8">Zarządzaj aparaturą</a></li>
 	<li class="active">Szczegóły aparatura</li>
 </ol>
- <?php
+<?php
 	if(isset($_POST['del_picture'])){
 		if($st=$DB->prepare('DELETE FROM Zdjecie WHERE id=?')){
 			if($st->execute(array($_POST['id']))) echo 'Zdjecie zostało usunięte.<br /><br />';
@@ -36,28 +36,28 @@
 					<tbody>
 						<tr>
 							<th>Nazwa</th>
-							<td colspan="2"> <?php echo htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
+							<td colspan="2"><?php echo htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
 							<th>Data zakupu</th>
-							<td colspan="2"> <?php echo $row['data_zakupu']; ?></td>
+							<td colspan="2"><?php echo $row['data_zakupu']; ?></td>
 						</tr>
 						<tr>
 							<th>Data uruchomienia</th>
-							<td colspan="2"> <?php if($row['data_uruchom']!=="") echo $row['data_uruchom']; ?></td>
+							<td colspan="2"><?php if($row['data_uruchom']!=="") echo $row['data_uruchom']; ?></td>
 						</tr>
 						<tr>
 							<th>Wartość</th>
-							<td colspan="2"> <?php echo $row['wartosc']; ?></td>
+							<td colspan="2"><?php echo $row['wartosc']; ?></td>
 						</tr>
 						<tr>
 							<th>Opis</th>
-							<td colspan="2"> <?php echo htmlspecialchars($row['opis'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
+							<td colspan="2"><?php echo htmlspecialchars($row['opis'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></td>
 						</tr>
 						<tr>
 							<th>Projekt</th>
 							<td colspan="2">
-								 <?php
+								<?php
 									if($row['projekt']!==""){
 										if($result=$DB->prepare('SELECT nazwa FROM Projekt WHERE id=?')){
 											if($result->execute(array($row['projekt']))){
@@ -73,7 +73,7 @@
 						<tr>
 							<th>Laboratorium</th>
 							<td colspan="2">
-								 <?php
+								<?php
 									if($row['laboratorium']!==""){
 										if($result=$DB->prepare('SELECT nazwa FROM Laboratorium WHERE id=?')){
 											if($result->execute(array($row['laboratorium']))){
@@ -89,22 +89,22 @@
 						<tr>
 							<th>Zdjęcia</th>
 							<td
-								 <?php
+								<?php
 								$i=1;
 								if($result=$DB->prepare('SELECT id,link FROM Zdjecie WHERE sprzet=? ORDER BY link')){
 									if($result->execute(array($row['id']))){
 										while($row2=$result->fetch(PDO::FETCH_ASSOC)){
 											if($i>1) echo '</td></tr><tr><td></td><td>';
 											else echo '>';
-											?><a href="index.php?menu=55&amp;id= <?php echo $row2['id']; ?>"><img src="uploads/ <?php echo $row2['link']; ?>" width="200" alt="" /></a>
+											?><a href="index.php?menu=55&amp;id=<?php echo $row2['id']; ?>"><img src="uploads/<?php echo $row2['link']; ?>" width="200" alt="" /></a>
 										</td>
 										<td>
-											<form action="index.php?menu=52&amp;id= <?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-												<input type="hidden" name="id" value=" <?php echo $row2['id']; ?>" />
+											<form action="index.php?menu=52&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+												<input type="hidden" name="id" value="<?php echo $row2['id']; ?>" />
 												<input type="submit" class="btn btn-danger" name="del_picture" value="Usuń" />
 											</form>
 										<br />
-										 <?php
+										<?php
 											++$i;
 										}
 									}
@@ -118,7 +118,7 @@
 						<tr>
 							<th>Tagi</th>
 							<td
-								 <?php
+								<?php
 								$i=1;
 								if($result=$DB->prepare('SELECT tag FROM Tagi_sprzetu WHERE sprzet=? ORDER BY tag')){
 									if($result->execute(array($row['id']))){
@@ -128,15 +128,15 @@
 													if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 														if($i>1) echo '</td></tr><tr><td></td><td>';
 														else echo '>';
-														?><a href="index.php?menu=60&amp;id= <?php echo $row2['tag']; ?>"> <?php echo $row3['nazwa']; ?></a>
+														?><a href="index.php?menu=60&amp;id=<?php echo $row2['tag']; ?>"><?php echo $row3['nazwa']; ?></a>
 													</td>
 													<td>
-														<form action="index.php?menu=52&amp;id= <?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-															<input type="hidden" name="sprzet" value=" <?php echo $row['id']; ?>" />
-															<input type="hidden" name="tag" value=" <?php echo $row2['tag']; ?>" />
+														<form action="index.php?menu=52&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+															<input type="hidden" name="sprzet" value="<?php echo $row['id']; ?>" />
+															<input type="hidden" name="tag" value="<?php echo $row2['tag']; ?>" />
 															<input type="submit" class="btn btn-danger" name="del_tag" value="Usuń" />
 														</form>
-													<br /> <?php
+													<br /><?php
 														++$i;
 													}
 												}
@@ -155,7 +155,7 @@
 						<tr>
 							<th>Kontakt</th>
 							<td
-								 <?php 
+								<?php 
 								$i=1;
 								if($result=$DB->prepare('SELECT osoba FROM Kontakt WHERE sprzet=? ORDER BY osoba')){
 									if($result->execute(array($row['id']))){
@@ -165,15 +165,15 @@
 													if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 														if($i>1) echo '</tr><tr><td></td><td>';
 														else echo '>';
-														?><a href="index.php?menu=54&amp;id= <?php echo $row2['osoba']; ?>"> <?php echo $row3['imie'].' '.$row3['nazwisko'].' ('.$row3['email'].')'; ?></a>
+														?><a href="index.php?menu=54&amp;id=<?php echo $row2['osoba']; ?>"><?php echo $row3['imie'].' '.$row3['nazwisko'].' ('.$row3['email'].')'; ?></a>
 													</td>
 													<td>
-														<form action="index.php?menu=52&amp;id= <?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
-															<input type="hidden" name="sprzet" value=" <?php echo $row['id']; ?>" />
-															<input type="hidden" name="osoba" value=" <?php echo $row2['osoba']; ?>" />
+														<form action="index.php?menu=52&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+															<input type="hidden" name="sprzet" value="<?php echo $row['id']; ?>" />
+															<input type="hidden" name="osoba" value="<?php echo $row2['osoba']; ?>" />
 															<input type="submit" class="btn btn-danger" name="del_kontakt" value="Usuń" />
 														</form>
-														 <?php
+														<?php
 														++$i;
 													}
 												}
@@ -191,7 +191,7 @@
 						</tr>
 					</tbody>
 				</table>
-				 <?php
+				<?php
 			}
 			else echo 'Nie udało się pobrać danych z bazy danych.';
 		}
@@ -200,7 +200,7 @@
 	else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 ?>
 <a class="btn btn-warning" href="index.php?menu=8">Wróć do strony zarządzania aparaturą</a>
- <?php
+<?php
 	}
 	else echo '<br />Nie jesteś zalogowany.<br /><a href="index.php?menu=10">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
 ?>

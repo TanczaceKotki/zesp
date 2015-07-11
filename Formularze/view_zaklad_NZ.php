@@ -2,7 +2,7 @@
 	<li><a href="index.php">Start</a></li>
 	<li class="active">Szczegóły zakład</li>
 </ol>
- <?php
+<?php
 	if($st=$DB->prepare('SELECT * FROM Zaklad WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -11,12 +11,12 @@
 					<tbody>
 						<tr>
 							<th>Nazwa</th>
-							<td> <?php echo $row['nazwa']; ?></td>
+							<td><?php echo $row['nazwa']; ?></td>
 						</tr>
 						<tr>
 							<th>Laboratoria</th>
 							<td>
-								 <?php
+								<?php
 									if($result=$DB->prepare('SELECT * FROM Laborat_w_zaklad WHERE zaklad=? ORDER BY laboratorium')){
 										if($result->execute(array($row['id']))){
 											$i=1;
@@ -25,8 +25,8 @@
 													if($result2->execute(array($row2['laboratorium']))){
 														if($row3=$result2->fetch(PDO::FETCH_ASSOC)){
 															if($i>1) echo '</td></tr><tr><td></td><td>';
-															?><a href="index.php?menu=57&amp;id= <?php echo $row2['laboratorium']; ?>"> <?php echo htmlspecialchars($row3['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
-															 <?php
+															?><a href="index.php?menu=57&amp;id=<?php echo $row2['laboratorium']; ?>"><?php echo htmlspecialchars($row3['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
+															<?php
 															++$i;
 														}
 													}
@@ -43,7 +43,7 @@
 						</tr>
 					</tbody>
 				</table>
-				 <?php
+				<?php
 			}
 			else echo 'Nie znaleziono zakładu o podanym identyfikatorze.<br /><br />';
 		}
