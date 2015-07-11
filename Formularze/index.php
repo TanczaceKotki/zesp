@@ -299,10 +299,15 @@
 					}
 				?>
 			</div>
-			<div id="footer">
-				<p>© 2015 TańcząceKotki || <a href="mailto:mail@admin">administrator strony</a></p>
-			</div>
+			
 		</div>
+		<footer id="footer">
+			<div class="container">
+				<p class="text-muted">
+					© 2015 TańcząceKotki || <a href="mailto:mail@admin">administrator strony</a>
+				</p>
+			</div>
+		</footer>
 		<?php
 			foreach(array('js/modernizr.js','js/js-webshim/minified/polyfiller.js','js/default_form.js') as $script){
 				echo '<script src="'.$script.'" type="text/javascript"></script>';
