@@ -1,42 +1,13 @@
 $(document).ready(function(){
-	var items=$('.item');
-	var length=items.length;
-	for(var i=0;i<length;++i){
-		$(items[i]).find('.item_1').hover(function(){
-			$(this).closest('.item').find('.item_2').addClass('underline');
-			$(this).closest('.item').find('.item_3').addClass('underline');
-			$(this).closest('.item').find('.item_4').addClass('underline');
-		},function(){
-			$(this).closest('.item').find('.item_2').removeClass('underline');
-			$(this).closest('.item').find('.item_3').removeClass('underline');
-			$(this).closest('.item').find('.item_4').removeClass('underline');
+	var items=$('.items');
+	for(var i=0;i<items.length;++i){
+		$(items[i]).on('mouseenter','.item',function(){
+			var sub_items=$(this).closest('.items').find('.item');
+			for(var j=0;j<sub_items.length;++j) $(sub_items[j]).addClass('underline');
 		});
-		$(items[i]).find('.item_2').hover(function(){
-			$(this).closest('.item').find('.item_1').addClass('underline');
-			$(this).closest('.item').find('.item_3').addClass('underline');
-			$(this).closest('.item').find('.item_4').addClass('underline');
-		},function(){
-			$(this).closest('.item').find('.item_1').removeClass('underline');
-			$(this).closest('.item').find('.item_3').removeClass('underline');
-			$(this).closest('.item').find('.item_4').removeClass('underline');
-		});
-		$(items[i]).find('.item_3').hover(function(){
-			$(this).closest('.item').find('.item_2').addClass('underline');
-			$(this).closest('.item').find('.item_1').addClass('underline');
-			$(this).closest('.item').find('.item_4').addClass('underline');
-		},function(){
-			$(this).closest('.item').find('.item_2').removeClass('underline');
-			$(this).closest('.item').find('.item_1').removeClass('underline');
-			$(this).closest('.item').find('.item_4').removeClass('underline');
-		});
-		$(items[i]).find('.item_4').hover(function(){
-			$(this).closest('.item').find('.item_2').addClass('underline');
-			$(this).closest('.item').find('.item_3').addClass('underline');
-			$(this).closest('.item').find('.item_1').addClass('underline');
-		},function(){
-			$(this).closest('.item').find('.item_2').removeClass('underline');
-			$(this).closest('.item').find('.item_3').removeClass('underline');
-			$(this).closest('.item').find('.item_1').removeClass('underline');
+		$(items[i]).on('mouseleave','.item',function(){
+			var sub_items=$(this).closest('.items').find('.item');
+			for(var j=0;j<sub_items.length;++j) $(sub_items[j]).removeClass('underline');
 		});
 	}
 });
