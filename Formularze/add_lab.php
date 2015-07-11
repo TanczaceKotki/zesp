@@ -1,4 +1,4 @@
-  <?php
+ <?php
     $displayform=True;
 	if(user::isLogged()){
 		if(isset($_POST['submitted'])){
@@ -31,14 +31,14 @@
 <form action="index.php?menu=21" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<div>
 		<label for="nazwa">Nazwa:<span class="color_red">*</span>: </label>
-		<input class="form-control" type="text" name="nazwa" id="nazwa" value="  <?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="64" maxlength="64" spellcheck="true" required="required" />
+		<input class="form-control" type="text" name="nazwa" id="nazwa" value=" <?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="64" maxlength="64" spellcheck="true" required="required" />
 		<span id="nazwa_counter"></span>
 	</div>
 	<div><br />
 		<label for="zespol">Zespół: </label>
 		<select class="form-control" name="zespol" id="zespol">
-			<option value=""  <?php if(!isset($_POST['zespol'])) echo ' selected="selected"'; ?>>-</option>
-			  <?php
+			<option value="" <?php if(!isset($_POST['zespol'])) echo ' selected="selected"'; ?>>-</option>
+			 <?php
 				if($result=$DB->query('SELECT id,nazwa FROM Zespol ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
 						$first_letter=$rows[0]['nazwa'][0];
@@ -65,7 +65,7 @@
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
-  <?php
+ <?php
 			foreach(array('js/remaining_char_counter.js') as $script){
 				echo '<script src="'.$script.'" type="text/javascript"></script>';
 			}
