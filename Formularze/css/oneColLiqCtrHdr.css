@@ -1,10 +1,11 @@
 @charset "utf-8";
 body {
-background: #005097;
+	background: #005097;
 	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
-	margin: 0;
 	padding: 0;
 	color: #000;
+	/* Margin bottom by footer height */
+
 }
 
 #header{
@@ -137,40 +138,19 @@ border-bottom-color:#005097;
 }
 
 #footer {
-clear: both;
-text-align:center;
-display:block;
+	clear: both;
+	text-align:center;
+	display:block;
 	padding: 10px 0;
 	background-color: #fff;
-	margin-top:100px;
-height:50px;
-border-top-width:1px;
+	border-top-width:1px;
 	border-top-style:solid;
-border-top-color: #6F7D94;
-font-size:13px;
+	border-top-color: #6F7D94;
+	font-size:13px;
 }
 
 #footer a {
 color:#000;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-#footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
 }
 
 .color_red{color:#F00}
@@ -184,3 +164,26 @@ body {
 .color_white{color:#FFF}
 
 .vertical_align{vertical-align:middle}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+	position: relative;
+	min-height: 100%;
+}
+body {
+	margin-bottom: 60px !important;
+}
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	background-color: #f5f5f5;
+}
+
+p.text-muted {
+	margin: 12px 0;
+}
