@@ -4,7 +4,7 @@
 		if(isset($_POST['submitted'])){
 			if($st=$DB->prepare('INSERT INTO Laborat_w_zaklad VALUES(?,?)')){
 				if($st->execute(array($_POST['zaklad'],$_POST['laboratorium']))){
-					echo 'Informacja o laboratorium w zakładzie została pomyślnie wstawiona.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+					echo 'Informacja o laboratorium w zakładzie została pomyślnie wstawiona.<br /><br /><a href="index.php?menu=7">Wróć do strony zarządzania labolatoriami</a><br /><br /><a href="index.php?menu=66">Wróć do strony zarządzania zakładami</a>';
 					$displayform=False;
 									}
 				else{
@@ -19,7 +19,7 @@
 ?>
   <ol class="breadcrumb">
   <li><a href="index.php">Start</a></li>
-  <li><a href="index.php?menu=7">Zarządzaj laboratoriami</a></li>
+  <li><a href="index.php?menu=7">Zarządzanie laboratoriami</a></li>
     <li class="active">Dodaj informację o laboratorium w zakładzie</li>
 </ol>
 <form action="index.php?menu=22" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
@@ -77,7 +77,7 @@
 	</div>
 	<div id="laborat_w_zaklad_error"></div>
 	<div><br />
-		<input type="submit" name="submitted" value="Prześlij" />
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.

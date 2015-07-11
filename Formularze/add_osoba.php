@@ -26,7 +26,7 @@
 					if($st->execute(array($login,$pass_hash,$lvl))){
 						if($st=$DB->prepare('INSERT INTO Osoba VALUES(NULL,?,?,?)')){
 							if($st->execute(array($_POST['imie'],$_POST['nazwisko'],$_POST['email']))){
-								echo 'Osoba została pomyślnie wstawiona. Login i hasło zostały wysłane do niej poprzez pocztę elektroniczną.<br /><br /><a href="index.php?menu=100">Wróć do listy użytkowników.</a>';
+								echo 'Osoba została pomyślnie wstawiona. Login i hasło zostały wysłane do niej poprzez pocztę elektroniczną.<br /><br /><a href="index.php?menu=100">Wróć do strony zarządzania osobami kontaktowymi.</a>';
 								wyslij_wiadomosc_z_haslem( $login, $pass );
 								$displayform=False;
 															}
@@ -51,22 +51,22 @@
 ?>
   <ol class="breadcrumb">
   <li><a href="index.php">Start</a></li>
-  <li><a href="index.php?menu=100">Zarządzaj użytkownikami</a></li>
-    <li class="active">Dodaj użytkownika</li>
+  <li><a href="index.php?menu=100">Zarządzaj osobami kontaktowymi</a></li>
+    <li class="active">Dodaj osobę kontaktową</li>
 </ol>
 <form action="index.php?menu=23" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<div><br />
-		<label for="imie">Imię:<span class="color_red">*</span>: </label>
+		<label for="imie">Imię<span class="color_red">*</span>: </label>
 		<input class="form-control" type="text" name="imie" id="imie" value="<?php if(isset($_POST['imie'])) echo $_POST['imie']; ?>" size="16" maxlength="16" required="required" />
 		<span id="imie_counter"></span>
 	</div>
 	<div><br />
-		<label for="nazwisko">Nazwisko:<span class="color_red">*</span>: </label>
+		<label for="nazwisko">Nazwisko<span class="color_red">*</span>: </label>
 		<input class="form-control" type="text" name="nazwisko" id="nazwisko" value="<?php if(isset($_POST['nazwisko'])) echo $_POST['nazwisko']; ?>" size="32" maxlength="32" required="required" />
 		<span id="nazwisko_counter"></span>
 	</div>
 	<div><br />
-		<label for="email">Adres e-mail:<span class="color_red">*</span>: </label>
+		<label for="email">Adres e-mail<span class="color_red">*</span>: </label>
 		<input class="form-control" type="email" name="email" id="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" size="100" maxlength="254" onchange="check_email()" required="required" />
 		<span id="email_counter"></span>
 	</div>

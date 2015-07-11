@@ -3,7 +3,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li><a href="index.php?menu=66">Zarządzanie laboratoriami</a></li>
+	<li><a href="index.php?menu=66">Zarządzanie zakładami</a></li>
 	<li class="active">Szczegóły zakład</li>
 </ol>
 <?php

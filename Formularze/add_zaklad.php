@@ -1,3 +1,8 @@
+<ol class="breadcrumb">
+  <li><a href="index.php">Start</a></li>
+    <li><a href="index.php?menu=66">Zarządzanie zakładami</a></li>
+    <li class="active">Dodaj zakład</li>
+</ol>
 <?php
 	$displayform=True;
 	if(user::isLogged()){
@@ -10,7 +15,7 @@
 			}
 			if($walidacja and $st=$DB->prepare('INSERT INTO Zaklad VALUES(NULL,?)')){
 				if($st->execute(array($_POST['nazwa']))){
-					echo 'Zakład został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+					echo 'Zakład został pomyślnie wstawiony.<br /><br /><a href="index.php?menu=66">Wróć do strony zarządzania zakładami</a>';
 					$displayform=False;
 				}
 				else{
@@ -29,8 +34,8 @@
 		<input type="text" name="nazwa" id="nazwa" value="<?php if(isset($_POST['nazwa'])) echo $_POST['nazwa']; ?>" size="64" maxlength="64" spellcheck="true" required="required" />
 		<span id="nazwa_counter"></span>
 	</div>
-	<div>
-		<input type="submit" name="submitted" value="Prześlij" />
+	<div><br />
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.

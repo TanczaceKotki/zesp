@@ -4,7 +4,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li class="active">Zarządzaj aparaturą</li>
+	<li class="active">Zarządzanie aparaturą</li>
 </ol>
 <a class="btn btn-warning" href="index.php?menu=25">Dodaj aparaturę</a><br /><br />
 <a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do osoby kontaktowej</a><br /><br />

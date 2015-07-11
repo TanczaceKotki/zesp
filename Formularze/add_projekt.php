@@ -47,7 +47,7 @@
 				$params[]=$_POST['logo'];
 				if($st=$DB->prepare($sql)){
 					if($st->execute($params)){
-						echo 'Projekt został pomyślnie wstawiony.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+						echo 'Projekt został pomyślnie wstawiony.<br /><br /><a href="index.php?menu=17">Wróć do strony zarządzania projektami</a>';
 						$displayform=False;
 						
 					}

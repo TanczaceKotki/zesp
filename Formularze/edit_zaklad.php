@@ -30,8 +30,8 @@
 		<input type="text" name="nazwa" id="nazwa" value="<?php echo $row['nazwa']; ?>" size="64" maxlength="64" spellcheck="true" required="required" />
 		<span id="nazwa_counter"></span>
 	</div>
-	<div>
-		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
+	<div><br />
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.

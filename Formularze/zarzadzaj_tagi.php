@@ -3,7 +3,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li class="active">Zarządzaj laboratoriami</li>
+	<li class="active">Zarządzanie słowami kluczowymi</li>
 </ol>
 <a class="btn btn-warning" href="index.php?menu=33">Dodaj słowo kluczowe</a><br /><br />
 <a class="btn btn-warning" href="index.php?menu=32">Przypisz słowo kluczowe do aparatury</a><br /><br />

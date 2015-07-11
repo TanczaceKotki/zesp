@@ -3,7 +3,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-    <li class="active">zarządzaj projektami</li>
+    <li class="active">Zarządzanie projektami</li>
 </ol>
 <a class="btn btn-warning" href="index.php?menu=24">Dodaj projekt</a><br /><br />
 <table class="table table-striped">

@@ -63,7 +63,7 @@
 				}
 				if($st=$DB->prepare($sql)){
 					if($st->execute($params)){
-						echo 'Sprzęt został pomyślnie wstawiony.<br /><br /><a href="index.php?menu=8">Wróć do spisu aparatury.</a>';
+						echo 'Sprzęt został pomyślnie wstawiony<br /><br /><a href="index.php?menu=8">Wróć do strony zarządzania aparaturą</a>';
 						$displayform=False;
 										}
 					else{
@@ -255,7 +255,7 @@
 			?>
 		</select>
 	</div>
-	<div>
+	<div><br />
 		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>

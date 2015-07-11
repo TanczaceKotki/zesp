@@ -4,7 +4,7 @@
 		if(isset($_POST['submitted'])){
 			if($st=$DB->prepare('INSERT INTO Tagi_sprzetu VALUES(?,?)')){
 				if($st->execute(array($_POST['sprzet'],$_POST['tag']))){
-					echo 'Informacja o słowie kluczowym sprzętu  została pomyślnie wstawiona.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+					echo 'Informacja o słowie kluczowym aparatury została pomyślnie wstawiona<br /><br /><a href="index.php?menu=8">Wróć do strony zarządzania aparaturą</a>';
 					$displayform=False;
 				}
 				else echo 'Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$st->errorInfo()).'<br /><br />';

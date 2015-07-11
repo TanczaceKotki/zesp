@@ -3,8 +3,8 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li><a href="index.php?menu=9">Zarządzanie zespołami</a></li>
-	<li class="active">Szczegóły zespołu</li>
+	<li><a href="index.php?menu=9">Zarządzanie zespołami laboratoriów</a></li>
+	<li class="active">Szczegóły zespołu laboratoriów</li>
 </ol>
 <?php
 	if($st=$DB->prepare('SELECT * FROM Zespol WHERE id=?')){
@@ -45,7 +45,7 @@
 	}
 	else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 ?>
-<a class="btn btn-warning" href="index.php?menu=9">Wróć do strony z zespołami</a>
+<a class="btn btn-warning" href="index.php?menu=9">Wróć do strony zarządzania zespołami laboratoriów</a>
 <?php
 	}
 	else echo '<br />Nie jesteś zalogowany.<br /><a href="index.php?menu=10">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';

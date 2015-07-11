@@ -33,23 +33,23 @@
 	?>
 	<div>
 		<label for="login" id="login_label">Login<span class="color_red">*</span>: </label>
-		<input type="text" name="login" id="login" value="<?php echo $row['login']; ?>" size="100" maxlength="254" required="required" onchange="check_login_edit()" />
+		<input class="form-control" type="text" name="login" id="login" value="<?php echo $row['login']; ?>" size="100" maxlength="254" required="required" onchange="check_login_edit()" />
 		<span id="login_counter"></span>
 	</div>
-	<div>
+	<div><br />
 		<label for="pass">Nowe hasło: </label>
-		<input type="password" name="pass" id="pass" value="" size="100" maxlength="512" onchange="compare_pass()" />
+		<input class="form-control" type="password" name="pass" id="pass" value="" size="100" maxlength="512" onchange="compare_pass()" />
 		<span id="pass_counter"></span>
 		<br />
 		Zostaw to pole puste aby nie zmieniać hasła.
 	</div>
-	<div>
+	<div><br />
 		<label for="pass">Nowe hasło (powtórz): </label>
-		<input type="password" name="pass_v" id="pass_v" value="" size="100" maxlength="512" onchange="compare_pass()" />
+		<input class="form-control" type="password" name="pass_v" id="pass_v" value="" size="100" maxlength="512" onchange="compare_pass()" />
 		<span id="pass_v_counter"></span>
 		<br />
 		Zostaw to pole puste aby nie zmieniać hasła.
-	</div>
+	</div><br />
 		<fieldset>
 			<legend>Poziom uprawnień<span class="color_red">*</span></legend>
 			<label><input type="radio" name="lvl" value="0" onchange="not_level_2()"<?php if($row['lvl']==='0') echo ' checked="checked"'; ?> required="required" /> Administrator</label>
@@ -57,19 +57,19 @@
 			<label><input type="radio" name="lvl" value="1" onchange="not_level_2()"<?php if($row['lvl']==='1') echo ' checked="checked"'; ?> required="required" /> Moderator</label>
 			<br />
 			<label><input type="radio" name="lvl" id="kont" onchange="level_2()" value="2"<?php if($row['lvl']==='2') echo ' checked="checked"'; ?> required="required" /> Osoba kontaktowa</label>
-		</fieldset>
+		</fieldset><br />
 		<fieldset id="kont_inputs">
 			<legend>Dane osoby kontaktowej<span class="color_red">*</span></legend>
 			<label for="imie">Imię<span class="color_red">*</span>: </label>
-			<input type="text" name="imie" id="imie" value="<?php if(isset($_POST['imie'])) echo $_POST['imie']; ?>" size="16" maxlength="16" />
+			<input class="form-control" type="text" name="imie" id="imie" value="<?php if(isset($_POST['imie'])) echo $_POST['imie']; ?>" size="16" maxlength="16" />
 			<span id="imie_counter"></span>
-			<br />
+			<br /><br />
 			<label for="nazwisko">Nazwisko<span class="color_red">*</span>: </label>
-			<input type="text" name="nazwisko" id="nazwisko" value="<?php if(isset($_POST['nazwisko'])) echo $_POST['nazwisko']; ?>" size="32" maxlength="32" />
+			<input class="form-control" type="text" name="nazwisko" id="nazwisko" value="<?php if(isset($_POST['nazwisko'])) echo $_POST['nazwisko']; ?>" size="32" maxlength="32" />
 		<span id="nazwisko_counter"></span>
 	</fieldset>
-	<div>
-		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
+	<div><br />
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.

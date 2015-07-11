@@ -203,8 +203,8 @@
 		<input type="text" name="logo" id="logo" value="<?php echo $row['logo']; ?>" size="100" maxlength="128" required="required" />
 		<span id="logo_counter"></span>
 	</div>
-	<div>
-		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
+	<div><br />
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.

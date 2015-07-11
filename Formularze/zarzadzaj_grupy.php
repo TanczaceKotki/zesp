@@ -3,7 +3,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-    <li class="active">Zarządzaj zespołami laboratoriów</li>
+    <li class="active">Zarządzanie zespołami laboratoriów</li>
 </ol>
 <a class="btn btn-warning" href="index.php?menu=30">Dodaj zespół laboratoriów</a>
 <br /><br />

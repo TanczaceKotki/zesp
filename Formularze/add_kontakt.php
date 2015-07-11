@@ -4,7 +4,7 @@
 		if(isset($_POST['submitted'])){
 			if($st=$DB->prepare('INSERT INTO Kontakt VALUES(?,?)')){
 				if($st->execute(array($_POST['sprzet'],$_POST['osoba']))){
-					echo 'Informacja kontaktowa została pomyślnie wstawiona.<br /><br /><a href="index.php">Wróć do strony głównej.</a>';
+					echo 'Informacja kontaktowa została pomyślnie wstawiona.<br /><br /><a href="index.php?menu=8">Wróć do strony zarządzania aparaturą</a>';
 					$displayform=False;
 									}
 				else{

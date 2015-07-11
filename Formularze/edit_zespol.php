@@ -19,9 +19,9 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li><a href="index.php?menu=9">Zarządzanie zespołami</a></li>
-	<li><a href="index.php?menu=53&amp;id=<?php echo $_POST['id']; ?>">Szczegóły zespołu</a></li>
-	<li class="active">Edytuj zespół</li>
+	<li><a href="index.php?menu=9">Zarządzanie zespołami laboratoriów</a></li>
+	<li><a href="index.php?menu=53&amp;id=<?php echo $_POST['id']; ?>">Szczegóły zespołu laboratoriów</a></li>
+	<li class="active">Edytuj zespół laboratoriów</li>
 </ol>
 <form action="index.php?menu=47" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 	<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
@@ -32,7 +32,7 @@
 		<span id="nazwa_counter"></span>
 	</div>
 	<div><br />
-		<input class="btn btn-primary" type="submit" name="submitted" value="Prześlij" />
+		<input class="btn btn-warning" type="submit" name="submitted" value="Prześlij" />
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.

@@ -3,7 +3,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li class="active">Zarządzaj zdjęciami</li>
+	<li class="active">Zarządzanie zdjęciami</li>
 </ol>
 <a class="btn btn-warning" href="index.php?menu=29">Dodaj zdjęcie</a><br /><br />
 <table class="table table-striped">

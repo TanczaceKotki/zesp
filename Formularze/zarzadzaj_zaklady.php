@@ -3,7 +3,7 @@
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Start</a></li>
-	<li class="active">Zarządzaj laboratoriami</li>
+	<li class="active">Zarządzanie zakładami</li>
 </ol>
 <a class="btn btn-warning" href="index.php?menu=28">Dodaj zakład</a>
 <br /><br />
@@ -12,7 +12,7 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Nazwa</th>
+			<th>Nazwa:</th>
 			<th colspan="2"></th>
 		</tr>
 	</thead>

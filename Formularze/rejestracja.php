@@ -56,19 +56,24 @@
 		}
 		if($displayform){
 ?>
+<ol class="breadcrumb">
+	<li><a href="index.php">Start</a></li>
+	<li><a href="index.php?menu=13">Zarządzanie użytkownikami</a></li>
+	<li class="active">Zarejestruj nowego użytkownika</li>
+</ol>
 <form  action="index.php?menu=14" id="register_form" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<label for="login" id="login_label">Login<span class="color_red">*</span>:</label>
-	<input type="text" name="login" id="login" value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>" maxlength="254" required="required" onchange="check_login()" />
+	<input class="form-control" type="text" name="login" id="login" value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>" maxlength="254" required="required" onchange="check_login()" />
 	<span id="login_counter"></span>
-	<br />
+	<br /><br />
 	<label for="pass">Hasło<span class="color_red">*</span>:</label>
-	<input type="password" name="pass" id="pass" value="" maxlength="512" required="required" onchange="compare_pass()" />
+	<input class="form-control" type="password" name="pass" id="pass" value="" maxlength="512" required="required" onchange="compare_pass()" />
 	<span id="pass_counter"></span>
-	<br />
+	<br /><br />
 	<label for="pass_v">Powtórz Hasło<span class="color_red">*</span>:</label>
-	<input type="password" name="pass_v" id="pass_v" value="" maxlength="512" required="required" onchange="compare_pass()" />
+	<input class="form-control" type="password" name="pass_v" id="pass_v" value="" maxlength="512" required="required" onchange="compare_pass()" />
 	<span id="pass_v_counter"></span>
-	<br />
+	<br /><br />
 	<fieldset>
 		<legend>Poziom uprawnień<span class="color_red">*</span></legend>
 		<input type="radio" name="lvl" id="admin" value="0" required="required" onchange="not_level_2()" <?php if(isset($_POST['lvl'])){ if($_POST['lvl']==='0') echo 'checked="checked"'; } ?> />
