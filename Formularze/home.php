@@ -1,4 +1,4 @@
-  <ol class="breadcrumb">
+ <ol class="breadcrumb">
   <li><a href="index.php">Start</a></li>
     <li class="active">O projekcie</li>
 </ol>
