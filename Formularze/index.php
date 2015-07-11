@@ -69,8 +69,22 @@
 			else $menu='1';
 		?>
 		<div class="container">
-			<div id= "header" class="header"> 
-				<div class="align_left"><a href="index.php"><img src="logo_atomin.png" alt="Baza sprzętu laboratoryjnego FAIS UJ" width="546" height="74" id="Insert_logo" style="background-color: #white; display:block;" /></a></div>
+			<div id="header" class="header"> 
+				<div id="logo_and_name">
+					<div>
+						<a href="http://www.uj.edu.pl/" title="Uniwersytet Jagielloński">
+							<img src="logo_atomin.png" width="45" height="72" alt="" />
+						</a>
+					</div>
+					<div id="page_name">
+						<a href="index.php" class="page_name_link">
+							<h1 id="page_name_main">Baza sprzętu laboratoryjnego</h1>
+						</a>
+						<a href="http://www.fais.uj.edu.pl/" id="page_name_sub" class="page_name_link">
+							Wydziału Fizyki, Astronomii i Informatyki Stosowanej
+						</a>
+					</div>
+				</div>
 				<div id="zaloguj" class="align_right">
 					<?php
 						if (user::isLogged()) echo '<a class="btn btn-warning" href="index.php?menu=15"><span class="color_white">wyloguj</span></a>';
