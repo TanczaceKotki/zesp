@@ -1,4 +1,4 @@
-function check_tag_2(){
+ function check_tag_2(){
 	ajax_wait=true;
 	if($('#nazwa').val()!==$('#old_nazwa').val()){
 		check_tag();
