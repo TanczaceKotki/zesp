@@ -3,40 +3,40 @@ $(document).ready(function(){
 	var length=items.length;
 	for(var i=0;i<length;++i){
 		$(items[i]).find('.item_1').hover(function(){
-			$(this).closest('.item').find('.item_2').attr('style','text-decoration:underline');
-			$(this).closest('.item').find('.item_3').attr('style','text-decoration:underline');
-			$(this).closest('.item').find('.item_4').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_2').addClass('underline');
+			$(this).closest('.item').find('.item_3').addClass('underline');
+			$(this).closest('.item').find('.item_4').addClass('underline');
 		},function(){
-			$(this).closest('.item').find('.item_2').removeAttr('style');
-			$(this).closest('.item').find('.item_3').removeAttr('style');
-			$(this).closest('.item').find('.item_4').removeAttr('style');
+			$(this).closest('.item').find('.item_2').removeClass('underline');
+			$(this).closest('.item').find('.item_3').removeClass('underline');
+			$(this).closest('.item').find('.item_4').removeClass('underline');
 		});
 		$(items[i]).find('.item_2').hover(function(){
-			$(this).closest('.item').find('.item_1').attr('style','text-decoration:underline');
-			$(this).closest('.item').find('.item_3').attr('style','text-decoration:underline');
-			$(this).closest('.item').find('.item_4').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_1').addClass('underline');
+			$(this).closest('.item').find('.item_3').addClass('underline');
+			$(this).closest('.item').find('.item_4').addClass('underline');
 		},function(){
-			$(this).closest('.item').find('.item_1').removeAttr('style');
-			$(this).closest('.item').find('.item_3').removeAttr('style');
-			$(this).closest('.item').find('.item_4').removeAttr('style');
+			$(this).closest('.item').find('.item_1').removeClass('underline');
+			$(this).closest('.item').find('.item_3').removeClass('underline');
+			$(this).closest('.item').find('.item_4').removeClass('underline');
 		});
 		$(items[i]).find('.item_3').hover(function(){
-			$(this).closest('.item').find('.item_2').attr('style','text-decoration:underline');
-			$(this).closest('.item').find('.item_1').attr('style','text-decoration:underline');
-			$(this).closest('.item').find('.item_4').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_2').addClass('underline');
+			$(this).closest('.item').find('.item_1').addClass('underline');
+			$(this).closest('.item').find('.item_4').addClass('underline');
 		},function(){
-			$(this).closest('.item').find('.item_2').removeAttr('style');
-			$(this).closest('.item').find('.item_1').removeAttr('style');
-			$(this).closest('.item').find('.item_4').removeAttr('style');
+			$(this).closest('.item').find('.item_2').removeClass('underline');
+			$(this).closest('.item').find('.item_1').removeClass('underline');
+			$(this).closest('.item').find('.item_4').removeClass('underline');
 		});
 		$(items[i]).find('.item_4').hover(function(){
-			$(this).closest('.item').find('.item_2').attr('style','text-decoration:underline');
-			$(this).closest('.item').find('.item_3').attr('style','text-decoration:underline');
-			$(this).closest('.item').find('.item_1').attr('style','text-decoration:underline');
+			$(this).closest('.item').find('.item_2').addClass('underline');
+			$(this).closest('.item').find('.item_3').addClass('underline');
+			$(this).closest('.item').find('.item_1').addClass('underline');
 		},function(){
-			$(this).closest('.item').find('.item_2').removeAttr('style');
-			$(this).closest('.item').find('.item_3').removeAttr('style');
-			$(this).closest('.item').find('.item_1').removeAttr('style');
+			$(this).closest('.item').find('.item_2').removeClass('underline');
+			$(this).closest('.item').find('.item_3').removeClass('underline');
+			$(this).closest('.item').find('.item_1').removeClass('underline');
 		});
 	}
 });
