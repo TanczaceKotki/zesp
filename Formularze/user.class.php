@@ -1,4 +1,4 @@
- <?php
+<?php
 	class user {
 		public function getData () {
 			if(isset($_SESSION['login']) && isset($_SESSION['pass'])){
