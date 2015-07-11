@@ -1,4 +1,4 @@
-<?php
+ <?php
 	$displayform=True;
 	if(user::isLogged()){
 		if(isset($_POST['submitted'])){
@@ -21,8 +21,8 @@
 	<div>
 		<label for="sprzet">Aparatura<span class="color_red">*</span>: </label>
 		<select class="form-control" name="sprzet" id="sprzet" onchange="ask_db_middle_table('kontakt',this.value,$('#osoba').val(),'Ta informacja kontaktowa jest już w bazie danych.','#kontakt_error')" required="required">
-			<option value=""<?php if(!isset($_POST['sprzet'])) echo ' selected="selected"'; ?>>-</option>
-			<?php
+			<option value="" <?php if(!isset($_POST['sprzet'])) echo ' selected="selected"'; ?>>-</option>
+			 <?php
 				if($result=$DB->query('SELECT id,nazwa FROM Sprzet ORDER BY nazwa')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
 						$first_letter=$rows[0]['nazwa'][0];
@@ -47,8 +47,8 @@
 	<div>
 		<label for="osoba">Osoba<span class="color_red">*</span>: </label>
 		<select class="form-control" name="osoba" id="osoba" onchange="ask_db_middle_table('kontakt',$('#sprzet').val(),this.value,'Ta informacja kontaktowa jest już w bazie danych.','#kontakt_error')" required="required">
-			<option value=""<?php if(!isset($_POST['osoba'])) echo ' selected="selected"'; ?>>-</option>
-			<?php
+			<option value="" <?php if(!isset($_POST['osoba'])) echo ' selected="selected"'; ?>>-</option>
+			 <?php
 				if($result=$DB->query('SELECT id,imie,nazwisko FROM Osoba ORDER BY nazwisko')){
 					if($rows=$result->fetchAll(PDO::FETCH_ASSOC)){
 						$first_letter=$rows[0]['nazwisko'][0];
@@ -76,7 +76,7 @@
 	</div>
 </form>
 <span class="color_red">*</span> - wymagane pola.
-<?php
+ <?php
 			foreach(array('js/ask_db_middle_table.js','js/kontakt_form.js') as $script){
 				echo '<script src="'.$script.'" type="text/javascript"></script>';
 			}
