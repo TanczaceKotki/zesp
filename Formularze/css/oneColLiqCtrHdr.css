@@ -54,13 +54,16 @@ a:hover, a:active, a:focus{
 }
 
 #logo_and_name{
-	padding-left:20px;
-	display:flex
+	padding-left:20px
 }
 
 #page_name{
-	margin-left:10px;
 	padding:20px 0
+}
+
+#logo{
+	float:left;
+	padding-right:10px
 }
 
 #page_name_main{
@@ -118,11 +121,11 @@ a:hover, a:active, a:focus{
 /* Menu */
 
 .menu_niezalogowany{
-	background:#1e5799 0
+	background:#1E5799 0
 }
 
 .menu_admin{
-	background:#f6a932;
+	background:#F6A932;
 	margin-top:20px;
 	margin-bottom:20px
 }
@@ -225,4 +228,6 @@ p.text-muted{
 	vertical-align:middle
 }
 
-.underline{text-decoration:underline}
+.underline{
+	text-decoration:underline
+}

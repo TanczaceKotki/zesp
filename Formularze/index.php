@@ -71,7 +71,7 @@
 		<div class="container">
 			<div id="header" class="header"> 
 				<div id="logo_and_name">
-					<div>
+					<div id="logo">
 						<a href="http://www.uj.edu.pl/" title="Uniwersytet Jagielloński">
 							<img src="logo_atomin.png" width="45" height="72" alt="" />
 						</a>
