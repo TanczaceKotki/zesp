@@ -1,7 +1,4 @@
-
-
 <?php
- 
 	function logowanie() { 
      
 if($_SESSION['logowanie'] == 'poprawne') { 
