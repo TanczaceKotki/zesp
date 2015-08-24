@@ -66,11 +66,11 @@
 						</table>
 						<?php
 					}
-					else echo 'Nie znaleziono tagu o podanym identyfikatorze.<br /><br />';
+					else echo '<p>Nie znaleziono tagu o podanym identyfikatorze.</p>';
 				}
-				else echo 'Nastąpił błąd przy pobieraniu informacji o tagu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+				else echo '<p>Nastąpił błąd przy pobieraniu informacji o tagu: '.implode(' ',$st->errorInfo()).'</p>';
 			}
-			else echo 'Nastąpił błąd przy pobieraniu informacji o tagu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+			else echo '<p>Nastąpił błąd przy pobieraniu informacji o tagu: '.implode(' ',$DB->errorInfo()).'</p>';
 		}
 		else require 'mod_cred_req.php';
 	}
