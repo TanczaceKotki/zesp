@@ -1,6 +1,7 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li class="active">Kontakt</li>
-</ol>
-<p>Zarząd projektu:</p>
-<p>Administrator strony:</p>
+<?php breadcrumbs('Kontakt'); ?>
+<h1 class="font20">Kontakt</h1>
+<section>
+	<h2 class="font17">Zarząd projektu:</h2>
+	<ul></ul>
+</section>
+<address>Administrator strony: <a href="mailto:mail@admin">mail@admin</a></address>

@@ -1,12 +1,11 @@
 <?php
 	if(user::isLogged()){
+		if($lvl<2){
+			breadcrumbs('Zarządzanie osobami kontaktowymi');
 ?>
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-    <li class="active">Zarządzanie osobami kontaktowymi</li>
-</ol>
-<a class="btn btn-warning" href="index.php?menu=23">Dodaj osobę kontaktową</a><br /><br />
-<a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do osoby kontaktowej</a><br /><br />
+<h1 class="font20">Zarządzanie osobami kontaktowymi</h1>
+<div class="margin_ver_15"><a class="btn btn-warning" href="index.php?menu=23">Dodaj osobę kontaktową</a></div>
+<div class="margin_ver_15"><a class="btn btn-warning" href="index.php?menu=20">Przypisz aparaturę do osoby kontaktowej</a></div>
 <table class="table table-striped">
 	<thead>
 		<th>Imię</th>
@@ -26,13 +25,13 @@
 							<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo htmlspecialchars($row['nazwisko'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 						</td>
 						<td>
-							<form action="index.php?menu=42" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+							<form action="index.php?menu=42" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
 								<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
 								<input class="btn btn-warning" type="submit" value="Edytuj" />
 							</form>
 						</td>
 						<td>
-							<form action="index.php?menu=31" method="POST" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
+							<form action="index.php?menu=31" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
 								<input type="hidden" name="email" value="<?php echo $row['email']; ?>" />
 								<input class="btn btn-danger" type="submit" name="del_osoba" value="Usuń" />
 							</form>
@@ -45,9 +44,8 @@
 </table>
 <script src="js/items.js" type="text/javascript"></script>
 <?php
+		}
+		else require 'mod_cred_req.php';
 	}
-	else {
-		echo '<br />Nie jesteś zalogowany.<br />
-		<a href="index.php?menu=10">Zaloguj się</a><br /><br /> Jeśli nie masz konta, skontaktuj z administratorem w celu jego utworzenia.';
-	}
+	else require 'not_logged_in.php';
 ?>

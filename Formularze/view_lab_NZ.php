@@ -1,9 +1,6 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li><a href="index.php?menu=3">Laboratoria</a></li>
-	<li class="active">Szczegóły laboratorium</li>
-</ol>
 <?php
+	breadcrumbs('Szczegóły laboratorium',array('index.php?menu=3' => 'Laboratoria'));
+	echo '<h1 class="font20">Szczegóły laboratorium</h1>';
 	if($st=$DB->prepare('SELECT * FROM Laboratorium WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -61,7 +58,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th>Apratura</th>
+							<th>Aparatura</th>
 							<td>
 								<?php
 									if($result=$DB->prepare('SELECT id,nazwa FROM Sprzet WHERE laboratorium=? ORDER BY nazwa')){
@@ -72,7 +69,7 @@
 												?>
 												<a href="index.php?menu=56&amp;id=<?php echo $row2['id']; ?>"><?php echo htmlspecialchars($row2['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a>
 												<?php
-												++$i
+												++$i;
 											}
 										}
 										else echo 'Nie udało się pobrać danych z bazy danych.';
@@ -85,10 +82,10 @@
 				</table>
 				<?php
 			}
-			else echo 'Nie znaleziono laboratorium o podanym identyfikatorze.<br /><br />';
+			else echo '<p>Nie znaleziono laboratorium o podanym identyfikatorze.</p>';
 		}
-		else echo 'Nastąpił błąd przy pobieraniu informacji o laboratorium.<br /><br />';
+		else echo '<p>Nastąpił błąd przy pobieraniu informacji o laboratorium.</p>';
 	}
-	else echo 'Nastąpił błąd przy pobieraniu informacji o laboratorium.<br /><br />';
+	else echo '<p>Nastąpił błąd przy pobieraniu informacji o laboratorium.</p>';
 ?>
-<a class="btn btn-warning" href="index.php?menu=3">Wróć do strony laboratoriów</a>
+<a class="btn btn-warning margin_bottom_10" href="index.php?menu=3">Wróć do strony laboratoriów</a>

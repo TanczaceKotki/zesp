@@ -1,9 +1,6 @@
-<ol class="breadcrumb">
-  <li><a href="index.php">Start</a></li>
-  <li><a href="index.php?menu=5">Zespoły laboratoriów</a></li>
-  <li class="active">Szczegóły zespołu laboratoriów</li>
-</ol>
 <?php
+	breadcrumbs('Szczegóły zespołu laboratoriów',array('index.php?menu=5' => 'Zespoły laboratoriów'));
+	echo '<h1 class="font20">Szczegóły zespołu laboratoriów</h1>';
 	if($st=$DB->prepare('SELECT * FROM Zespol WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -42,4 +39,4 @@
 	}
 	else echo 'Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$DB->errorInfo()).'<br /><br />';
 ?>
-<a class="btn btn-warning" href="index.php?menu=5">Wróć do strony z zespołami</a>
+<a class="btn btn-warning margin_bottom_10" href="index.php?menu=5">Wróć do strony z zespołami</a>

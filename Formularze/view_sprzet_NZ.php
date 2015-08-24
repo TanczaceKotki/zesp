@@ -1,9 +1,6 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li><a href="index.php?menu=4">Aparatura</a></li>
-	<li class="active">Szczegóły aparatura</li>
-</ol>
 <?php
+	breadcrumbs('Szczegóły aparatury',array('index.php?menu=4' => 'Aparatura'));
+	echo '<h1 class="font20">Szczegóły aparatury</h1>';
 	if($st=$DB->prepare('SELECT * FROM Sprzet WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -144,10 +141,10 @@
 				</table>
 				<?php
 			}
-			else echo 'Nie udało się pobrać danych z bazy danych.';
+			else echo '<p>Nie udało się pobrać danych z bazy danych.</p>';
 		}
-		else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo '<p>Nastąpił błąd przy pobieraniu informacji o sprzęcie</p>';
 	}
-	else echo 'Nastąpił błąd przy pobieraniu informacji o sprzęcie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo '<p>Nastąpił błąd przy pobieraniu informacji o sprzęcie</p>';
 ?>
-<a class="btn btn-warning" href="index.php?menu=4">Wróć do strony aparatura</a>
+<a class="btn btn-warning margin_bottom_10" href="index.php?menu=4">Wróć do strony aparatura</a>

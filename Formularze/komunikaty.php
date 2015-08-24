@@ -1,4 +1,2 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li class="active">Komunikaty</li>
-</ol>
+<?php breadcrumbs('Komunikaty'); ?>
+<h1 class="font20">Komunikaty</h1>

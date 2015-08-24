@@ -1,4 +1,5 @@
 function ask_db_middle_table(dest,input1,input2,message){
+	ajax_wait=true;
 	if(dest==='kontakt') var addr='ajax_query_kontakt.php';
 	else if(dest==='tagi_sprzetu') var addr='ajax_query_tagi_sprzetu.php';
 	else if(dest==='laborat_w_zaklad') var addr='ajax_query_laborat_w_zaklad.php';

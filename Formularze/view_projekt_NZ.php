@@ -1,10 +1,6 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li><a href="index.php?menu=107">Projekty</a></li>
-	<li class="active">Szczegóły projekt</li>
-</ol>
 <?php
-	$DB=dbconnect();
+	breadcrumbs('Szczegóły projektu',array('index.php?menu=107' => 'Projekty'));
+	echo '<h1 class="font20">Szczegóły projektu</h1>';
 	if($st=$DB->prepare('SELECT * FROM Projekt WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -35,11 +31,10 @@
 					</tbody>
 				</table><?php
 			}
-			else echo 'Nie znaleziono projektu o podanym identyfikatorze.<br /><br />';
+			else echo '<p>Nie znaleziono projektu o podanym identyfikatorze.</p>';
 		}
-		else echo 'Nastąpił błąd przy pobieraniu informacji o projekcie.<br /><br />';
+		else echo '<p>Nastąpił błąd przy pobieraniu informacji o projekcie.</p>';
 	}
-	else echo 'Nastąpił błąd przy pobieraniu informacji o projekcie.<br /><br />';
+	else echo '<p>Nastąpił błąd przy pobieraniu informacji o projekcie.</p>';
 ?>
-<br />
-<a class="btn btn-warning" href="index.php?menu=107">Wróć do strony z projektami</a>
+<a class="btn btn-warning margin_bottom_10" href="index.php?menu=107">Wróć do strony z projektami</a>

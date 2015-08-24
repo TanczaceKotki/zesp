@@ -1,13 +1,10 @@
-<ol class="breadcrumb">
-  <li><a href="index.php">Start</a></li>
-  <li class="active">Szczegóły tag</li>
-</ol>
 <?php
+	breadcrumbs('Szczegóły słowa kluczowego');
+	echo '<h1 class="font20">Szczegóły słowa kluczowego</h1>';
 	if($st=$DB->prepare('SELECT * FROM Tag WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
 				?>
-				<br />
 				<table class="table table-striped">
 					<tbody>
 						<tr>
@@ -47,9 +44,9 @@
 				</table>
 				<?php
 			}
-			else echo 'Nie znaleziono tagu o podanym identyfikatorze.<br /><br />';
+			else echo '<p>Nie znaleziono tagu o podanym identyfikatorze.</p>';
 		}
-		else echo 'Nastąpił błąd przy pobieraniu informacji o tagu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo '<p>Nastąpił błąd przy pobieraniu informacji o tagu</p>';
 	}
-	else echo 'Nastąpił błąd przy pobieraniu informacji o tagu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo '<p>Nastąpił błąd przy pobieraniu informacji o tagu</p>';
 ?>

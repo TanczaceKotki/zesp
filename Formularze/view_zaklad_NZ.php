@@ -1,8 +1,6 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li class="active">Szczegóły zakład</li>
-</ol>
 <?php
+	breadcrumbs('Szczegóły zakładu');
+	echo '<h1 class="font20">Szczegóły zakładu</h1>';
 	if($st=$DB->prepare('SELECT * FROM Zaklad WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -45,9 +43,9 @@
 				</table>
 				<?php
 			}
-			else echo 'Nie znaleziono zakładu o podanym identyfikatorze.<br /><br />';
+			else echo '<p>Nie znaleziono zakładu o podanym identyfikatorze.</p>';
 		}
-		else echo 'Nastąpił błąd przy pobieraniu informacji o zakładzie: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo '<p>Nastąpił błąd przy pobieraniu informacji o zakładzie.</p>';
 	}
-	else echo 'Nastąpił błąd przy pobieraniu informacji o zakładzie: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo '<p>Nastąpił błąd przy pobieraniu informacji o zakładzie.</p>';
 ?>

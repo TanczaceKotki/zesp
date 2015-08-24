@@ -1,11 +1,8 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li class="active">Wyniki wyszukiwania</li>
-</ol>
+<?php breadcrumbs('Wyniki wyszukiwania'); ?>
+<h1 class="font20">Wyniki wyszukiwania</h1>
 <?php
 	if(isset($_GET['category'])){
 		if(isset($_GET['keyword'])){
-			if(preg_match("/^[ \w\s\d@]*$/", $_GET['keyword'])){
 				$category=$_GET['category'];
 				$keyword=$_GET['keyword'];
 				?>
@@ -33,13 +30,13 @@
 														<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo $row['id']; ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['imie'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['imie'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['nazwisko'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['nazwisko'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 												</tr>
 												<?php
@@ -67,10 +64,10 @@
 														<a href="index.php?menu=56&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo $row['id']; ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=56&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=56&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=56&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['opis'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=56&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['opis'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 												</tr>
 												<?php
@@ -105,7 +102,7 @@
 														<a href="index.php?menu=57&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo $row['id']; ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=57&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=57&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 													<td>
 														<?php
@@ -138,7 +135,7 @@
 														<a href="index.php?menu=64&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo $row['id']; ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=64&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=64&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 												</tr>
 												<?php
@@ -165,7 +162,7 @@
 														<a href="index.php?menu=58&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo $row['id']; ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=58&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=58&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 												</tr>
 												<?php
@@ -192,7 +189,7 @@
 														<a href="index.php?menu=63&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo $row['id']; ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=63&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=63&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 												</tr>
 												<?php
@@ -220,27 +217,24 @@
 														<a href="index.php?menu=59&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo $row['id']; ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=59&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=59&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['nazwa'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 													<td>
-														<a href="index.php?menu=59&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<span class=\"highlight\">$keyword</span>",htmlspecialchars($row['opis'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
+														<a href="index.php?menu=59&amp;id=<?php echo $row['id']; ?>" class="item"><?php echo str_replace($keyword,"<mark class=\"highlight\">$keyword</mark>",htmlspecialchars($row['opis'],ENT_QUOTES|ENT_HTML5,'UTF-8',false)); ?></a>
 													</td>
 												</tr>
 												<?php
 											}
 										}
 									}
-									break;
 							}
 						?>
 					</tbody>
 				</table>
 				<?php
-			}
-			else echo "Niepoprawne znaki w zapytaniu.<br />Dozwolone znaki a-z, A-Z, 0-9, '@'.";
 		}
-		else echo "Niepoprawne zapytanie.<br />Spróbuj jeszcze raz.";
+		else echo '<p>Niepoprawne zapytanie.<br />Spróbuj jeszcze raz.</p>';
 	}
-	else echo "Niepoprawna kategoria";
+	else echo '<p>Niepoprawna kategoria</p>';
 ?>
 <script src="js/items.js" type="text/javascript"></script>

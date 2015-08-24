@@ -1,34 +1,33 @@
 @charset "utf-8";
 
-html {
-    position: relative;
-    min-height: 100%
+html{
+	position: relative;
+	min-height: 100%
 }
 
-body {
-    background: #005097;
-    font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
-    padding: 0;
-    color: #000;
-    /* Sticky Footer space */
-    margin-bottom: 60px
+body{
+	background: #005097;
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	padding: 0;
+	color: #000;
+	/* Sticky Footer space */
+	margin-bottom: 60px
 }
 
 /* *** Global settings *** */
 
-ul, ol, dl {
-    padding: 0;
-    margin: 0
+ul, ol, dl{
+	padding: 0;
+	margin: 0
 }
 
-h1, h2, h3, h4, h5, h6, p {
-    margin-top: 0;
-    padding-right: 15px;
-    padding-left: 15px
+h1, h2, h3, h4, h5, h6, p{
+	margin-top: 0;
+	padding:0 15px
 }
 
-a img {
-    border: none
+a img{
+	border: none
 }
 
 /*a:link{*/
@@ -48,191 +47,264 @@ a img {
 
 /* *** Header *** */
 
-#header {
-    /*margin-bottom:50px;*/
-    margin: 10px 0 5px;
+#header{
+	/*margin-bottom:50px;*/
+	margin: 10px 0 5px
 }
 
-#header a, a:visited {
-    color: #000;
+#logo_and_name{
+	padding-left: 20px;
+	display: inline-block
 }
 
-#logo_and_name {
-    padding-left: 20px;
-    display: inline-block;
+#page_name{
+	padding: 20px 0
 }
 
-#page_name {
-    padding: 20px 0
+#logo{
+	float: left;
+	padding-right: 10px
 }
 
-#logo {
-    float: left;
-    padding-right: 10px
+#page_name_main{
+	width: 400px;
+	font-size: 18px;
+	display:block;
+	padding: 0;
+	margin: 0
 }
 
-#page_name_main {
-    width: 400px;
-    font-size: 18px;
-    padding: 0;
-    margin: 0
+#page_name_sub{
+	font-size: 12px
 }
 
-#page_name_sub {
-    font-size: 12px
+.page_name_link:link{
+	color: #00519E;
+	text-decoration: none
 }
 
-.page_name_link:link {
-    color: #00519E;
-    text-decoration: none
+.page_name_link:hover{
+	color: #6699D5
 }
 
-.page_name_link:hover {
-    color: #6699D5
+.loginout{
+	float: right;
+	/*margin-top: 20px;*/
+	/*margin-top:-80px;*/
+	/*margin-right:15px*/
 }
 
-.loginout {
-    float: right;
-    /*margin-top: 20px;*/
-    /*margin-top:-80px;*/
-    /*margin-right:15px*/
+#searchform{
+	float: right;
+	clear: both;
+	margin-top: 10px;
+	/*margin-top: 0;*/
+	/*margin-bottom: 10px;*/
+	/*width: 600px;*/
+	/*float: right*/
 }
 
-#searchform {
-    float: right;
-    clear: both;
-    margin-top: 10px;
-    /*margin-top: 0;*/
-    /*margin-bottom: 10px;*/
-    /*width: 600px;*/
-    /*float: right*/
-}
-
-.input-xsm {
-    height: 25px;
-    line-height: 20px;
-    padding: 2px 6px;
-    font-size: 10px;
+.input-xsm{
+	height: 25px;
+	line-height: 20px;
+	padding: 2px 6px;
+	font-size: 10px
 }
 
 /* *** Menu *** */
 
-nav a, nav a:visited {
-    color: #FFF;
+nav a, nav a:visited{
+	color: #FFF
 }
 
-nav a:hover {
-    color: inherit;
+nav a:hover{
+	color: inherit
 }
 
-.menu_niezalogowany {
-    background: #1E5799 0
+.menu_niezalogowany{
+	background: #1E5799 0
 }
 
-.menu_admin {
-    background: #F6A932;
-    margin-top: 20px;
-    margin-bottom: 20px
+.menu_admin{
+	background: #F6A932;
+	margin:20px 0
 }
 
 /* *** Content *** */
 
-#content a {
-    color: #000
+#content{
+	display:block
+}
+
+#content a{
+	color: #000
 }
 
 /* ~~ this container surrounds all other divs giving them their percentage-based width ~~ */
-.container {
-    width: 80%;
-    max-width: 1260px;
-    /* a max-width may be desirable to keep this layout from getting too wide on a large monitor. This keeps line length more readable. IE6 does not respect this declaration. */
-    min-width: 780px;
-    /* a min-width may be desirable to keep this layout from getting too narrow. This keeps line length more readable in the side columns. IE6 does not respect this declaration. */
-    background: #FFF;
-    margin: 0 auto
-    /* the auto value on the sides, coupled with the width, centers the layout. It is not needed if you set the .container's width to 100%. */
+.container{
+	width: 80%;
+	margin:0 auto;
+	max-width: 1260px;
+	/* a max-width may be desirable to keep this layout from getting too wide on a large monitor. This keeps line length more readable. IE6 does not respect this declaration. */
+	min-width: 780px;
+	/* a min-width may be desirable to keep this layout from getting too narrow. This keeps line length more readable in the side columns. IE6 does not respect this declaration. */
+	background: #FFF;
+	margin: 0 auto
+	/* the auto value on the sides, coupled with the width, centers the layout. It is not needed if you set the .container's width to 100%. */
 }
 
-.header {
-    background: #FFF
+.header{
+	background: #FFF
 }
 
-#left_panel_home {
-    display: block;
-    width: 500px;
-    float: left
+#left_panel_home{
+	display: block;
+	width: 500px;
+	float: left
 }
 
-#right_panel_home {
-    display: block;
-    width: 400px;
-    float: right
+#right_panel_home{
+	display: block;
+	width: 400px;
+	float: right
 }
 
-p.ogloszenia {
-    color: #005097;
-    width: 300px;
-    border-bottom: 1px solid #005097;
-    font-weight: bold;
-    font-size: 18px
+.ogloszenia{
+	color: #005097;
+	width: 300px;
+	border-bottom: 1px solid #005097;
+	font-weight: bold;
+	font-size: 18px
 }
 
-.listowanie {
-    border-bottom: 1px solid #005097
+.listowanie{
+	border-bottom: 1px solid #005097
 }
 
 /* *** Footer *** */
 
-#footer {
-    clear: both;
-    text-align: center;
-    display: block;
-    padding: 10px 0;
-    background: #FFF;
-    border-top: 1px solid #6F7D94;
-    font-size: 13px;
-    /* Sticky footer styles */
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px
+#footer{
+	clear: both;
+	text-align: center;
+	display: block;
+	padding: 10px 0;
+	background: #FFF;
+	border-top: 1px solid #6F7D94;
+	font-size: 13px;
+	/* Sticky footer styles */
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px
 }
 
-#footer a {
-    color: #000
+#footer a{
+	color: #000
 }
 
-p.text-muted {
-    margin: 12px 0
+.text-muted{
+	margin: 12px 0
 }
 
 /* *** Utilities *** */
 
-.color_red {
-    color: #F00
+.color_red{
+	color: #F00
 }
 
-.highlight {
-    background-color: yellow
+.highlight{
+	background-color: yellow;
+	color:inherit;
+	font-style:normal;
+	font-weight: normal
 }
 
-.align_left {
-    text-align: left
+.align_left{
+	text-align: left
 }
 
-.align_right {
-    text-align: right
+.align_right{
+	text-align: right
 }
 
-.color_white {
-    color: #FFF
+.color_white{
+	color: #FFF
 }
 
-.vertical_align {
-    vertical-align: middle
+.vertical_align{
+	vertical-align: middle
 }
 
-.underline {
-    text-decoration: underline
+.underline{
+	text-decoration: underline
+}
+
+.margin_top_10{
+	margin-top:10px
+}
+
+.margin_top_20{
+	margin-top:20px
+}
+
+.margin_bottom_10{
+	margin-bottom:10px
+}
+
+.margin_ver_15{
+	margin:15px 0
+}
+
+.font20{
+	font-size:20px
+}
+
+.font17{
+	font-size:17px
+}
+
+.font15{
+	font-size:15px
+}
+
+.font10{
+	font-size:10px
+}
+
+.ls_none{
+	list-style:none
+}
+
+.pad_left_10{
+	padding-left:10px
+}
+
+.group_label{
+	font-weight:700;
+	padding:0;
+	margin-bottom:10px
+}
+
+.inline_select{
+	width:auto;
+	display:inline
+}
+
+.error_list{
+	padding:0 0 10px 30px
+}
+
+.d_inline{
+	display:inline
+}
+
+.d_none{
+	display:none
+}
+
+.img_prev{
+	display:inline-block;
+	width:210px;
+	margin:10px
 }

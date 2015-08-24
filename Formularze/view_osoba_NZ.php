@@ -1,8 +1,6 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li class="active">Szczegóły osoba kontaktowa</li>
-</ol>
 <?php
+	breadcrumbs('Szczegóły osoby kontaktowej');
+	echo '<h1 class="font20">Szczegóły osoby kontaktowej</h1>';
 	if($st=$DB->prepare('SELECT * FROM Osoba WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -53,9 +51,9 @@
 					</tbody>
 				</table><?php 
 			}
-			else echo 'Nie znaleziono osoby o podanym identyfikatorze.<br /><br />';
+			else echo '<p>Nie znaleziono osoby o podanym identyfikatorze.</p>';
 		}
-		else echo 'Nastąpił błąd przy pobieraniu informacji o osobie.<br /><br />';
+		else echo '<p>Nastąpił błąd przy pobieraniu informacji o osobie.</p>';
 	}
-	else echo 'Nastąpił błąd przy pobieraniu informacji o osobie.<br /><br />';
+	else echo '<p>Nastąpił błąd przy pobieraniu informacji o osobie.</p>';
 ?>

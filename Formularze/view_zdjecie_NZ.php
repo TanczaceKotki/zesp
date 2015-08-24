@@ -1,8 +1,6 @@
-<ol class="breadcrumb">
-	<li><a href="index.php">Start</a></li>
-	<li class="active">Zdjęcie</li>
-</ol>
 <?php
+	breadcrumbs('Szczegóły zdjęcia'));
+	echo '<h1 class="font20">Szczegóły zdjęcia</h1>';
 	if($st=$DB->prepare('SELECT * FROM Zdjecie WHERE id=?')){
 		if($st->execute(array($_GET['id']))){
 			if($row=$st->fetch(PDO::FETCH_ASSOC)){
@@ -34,9 +32,9 @@
 					</tbody>
 				</table><?php
 			}
-			else echo 'Nie znaleziono zdjęcia o podanym identyfikatorze.<br /><br />';
+			else echo '<p>Nie znaleziono zdjęcia o podanym identyfikatorze.</p>';
 		}
-		else echo 'Nastąpił błąd przy odczytywaniu informacji o zdjęciu: '.implode(' ',$st->errorInfo()).'<br /><br />';
+		else echo '<p>Nastąpił błąd przy odczytywaniu informacji o zdjęciu.</p>';
 	}
-	else echo 'Nastąpił błąd przy odczytywaniu informacji o zdjęciu: '.implode(' ',$DB->errorInfo()).'<br /><br />';
+	else echo '<p>Nastąpił błąd przy odczytywaniu informacji o zdjęciu.</p>';
 ?>
