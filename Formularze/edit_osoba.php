@@ -6,13 +6,19 @@
 				if($st=$DB->prepare('SELECT id FROM Osoba WHERE email=?')){
 					if($st->execute(array($_SESSION['login']))){
 						if($row=$st->fetch(PDO::FETCH_ASSOC)){
-							if($row['id']===$_POST['id']) $allow=true;
+							if($row['id']===$_POST['id']){
+								$allow=true;
+								$breadcrumb_arr=array();
+							}
 							else require 'cred_low.php';
 						}
 					}
 				}
 			}
-			else if($lvl<2) $allow=true;
+			else if($lvl<2){
+				$allow=true;
+				$breadcrumb_arr=array('index.php?menu=100' => 'Zarządzanie osobami kontaktowymi');
+			}
 			else require 'cred_low.php';
 			if($allow){
 				$msg="";
@@ -59,7 +65,8 @@
 				if($st=$DB->prepare('SELECT * FROM Osoba WHERE id=?')){
 					if($st->execute(array($_POST['id']))){
 						if($row=$st->fetch(PDO::FETCH_ASSOC)){
-							breadcrumbs('Edytowanie osoby kontaktowej',array('index.php?menu=100' => 'Zarządzanie osobami kontaktowymi',"index.php?menu=54&amp;id=$_POST[id]" => 'Szczegóły osoby kontaktowej'));
+							$breadcrumb_arr["index.php?menu=54&amp;id=$_POST[id]"]='Szczegóły osoby kontaktowej';
+							breadcrumbs('Edytowanie osoby kontaktowej',$breadcrumb_arr);
 							echo "<h1 class=\"font20\">Edytowanie osoby kontaktowej</h1>$msg";
 ?>
 <form action="index.php?menu=42" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">

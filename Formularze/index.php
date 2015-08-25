@@ -130,7 +130,7 @@
 									if($st->execute(array($_SESSION['login']))){
 										if($row=$st->fetch(PDO::FETCH_ASSOC)){
 											?>
-												<li class="vertical_align"><a href="index.php?menu=54&id=<?php echo $row['id']; ?>">Twoje dane</a></li>
+												<li class="vertical_align"><a href="index.php?menu=54&amp;id=<?php echo $row['id']; ?>">Twoje dane</a></li>
 											<?php
 										}
 									}

@@ -44,7 +44,7 @@
 										}
 									}
 									break;
-								case 'Sprzet':
+								case 'Aparatura':
 									?>
 									<tr>
 										<th>ID</th>
@@ -116,7 +116,7 @@
 										}
 									}
 									break;
-								case 'Tag':
+								case 'Słowo_Kluczowe':
 									?>
 									<tr>
 										<th>ID</th>

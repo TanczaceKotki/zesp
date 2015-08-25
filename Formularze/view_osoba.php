@@ -5,16 +5,22 @@
 			if($st=$DB->prepare('SELECT id FROM Osoba WHERE email=?')){
 				if($st->execute(array($_SESSION['login']))){
 					if($row=$st->fetch(PDO::FETCH_ASSOC)){
-						if($row['id']===$_GET['id']) $allow=true;
+						if($row['id']===$_GET['id']){
+							$allow=true;
+							$breadcrumb_arr=array();
+						}
 						else require 'cred_low.php';
 					}
 				}
 			}
 		}
-		else if($lvl<2) $allow=true;
+		else if($lvl<2){
+			$allow=true;
+			$breadcrumb_arr=array('index.php?menu=100' => 'Zarządzanie osobami kontaktowymi');
+		}
 		else require 'cred_low.php';
 		if($allow){
-			breadcrumbs('Szczegóły osoby kontaktowej',array('index.php?menu=100' => 'Zarządzanie osobami kontaktowymi'));
+			breadcrumbs('Szczegóły osoby kontaktowej',$breadcrumb_arr);
 			echo '<h1 class="font20">Szczegóły osoby kontaktowej</h1>';
 			if(isset($_POST['del_kontakt'])){
 				if($st=$DB->prepare('DELETE FROM Kontakt WHERE sprzet=? AND osoba=?')){
@@ -46,7 +52,7 @@
 									<td colspan="2"><a href="mailto:<?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?>"><?php echo htmlspecialchars($row['email'],ENT_QUOTES|ENT_HTML5,'UTF-8',false); ?></a></td>
 								</tr>
 								<tr>
-									<th>Apratura</th>
+									<th>Aparatura</th>
 									<td
 										<?php
 										$i=1;
@@ -64,7 +70,7 @@
 																<form action="index.php?menu=54&amp;id=<?php echo $row['id']; ?>" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded">
 																	<input type="hidden" name="osoba" value="<?php echo $row['id']; ?>" />
 																	<input type="hidden" name="sprzet" value="<?php echo $row2['sprzet']; ?>" />
-																	<input type="submit" name="del_kontakt" value="Usuń" />
+																	<input type="submit" class="btn btn-danger" name="del_kontakt" value="Usuń" />
 																</form>
 																<?php
 																++$i;
@@ -92,9 +98,11 @@
 				else echo '<p>Nastąpił błąd przy pobieraniu informacji o osobie: '.implode(' ',$st->errorInfo()).'</p>';
 			}
 			else echo '<p>Nastąpił błąd przy pobieraniu informacji o osobie: '.implode(' ',$DB->errorInfo()).'</p>';
+			if($lvl<2){
 ?>
 <a class="btn btn-warning margin_bottom_10" href="index.php?menu=100">Wróć do strony zarządzania osobami kontaktowymi</a>
 <?php
+			}
 		}
 	}
 	else require 'not_logged_in.php';
