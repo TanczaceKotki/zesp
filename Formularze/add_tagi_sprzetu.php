@@ -2,23 +2,23 @@
 	$displayform=True;
 	if(user::isLogged()){
 		if($lvl<2){
-			breadcrumbs('Nowy tag sprzętu',array());
-			echo '<h1 class="font20">Nowy tag sprzętu</h1>';
+			breadcrumbs('Nowe słowo kluczowe aparatury',array());
+			echo '<h1 class="font20">Nowe słowo kluczowe aparatury</h1>';
 			if(isset($_POST['submitted'])){
 				if($st=$DB->prepare('INSERT INTO Tagi_sprzetu VALUES(?,?)')){
 					if($st->execute(array($_POST['sprzet'],$_POST['tag']))){
 						echo '<p>Informacja o słowie kluczowym aparatury została pomyślnie wstawiona</p><p><a href="index.php?menu=8">Wróć do strony zarządzania aparaturą</a></p>';
 						$displayform=False;
 					}
-					else echo '<p>Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$st->errorInfo()).'</p>';
+					else echo '<p>Nastąpił błąd przy dodawaniu informacji o słowie kluczowym sprzętu: '.implode(' ',$st->errorInfo()).'</p>';
 				}
-				else echo '<p>Nastąpił błąd przy dodawaniu informacji o tagu sprzętu: '.implode(' ',$DB->errorInfo()).'</p>';
+				else echo '<p>Nastąpił błąd przy dodawaniu informacji o słowie kluczowym sprzętu: '.implode(' ',$DB->errorInfo()).'</p>';
 			}
 			if($displayform){
 ?>
 <form action="index.php?menu=32" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" onsubmit="return ajax_check()">
 	<label for="sprzet">Aparatura<span class="color_red">*</span>:</label>
-	<select class="form-control" name="sprzet" id="sprzet" onchange="ask_db_middle_table('tagi_sprzetu','#tag','#sprzet','Ta informacja o słowie kluczowym sprzętu jest już w bazie danych.')" required="required">
+	<select class="form-control" name="sprzet" id="sprzet" onchange="ask_db_middle_table('tagi_sprzetu','#tag','#sprzet','Ta informacja o słowie kluczowym aparatury jest już w bazie danych.')" required="required">
 		<option value=""<?php if(!isset($_POST['sprzet'])) echo ' selected="selected"'; ?>>-</option>
 		<?php
 			if($result=$DB->query('SELECT id,nazwa FROM Sprzet ORDER BY nazwa')){
@@ -43,7 +43,7 @@
 	</select>
 	<div class="margin_top_10">
 		<label for="tag">Słowo kluczowe<span class="color_red">*</span>:</label>
-		<select class="form-control" name="tag" id="tag" onchange="ask_db_middle_table('tagi_sprzetu','#tag','#sprzet','Ta informacja o słowie kluczowym sprzętu jest już w bazie danych.')" required="required">
+		<select class="form-control" name="tag" id="tag" onchange="ask_db_middle_table('tagi_sprzetu','#tag','#sprzet','Ta informacja o słowie kluczowym aparatury jest już w bazie danych.')" required="required">
 			<option value=""<?php if(!isset($_POST['tag'])) echo ' selected="selected"'; ?>>-</option>
 			<?php
 				if($result=$DB->query('SELECT id,nazwa FROM Tag ORDER BY nazwa')){

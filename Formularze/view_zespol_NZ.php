@@ -39,4 +39,4 @@
 	}
 	else echo '<p>Nastąpił błąd przy odczytywaniu informacji o zespole: '.implode(' ',$DB->errorInfo()).'</p>';
 ?>
-<a class="btn btn-warning margin_bottom_10" href="index.php?menu=5">Wróć do strony z zespołami</a>
+<a class="btn btn-warning margin_bottom_10" href="index.php?menu=5">Wróć do strony z zespołami laboratoriów</a>

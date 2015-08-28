@@ -1,7 +1,7 @@
 <?php
 	if(user::isLogged()){
 		if($lvl<2){
-			breadcrumbs('Szczegóły zdjęcia',array('index.php?menu=3' => 'Zarządzanie zdjęciami'));
+			breadcrumbs('Szczegóły zdjęcia',array('index.php?menu=12' => 'Zarządzanie zdjęciami'));
 			echo '<h1 class="font20">Szczegóły zdjęcia</h1>';
 			if($st=$DB->prepare('SELECT * FROM Zdjecie WHERE id=?')){
 				if($st->execute(array($_GET['id']))){
